@@ -1,0 +1,44 @@
+<div class="container">
+	<h4>Consultar:</h4>
+	<div class="row">
+        <div class="col s6" input-field>
+            <input type="text" ng-model="consulta.paterno" />
+            <label>Apellido Paterno</label>
+        </div>
+        <div class="col s6" input-field>
+            <input type="text" ng-model="consulta.materno" />
+            <label>Apellido Materno</label>
+        </div>
+
+		<div class="col s6 input-field">
+		    <select class="" ng-model="consulta.tipo" material-select watch>
+		        <option value="" disabled selected>Tipo de Documento</option>
+		        <option value="1">DNI</option>
+		        <option value="2">Carne de Extranjeria</option>
+		    </select>
+		</div>
+
+        <div class="col s6" input-field>
+            <input type="number" ng-model="consulta.dni" />
+            <label>Numero</label>
+        </div>
+
+        <div class="col s12">
+			<label for="inputCreated">Fecha de Nacimiento</label>
+			<input input-date
+			    type="text"
+			    name="created"
+			    id="inputCreated"
+			    ng-model="consulta.nacimiento"
+			    container="body"
+			    format="dd/mm/yyyy"
+			    today="null"
+			    close="close"
+			    select-years="90"/>
+        </div>
+        <div class="col s12">
+			<button class="cyan darken-2 waves-effect waves-light btn" style="height: 60px; width: 100%;"> <i class="mdi-action-thumb-up"></i> Consultar</button>
+        </div>
+
+	</div>
+</div>
