@@ -28,7 +28,7 @@
      $scope.$route = $route;
   }])
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
-    //
+    // aqui
   }])
   .controller('CentrosController',['$scope', '$http', function($scope, $http){
     //
