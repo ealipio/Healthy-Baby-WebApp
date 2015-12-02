@@ -14,7 +14,7 @@ var app = angular.module('eissonApp', [
       cfpLoadingBarProvider.latencyThreshold = 1;
 
       $routeProvider.
-        when('/', {
+        when('/consultar', {
           templateUrl: 'views/home.html',
           caseInsensitiveMatch: true,
           controller: 'HomeController',
@@ -45,7 +45,7 @@ var app = angular.module('eissonApp', [
           activetab: 'login'
         }).
         otherwise({
-          redirectTo: '/'
+          redirectTo: '/acerca'
         });
 
       }]);

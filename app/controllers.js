@@ -31,7 +31,29 @@
     // aqui
   }])
   .controller('CentrosController',['$scope', '$http', function($scope, $http){
-    //
+    $scope.getPosition = function () {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          console.log(position);
+          $scope.callback(position.coords.latitude, position.coords.longitude);
+        });
+      } else {
+        console.log('no soporta Geolocation');
+      }
+    };
+    $scope.callback = function (latitude, longitude){
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+        center: new google.maps.LatLng(latitude, longitude),
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+    };
+    /*************************
+    *
+    *************************/
+    $scope.getPosition();
   }])
   .controller('AcercaController',['$scope', '$http', function($scope, $http){
     //
