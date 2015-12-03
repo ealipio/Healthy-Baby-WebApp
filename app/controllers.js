@@ -7,8 +7,7 @@
 (function(){
   'use strict';
 
-  angular
-  .module('Controllers', [])
+  angular.module('Controllers', ['uiGmapgoogle-maps'])
 
   .filter('tipoCategoria', function(){
     return function(input){
@@ -27,34 +26,68 @@
     console.log($route.current);
      $scope.$route = $route;
   }])
+
+
+.controller('CentrosController',['$rootScope', '$scope', '$timeout', '$log', 'uiGmapGoogleMapApi',
+  function ($rootScope, $scope, $timeout, $log, GoogleMapApi) {
+
+    $scope.map = {
+      center: {
+        latitude: 53.406754,
+        longitude: -2.158843
+      },
+      pan: true,
+      zoom: 5,
+      refresh: false,
+      events: {},
+      bounds: {}
+    };
+    //when the API is really ready and loaded play w/ the scope
+    GoogleMapApi.then(function (map) {
+      $scope.map.markers = [
+        {
+          id: 1,
+          location: {
+            latitude: 53.406754,
+            longitude: -2.158843
+          },
+          options: {
+            title: 'Marker1'
+          },
+          showWindow: false
+        }
+      ];
+      $scope.map.markerEvents = {
+        dblclick: function (gMarker, eventName, model, latLngArgs) {
+          var id = model.idKey || model.id;
+          alert("Marker double clicked! Model: " + id);
+        }
+      }
+      $timeout(function () {
+        $scope.map.markers[0].latitude = 53.416754;
+        $scope.map.markers[0].longitude = -2.148843;
+
+        _.range(10).forEach(function (i) {
+          $scope.map.markers.push({
+            id: i + 1,
+            location: {
+              latitude: $scope.map.markers[0].latitude + 1 * i,
+              longitude: $scope.map.markers[0].longitude + 1 * i
+            },
+            options: {
+              title: 'Marker2'
+            },
+            showWindow: false
+          })
+        });
+      }, 1000);
+    });
+  }])
+
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
     // aqui
   }])
-  .controller('CentrosController',['$scope', '$http', function($scope, $http){
-    $scope.getPosition = function () {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          console.log(position);
-          $scope.callback(position.coords.latitude, position.coords.longitude);
-        });
-      } else {
-        console.log('no soporta Geolocation');
-      }
-    };
-    $scope.callback = function (latitude, longitude){
-        var mapCanvas = document.getElementById('map');
-        var mapOptions = {
-        center: new google.maps.LatLng(latitude, longitude),
-        zoom: 14,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        var map = new google.maps.Map(mapCanvas, mapOptions);
-    };
-    /*************************
-    *
-    *************************/
-    $scope.getPosition();
-  }])
+
   .controller('AcercaController',['$scope', '$http', function($scope, $http){
     //
   }])
