@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 table-responsive">
+		 <h2>Lista de Usuarios</h2></br></br>
+
+<a href='#nuevo_usuario'><button type="button" class="cyan darken-2 waves-effect waves-light btn">Agregar Usuario +</button></a></br>
+
+</br></br>
+
+        <table class="table table-bordered" id="searchObjResults">
+			<thead>
+				<tr>
+				    <th><a href="" ng-click="reverse=!reverse;order('username', reverse)">Username</a></th>
+				    <th><a href="" ng-click="reverse=!reverse;order('nombres', reverse)">Nombres</a></th>
+				    <th><a href="" ng-click="reverse=!reverse;order('apellido_paterno', reverse)">Apellido Paterno</a></th>
+				    <th><a href="" ng-click="reverse=!reverse;order('apellido_materno', reverse)">Apellido Materno</a></th> 
+				    <th><a href="" ng-click="reverse=!reverse;order('apellido_materno', reverse)">Centro Salud</a></th> 
+				    <th>Acciones</th>
+				  
+				</tr>
+			</thead>
+
+            <tbody>
+            	<tr ng-repeat="n in usuarios.usuarios">
+                
+                    <td data-ng-show="n.username">{{n.username}}</td>
+                    <td data-ng-show="n.nombres">{{n.nombres}}</td>
+                    <td data-ng-show="n.apellido_paterno">{{n.apellido_paterno}}</td>
+                    <td data-ng-show="n.apellido_materno">{{n.apellido_materno}}</td> 
+                     <td data-ng-show="n.centro_salud">{{n.centro_salud}}</td>   
+                    <td class="col-lg-2"><a href="#mod_user/{{n.username}}">[editar]   </a><a href="#usuarios" ng-click="delUsuario(n.username, $index)">[eliminar]</a></td>
+                  
+                </tr>
+            </tbody>
+               </table>
+       
+          <div >
+            <ul class="pagination">
+              <li ng-class="prevPageDisabled()">
+                <a href ng-click="prevPage()">« Prev</a>
+              </li>
+              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
+                <a href="#/usuarios">{{n+1}}</a>
+              </li>
+              <li ng-class="nextPageDisabled()">
+                <a href ng-click="nextPage()">Next »</a>
+              </li>
+            </ul>
+          </div>
+        
+
+          <p id="n_filter">{{(names | filter:search).length}}</p>
+  
+ 
+    </div>        
+    </div>
+    <style type="text/css">td   { text-align: center; } th  { text-align: center; }</style>
