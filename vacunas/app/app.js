@@ -14,11 +14,18 @@ var app = angular.module('eissonApp', [
       cfpLoadingBarProvider.latencyThreshold = 1;
 
       $routeProvider.
-        when('/consultar', {
-          templateUrl: 'views/consultar.html',
+        
+        when('/', {
+          templateUrl: 'views/usuarios.html',
           caseInsensitiveMatch: true,
-          controller: 'ConsultarController',
-          activetab: 'consultar'
+          controller: 'UsuariosController',
+          activetab: 'usuarios'
+        }).
+        when('/nuevo_usuario', {
+          templateUrl: 'views/nuevo_usuario.html',
+          caseInsensitiveMatch: true,
+          controller: 'NuevoUsuarioController',
+          activetab: 'usuarios'
         }).
         when('/vacunas', {
           templateUrl: 'views/vacunas.html',
@@ -26,26 +33,17 @@ var app = angular.module('eissonApp', [
           controller: 'VacunasController',
           activetab: 'vacunas'
         }).
-        when('/centros', {
-          templateUrl: 'views/centros.html',
+        when('/nueva_vacuna', {
+          templateUrl: 'views/nueva_vacuna.html',
           caseInsensitiveMatch: true,
-          controller: 'CentrosController',
-          activetab: 'centros'
+          controller: 'NuevaVacunaController',
+          activetab: 'vacunas'
         }).
-        when('/acerca', {
-          templateUrl: 'views/acerca.html',
-          caseInsensitiveMatch: true,
-          controller: 'AcercaController',
-          activetab: 'acerca'
-        }).
-        when('/login', {
-          templateUrl: 'views/login.html',
-          caseInsensitiveMatch: true,
-          controller: 'LoginController',
-          activetab: 'login'
-        }).
+
+        
+        
         otherwise({
-          redirectTo: '/acerca'
+          redirectTo: '/'
         });
 
       }]);

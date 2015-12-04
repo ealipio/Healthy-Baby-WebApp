@@ -1,0 +1,97 @@
+
+
+<div class="row">
+
+
+<h2>Nuevo Usuario:</h2></br></br>
+<form class="col s12" ng-submit='registro_usuario(us)'>
+   
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="codigo" ng-model='us.username' type="text" class="validate">
+      <label for="codigo">Código Usuario</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="nombres" ng-model='us.nombres' type="text" class="validate">
+      <label for="nombres">Nombres</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate">
+      <label for="apep">Apellido Paterno</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate">
+      <label for="apem">Apellido Materno</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s8">
+      <input id="centrosalud" ng-model='us.centro_salud' type="text" class="validate">
+      <label for="centrosalud">Centro de Salud</label>
+    </div>
+  </div>
+
+
+<div class="row">
+    <div class="col s8">
+      </br><h6>Agregar Perfil:</h6></br></br>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s3">
+        <select ng-model='va.perfil'
+          type="text"
+          class="validate"
+          material-select watch
+          ng-repeat="p ">
+      </select>
+      <label>Estado</label>
+    </div>
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type='button' ng-click="agregar_dosis(ds)" class="btn btn-primary" >Agregar Dosis</button>
+    </div>
+  </div>
+
+  <div class="row">
+
+      <table class="highlight bordered" ng-show="vacunas.dosis.length > 0">
+        <thead class="col-sm-offset-1 col-sm-3">
+          <tr>
+              <th>Nombre dosis</th>
+              <th>Fecha Aplicacion</th>
+              <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='p in vacunas.dosis track by $index'>
+            <td> {{p.nombre_dosis}} </td>
+            <td> {{p.meses}} </td>
+            <td ng-click="deleteDosis($index)">
+                <a class="btn-floating red darken-3">
+                  <i class="mdi-action-delete"></i>
+                </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+  </div>
+
+  </br>
+
+  <div class="row"> 
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type='submit' ng-click="registro_usuario(us)" class="btn btn-primary" >Guardar</button>
+      <a href="#ususarios"><button type="submit" class="btn btn-primary">Cancelar</button></a>
+    </div>
+  </div>
+
+</form>
+</div>
+  

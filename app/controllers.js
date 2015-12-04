@@ -10,28 +10,26 @@
   angular
   .module('Controllers', [])
 
-<<<<<<< HEAD
-  .filter('tipoCategoria', function(){
-    return function(input){
-      var estados = ["", "Bien de Capital", "Insumo", "Servicio"];
-      return estados[input];
-    };
-  })
-=======
->>>>>>> administracion
-  .controller('HomeController',['$scope', '$http', '$route', function ($scope, $http, $route) {
+  .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
-      //console.log($route.current.activetab);
+      $scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
+
       $route.current.activetab ? $scope.$route = $route : null
+      $scope.consultar = function(nene){
+        console.log(nene);
+        $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+            console.log(response);
+            //$scope.respuesta = response;
+        });
+      };
     }])
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($route.current);
      $scope.$route = $route;
   }])
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
-<<<<<<< HEAD
     // aqui
   }])
   .controller('CentrosController',['$scope', '$http', function($scope, $http){
@@ -58,26 +56,15 @@
     *
     *************************/
     $scope.getPosition();
-=======
     //
-  }])
-  .controller('CentrosController',['$scope', '$http', function($scope, $http){
-    //
->>>>>>> administracion
   }])
   .controller('AcercaController',['$scope', '$http', function($scope, $http){
     //
   }])
   .controller('LoginController',['$scope', '$http', function($scope, $http){
-<<<<<<< HEAD
-    //
-  }]);
-=======
       $scope.loginProcess = function(){
         window.location="/minsa/administracion";
       };
   }])
-
->>>>>>> administracion
 
 })();

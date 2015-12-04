@@ -1,6 +1,5 @@
+api/config
 views/pasos
 *.jpg
 *.png
-api/config
-img
 *.txt
