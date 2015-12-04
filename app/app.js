@@ -18,10 +18,16 @@ var app = angular.module('eissonApp', [
 
 
       $routeProvider.
-        when('/consultar', {
-          templateUrl: 'views/home.html',
+        when('/crear-vacuna', {
+          templateUrl: 'views/crear-vacuna.html',
           caseInsensitiveMatch: true,
-          controller: 'HomeController',
+          controller: 'CrearVacunaController',
+          activetab: 'crearVacuna'
+        }).
+        when('/consultar', {
+          templateUrl: 'views/consultar.html',
+          caseInsensitiveMatch: true,
+          controller: 'ConsultarController',
           activetab: 'consultar'
         }).
         when('/vacunas', {

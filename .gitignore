@@ -1,8 +1,5 @@
-api
-
-img
+api/config
 views/pasos
 *.jpg
 *.png
-*.sql
 *.txt

@@ -9,19 +9,34 @@
 
   angular.module('Controllers', ['uiGmapgoogle-maps'])
 
-  .filter('tipoCategoria', function(){
-    return function(input){
-      var estados = ["", "Bien de Capital", "Insumo", "Servicio"];
-      return estados[input];
-    };
-  })
-  .controller('HomeController',['$scope', '$http', '$route', function ($scope, $http, $route) {
+  .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
-      //console.log($route.current.activetab);
-      $route.current.activetab ? $scope.$route = $route : null
+      $scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
+
+      $route.current.activetab ? $scope.$route = $route : null;
+      $scope.consultar = function(nene){
+        //console.log(nene);
+        $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+            console.log(response);
+            //$scope.respuesta = response;
+        });
+      };
     }])
+
+  .controller('CrearVacunaController',['$scope', '$route','$http', function($scope, $route, $http){
+    //console.log($route.current);
+    //saveVacuna
+    $scope.vacuna = {};
+      $scope.saveVacuna = function(vacuna){
+        console.log(vacuna);
+//        $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+  //          console.log(response);
+    //    });
+      };
+  }])
+
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($route.current);
      $scope.$route = $route;
@@ -74,6 +89,7 @@
       refresh: true,
       events: {},
       bounds: {}
+
     };
 
 
@@ -159,6 +175,7 @@ if($scope.dist_rela<$scope.min){
    $scope.init();
    $scope.load();
      
+
   }])
 
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
@@ -169,7 +186,9 @@ if($scope.dist_rela<$scope.min){
     //
   }])
   .controller('LoginController',['$scope', '$http', function($scope, $http){
-    //
-  }]);
+      $scope.loginProcess = function(){
+        window.location="/minsa/administracion";
+      };
+  }])
 
 })();
