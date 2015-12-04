@@ -7,11 +7,15 @@ var app = angular.module('eissonApp', [
   'ngAnimate',
   'angular-loading-bar',
   'ui.materialize',
-  'Controllers']);
+  'Controllers',
+  'uiGmapgoogle-maps']);
 
-    app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
+
+
+    app.config(['$routeProvider', 'cfpLoadingBarProvider' , function($routeProvider, cfpLoadingBarProvider){
       cfpLoadingBarProvider.includeSpinner   = true;
       cfpLoadingBarProvider.latencyThreshold = 1;
+
 
       $routeProvider.
         when('/crear-vacuna', {
@@ -54,6 +58,13 @@ var app = angular.module('eissonApp', [
           redirectTo: '/acerca'
         });
 
-      }]);
+      }])
+  .config(function(uiGmapGoogleMapApiProvider) {
+      uiGmapGoogleMapApiProvider.configure({
+          //    key: 'your api key',
+          v: '3.17',
+          libraries: 'weather,geometry,visualization'
+      });
+  });
 
 })();
