@@ -20,11 +20,9 @@
                     <img class="img-responsive center" src="img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
-                    <li ng-class="{active: $route.current.activetab == 'acerca'}" ><a href="#/acerca">Acerca de</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'consultar'}" ><a href="#/consultar">Consultar</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'usuarios'}" ><a href="#/">Usuarios</a></li>
                     <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'centros'}" ><a href="#/centros">Centros</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'login'}" ><a href="#/login">Login</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'salir'}" ><a href="../#/">Salir</a></li>
                   </ul>
             </div>
             </nav>
@@ -41,8 +39,7 @@
           <div class="col l12 s12">
             <h5 class="white-text">Ministerio de Salud</h5>
             <p class="grey-text text-lighten-4">
-              Av. Salaverry 801 Jesús María Lima / Per&uacute;
-              <br>Atenci&oacute;n: Lunes a Viernes 8.30 a.m. a 4.30 p.m.<br>Central Telefónica (51-1) 315-6600  <br>  webmaster@minsa.gob.pe
+              Av. Salaverry 801 Jesús María Lima / Per&uacute;Atenci&oacute;n: Lunes a Viernes 8.30 a.m. a 4.30 p.m.<br>Central Telefónica (51-1) 315-6600  <br>  webmaster@minsa.gob.pe
             </p>
           </div>
         </div>
@@ -54,7 +51,7 @@
 
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
     <!-- angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>

@@ -10,12 +10,15 @@
   angular
   .module('Controllers', [])
 
+<<<<<<< HEAD
   .filter('tipoCategoria', function(){
     return function(input){
       var estados = ["", "Bien de Capital", "Insumo", "Servicio"];
       return estados[input];
     };
   })
+=======
+>>>>>>> administracion
   .controller('HomeController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
@@ -28,6 +31,7 @@
      $scope.$route = $route;
   }])
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
+<<<<<<< HEAD
     // aqui
   }])
   .controller('CentrosController',['$scope', '$http', function($scope, $http){
@@ -54,12 +58,26 @@
     *
     *************************/
     $scope.getPosition();
+=======
+    //
+  }])
+  .controller('CentrosController',['$scope', '$http', function($scope, $http){
+    //
+>>>>>>> administracion
   }])
   .controller('AcercaController',['$scope', '$http', function($scope, $http){
     //
   }])
   .controller('LoginController',['$scope', '$http', function($scope, $http){
+<<<<<<< HEAD
     //
   }]);
+=======
+      $scope.loginProcess = function(){
+        window.location="/minsa/administracion";
+      };
+  }])
+
+>>>>>>> administracion
 
 })();
