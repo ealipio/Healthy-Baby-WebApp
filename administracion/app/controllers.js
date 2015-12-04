@@ -45,7 +45,7 @@
       }
       $scope.delUsuario = function( codigo, index ) {
         if ( confirm("¿Está seguro que desea eliminar la usurio seleccionado?") ) {
-            $scope.usuarios.splice(index,1);
+            $scope.usuarios.usuarios.splice(index,1);
             $http.post('api/delUsuario.php', { id: codigo } )
               .success(function(data) {
                 console.log(data);
@@ -63,10 +63,31 @@
     }])
   
   .controller('NuevoUsuarioController',['$scope', '$http', function($scope, $http){
+    $scope.usuario = {};
+    $scope.usuario.perfiles1 = [];
+    $scope.init = function(){
+        document.title = "Crear Usuarios";
+      
+        //console.log($route.current.activetab);
 
+        $http.post ('api/getUsuarios.php')
+            .success(function(data) {
+                    $scope.usuarios = data;
+                    console.log(data);
+                })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+
+      }
     $scope.registro_usuario = function(us){
-      console.log(us);
-        
+        us.perfiles = [];
+        $.each(us.perfil,function(i,v){
+
+        var elemento = {"id_perfil": i};
+            us.perfiles.push(elemento);
+        })
+
         //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
         $http.post('api/guardarUsuario.php', {usuario :us})
           .success(function(response) {
@@ -76,10 +97,41 @@
             console.log('Error: ' + data);
             alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
           });
+
+
       }
+      $scope.agregar_perfil = function(pf){
+      console.log(pf);
+      //console.log($scope.tmp.perfiles);
+      //, "id_perfil": ds.id_perfil
+          var elemento = {"nombre_perfil": pf.perfil.nombre_perfil, "id_perfil": pf.perfil.id_perfil};
+          console.log(elemento);
+        $scope.usuario.perfiles1.push(elemento);
+        //$scope.pe.nombre_perfil = "";
+      }
+
+      $scope.deletePerfil = function(i){ $scope.usuario.perfiles1.splice(i,1); }
+    $scope.init();
   }])
   
-  
+    .controller('EditarUsuarioController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
+        $scope.init = function(){
+          var id = $routeParams.id;
+          console.log(id);
+          
+          $http.post('api/getUsuarios_by_id.php', {username :id})
+          .success(function(response) {
+              $scope.us=response.usuarios;
+              console.log($scope.us);
+           })
+          .error(function(data) {
+            console.log('Error: ' + data);
+            alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+          });
+        }
+      $scope.init();
+   }])
+
   //#########################################################
   // VACUNAS
   //#########################################################

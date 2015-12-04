@@ -27,6 +27,12 @@ var app = angular.module('eissonApp', [
           controller: 'NuevoUsuarioController',
           activetab: 'usuarios'
         }).
+        when('/editar_usuario/:id', {
+          templateUrl: 'views/editar_usuario.html',
+          caseInsensitiveMatch: true,
+          controller: 'EditarUsuarioController',
+          activetab: 'usuarios'
+        }).
         when('/vacunas', {
           templateUrl: 'views/vacunas.html',
           caseInsensitiveMatch: true,
