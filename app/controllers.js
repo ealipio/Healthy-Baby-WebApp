@@ -16,19 +16,33 @@
       $scope.close = 'Cerrar';
       $scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
 
-      $route.current.activetab ? $scope.$route = $route : null
+      $route.current.activetab ? $scope.$route = $route : null;
       $scope.consultar = function(nene){
-        console.log(nene);
+        //console.log(nene);
         $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
             console.log(response);
             //$scope.respuesta = response;
         });
       };
     }])
+
+  .controller('CrearVacunaController',['$scope', '$route','$http', function($scope, $route, $http){
+    //console.log($route.current);
+    //saveVacuna
+    $scope.vacuna = {};
+      $scope.saveVacuna = function(vacuna){
+        console.log(vacuna);
+//        $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+  //          console.log(response);
+    //    });
+      };
+  }])
+
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($route.current);
      $scope.$route = $route;
   }])
+
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
     // aqui
   }])
