@@ -32,9 +32,9 @@
     $scope.vacuna = {};
       $scope.saveVacuna = function(vacuna){
         console.log(vacuna);
-//        $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-  //          console.log(response);
-    //    });
+        $http({method:'POST',url: 'api/crear-vacuna.php',data:$.param({data: vacuna}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+            console.log(response);
+        });
       };
   }])
 
