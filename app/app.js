@@ -7,17 +7,27 @@ var app = angular.module('eissonApp', [
   'ngAnimate',
   'angular-loading-bar',
   'ui.materialize',
-  'Controllers']);
+  'Controllers',
+  'uiGmapgoogle-maps']);
 
-    app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
+
+
+    app.config(['$routeProvider', 'cfpLoadingBarProvider' , function($routeProvider, cfpLoadingBarProvider){
       cfpLoadingBarProvider.includeSpinner   = true;
       cfpLoadingBarProvider.latencyThreshold = 1;
 
+
       $routeProvider.
-        when('/', {
-          templateUrl: 'views/home.html',
+        when('/crear-vacuna', {
+          templateUrl: 'views/crear-vacuna.html',
           caseInsensitiveMatch: true,
-          controller: 'HomeController',
+          controller: 'CrearVacunaController',
+          activetab: 'crearVacuna'
+        }).
+        when('/consultar', {
+          templateUrl: 'views/consultar.html',
+          caseInsensitiveMatch: true,
+          controller: 'ConsultarController',
           activetab: 'consultar'
         }).
         when('/vacunas', {
@@ -45,9 +55,16 @@ var app = angular.module('eissonApp', [
           activetab: 'login'
         }).
         otherwise({
-          redirectTo: '/'
+          redirectTo: '/acerca'
         });
 
-      }]);
+      }])
+  .config(function(uiGmapGoogleMapApiProvider) {
+      uiGmapGoogleMapApiProvider.configure({
+          //    key: 'your api key',
+          v: '3.17',
+          libraries: 'weather,geometry,visualization'
+      });
+  });
 
 })();

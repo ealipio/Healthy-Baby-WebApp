@@ -1,16 +1,5 @@
-<<<<<<< HEAD
-=======
-api
-/config
->>>>>>> bfa914f7bd86e83c11cfc60f3976708b02b7bbd2
-img
-
+api/config
 views/pasos
-
 *.jpg
-
 *.png
-
-*.sql
-
 *.txt

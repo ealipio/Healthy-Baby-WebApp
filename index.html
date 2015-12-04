@@ -20,10 +20,10 @@
                     <img class="img-responsive center" src="img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
-                    <li ng-class="{active: $route.current.activetab == 'consultar'}" ><a href="#/">Consultar</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'acerca'}" ><a href="#/acerca">Acerca de</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'consultar'}" ><a href="#/consultar">Consultar</a></li>
                     <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
                     <li ng-class="{active: $route.current.activetab == 'centros'}" ><a href="#/centros">Centros</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'acerca'}" ><a href="#/acerca">Acerca de</a></li>
                     <li ng-class="{active: $route.current.activetab == 'login'}" ><a href="#/login">Login</a></li>
                   </ul>
             </div>
@@ -41,7 +41,8 @@
           <div class="col l12 s12">
             <h5 class="white-text">Ministerio de Salud</h5>
             <p class="grey-text text-lighten-4">
-              Av. Salaverry 801 Jesús María Lima / Per&uacute;Atenci&oacute;n: Lunes a Viernes 8.30 a.m. a 4.30 p.m.<br>Central Telefónica (51-1) 315-6600  <br>  webmaster@minsa.gob.pe
+              Av. Salaverry 801 Jesús María Lima / Per&uacute;
+              <br>Atenci&oacute;n: Lunes a Viernes 8.30 a.m. a 4.30 p.m.<br>Central Telefónica (51-1) 315-6600  <br>  webmaster@minsa.gob.pe
             </p>
           </div>
         </div>
@@ -51,11 +52,15 @@
       </div>
     </footer>
 
-
+    <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
     <!-- angular -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.js"></script>
+      <script src="http://cdn.rawgit.com/nmccready/angular-simple-logger/0.0.1/dist/index.js"></script>
+<script src="https://rawgit.com/angular-ui/angular-google-maps/2.1.3/dist/angular-google-maps.min.js" type="text/javascript" ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
@@ -64,8 +69,13 @@
     <script src="/vendor/angular/xeditable/js/xeditable.min.js"></script>
     <script src="/vendor/angular/angular-materialize/angular-materialize.js"></script>
     <script src="/vendor/angular/ui-select/dist/select.js"></script>
+
+
+
+   
     <!-- App -->
+       <script src="app/controllers.js"></script>
     <script src="app/app.js"></script>
-    <script src="app/controllers.js"></script>
+ 
 </body>
 </html>
