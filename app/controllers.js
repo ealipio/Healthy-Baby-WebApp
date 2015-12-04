@@ -47,11 +47,12 @@
   function ($rootScope, $scope, $timeout, $log, GoogleMapApi, $http) {
 
     $scope.init = function(){
-      
+
         $http.post ('api/getCentros.php')
         .success(function(data) {
                 $scope.data = data;
                 console.log($scope.data);
+                $scope.load();
             })
         .error(function(data) {
                 console.log('Error: ' + data);
@@ -62,8 +63,8 @@
 
   var latituden;
   var longitudn;
-  var imagen_user = '/minsa/img/user.png';
-  var imagen_posta = '/minsa/img/posta.png';
+  var imagen_user = '../minsa/img/user.png';
+  var imagen_posta = '../minsa/img/posta.png';
 
 
 
@@ -75,7 +76,7 @@
 
 
    navigator.geolocation.getCurrentPosition(function(position) {
-      
+
         latituden = position.coords.latitude;
         longitudn = position.coords.longitude;
         console.log(latituden,longitudn);
@@ -96,8 +97,8 @@
 $scope.mimapa=true;
 console.log($scope.map);
 
- 
- 
+
+
 
        $scope.map.markers = [
         {
@@ -157,25 +158,22 @@ if($scope.dist_rela<$scope.min){
           $scope.ubica = $scope.data[id]["direccion"];
           $scope.resp = $scope.data[id]["resp"];
 
-        
-         
-         
+
+
+
         }
       }
-    
+
 
 
 
     })}
 
-   
+
     });
 
    };
    $scope.init();
-   $scope.load();
-     
-
   }])
 
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
