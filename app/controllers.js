@@ -9,38 +9,52 @@
 
   angular.module('Controllers', ['uiGmapgoogle-maps'])
 
-  .filter('tipoCategoria', function(){
-    return function(input){
-      var estados = ["", "Bien de Capital", "Insumo", "Servicio"];
-      return estados[input];
-    };
-  })
-  .controller('HomeController',['$scope', '$http', '$route', function ($scope, $http, $route) {
+  .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
-      //console.log($route.current.activetab);
-      $route.current.activetab ? $scope.$route = $route : null
+      $scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
+
+      $route.current.activetab ? $scope.$route = $route : null;
+      $scope.consultar = function(nene){
+        //console.log(nene);
+        $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+            console.log(response);
+            //$scope.respuesta = response;
+        });
+      };
     }])
+
+  .controller('CrearVacunaController',['$scope', '$route','$http', function($scope, $route, $http){
+    //console.log($route.current);
+    //saveVacuna
+    $scope.vacuna = {};
+      $scope.saveVacuna = function(vacuna){
+        console.log(vacuna);
+//        $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+  //          console.log(response);
+    //    });
+      };
+  }])
+
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($route.current);
      $scope.$route = $route;
   }])
 
-
-.controller('CentrosController',['$rootScope', '$scope', '$timeout', '$log', 'uiGmapGoogleMapApi',
-  function ($rootScope, $scope, $timeout, $log, GoogleMapApi) {
-
-    $scope.map = {
-      center: {
-        latitude: 53.406754,
-        longitude: -2.158843
-      },
-      pan: true,
-      zoom: 5,
-      refresh: false,
-      events: {},
-      bounds: {}
+  .controller('VacunasController',['$scope', '$http', function($scope, $http){
+    // aqui
+  }])
+  .controller('CentrosController',['$scope', '$http', function($scope, $http){
+    $scope.getPosition = function () {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          console.log(position);
+          $scope.callback(position.coords.latitude, position.coords.longitude);
+        });
+      } else {
+        console.log('no soporta Geolocation');
+      }
     };
     //when the API is really ready and loaded play w/ the scope
     GoogleMapApi.then(function (map) {
@@ -56,32 +70,14 @@
           },
           showWindow: false
         }
-      ];
-      $scope.map.markerEvents = {
-        dblclick: function (gMarker, eventName, model, latLngArgs) {
-          var id = model.idKey || model.id;
-          alert("Marker double clicked! Model: " + id);
-        }
-      }
-      $timeout(function () {
-        $scope.map.markers[0].latitude = 53.416754;
-        $scope.map.markers[0].longitude = -2.148843;
 
-        _.range(10).forEach(function (i) {
-          $scope.map.markers.push({
-            id: i + 1,
-            location: {
-              latitude: $scope.map.markers[0].latitude + 1 * i,
-              longitude: $scope.map.markers[0].longitude + 1 * i
-            },
-            options: {
-              title: 'Marker2'
-            },
-            showWindow: false
-          })
-        });
-      }, 1000);
-    });
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+    };
+    /*************************
+    *
+    *************************/
+    $scope.getPosition();
+    //
   }])
 
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
@@ -92,7 +88,9 @@
     //
   }])
   .controller('LoginController',['$scope', '$http', function($scope, $http){
-    //
-  }]);
+      $scope.loginProcess = function(){
+        window.location="/minsa/administracion";
+      };
+  }])
 
 })();
