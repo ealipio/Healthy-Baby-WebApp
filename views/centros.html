@@ -1,9 +1,9 @@
  <style>
-      #map_canvas {width:100%;height: 500px; background-color: #CCC;}
+      #map_canvas {width:100%;height: 600px; background-color: #CCC;}
 </style>
 <h4>Centros de Vacunaci&oacute;n:</h4>
 <div class="z-depth-3" style="padding: 5px;border-radius: 7px;">
-	<div id="map_canvas" >
+	<div id="map_canvas"  >
 
     <ui-gmap-google-map id="map"
                         center="map.center"
@@ -32,13 +32,32 @@
 }
 </style>
 </div>
+<div class="row">
+	<div id="vista_hospital" class="col s10 offset-s1">
+    </br>
+    <p id="cercano">Mas Cercano:<p>
+		<table class="striped">
 
-	<div id="vista_hospital">
+        <tbody>
+          <tr>
+            <td>{{tipo}}</td>
+            <td>{{nombre}}</td>
+
+          </tr>
+          <tr>
+            <td>Ubicacion</td>
+            <td>{{ubica}}</td>
+
+          </tr>
+          <tr>
+            <td>Responsable</td>
+            <td>{{resp}}</td>
+
+          </tr>
+        </tbody>
+            
+        </table>
 		
-		<p>El discurso del rey —título original: The King's Speech— es una película británica de 2010 dirigida por Tom Hooper a partir del guion escrito por David Seidler. Pertenece a los géneros dramático e histórico. La trama gira en torno a Jorge VI quien, para vencer la tartamudez, acude al fonoaudiólogo australiano Lionel Logue. Ambos traban amistad mientras trabajan juntos y, cuando Eduardo VIII abdica al trono, el nuevo rey Jorge se apoya en Logue para que lo ayude a realizar su primera transmisión de radio sobre la declaración de guerra a Alemania en 1939.
-
-Seidler padeció tartamudez en su infancia, y previamente a su participación en la película, había leído acerca de la vida de Jorge VI. En la década de 1980 comenzó a escribir esbozos para un guion sobre la relación entre el monarca y su fonoaudiólogo, pero a petición de la viuda del rey, Isabel Bowes-Lyon, abandonó el trabajo hasta después de que ella falleciera. Más tarde reescribió el guion enfocándose mayormente en la relación entre los protagonistas. Nueve semanas antes de que comenzara la filmación se descubrieron unos cuadernos de Logue y se incorporaron algunas frases suyas al guion.
-
-</p>
 	</div>
+</div>
 </div>

@@ -28,60 +28,137 @@
   }])
 
 
-.controller('CentrosController',['$rootScope', '$scope', '$timeout', '$log', 'uiGmapGoogleMapApi',
-  function ($rootScope, $scope, $timeout, $log, GoogleMapApi) {
+.controller('CentrosController',['$rootScope', '$scope', '$timeout', '$log', 'uiGmapGoogleMapApi', '$http',
+  function ($rootScope, $scope, $timeout, $log, GoogleMapApi, $http) {
 
+    $scope.init = function(){
+      
+        $http.post ('api/getCentros.php')
+        .success(function(data) {
+                $scope.data = data;
+                console.log($scope.data);
+            })
+        .error(function(data) {
+                console.log('Error: ' + data);
+        });
+
+    };
+
+
+  var latituden;
+  var longitudn;
+  var imagen_user = '/minsa/img/user.png';
+  var imagen_posta = '/minsa/img/posta.png';
+
+
+
+   $scope.load= function(){
+
+     //when the API is really ready and loaded play w/ the scope
+    GoogleMapApi.then(function (map) {
+          if (navigator.geolocation) {
+
+
+   navigator.geolocation.getCurrentPosition(function(position) {
+      
+        latituden = position.coords.latitude;
+        longitudn = position.coords.longitude;
+        console.log(latituden,longitudn);
     $scope.map = {
       center: {
-        latitude: 53.406754,
-        longitude: -2.158843
+        latitude: latituden,
+        longitude: longitudn
       },
       pan: true,
-      zoom: 5,
-      refresh: false,
+      zoom: 13,
+      refresh: true,
       events: {},
       bounds: {}
     };
-    //when the API is really ready and loaded play w/ the scope
-    GoogleMapApi.then(function (map) {
-      $scope.map.markers = [
+
+
+$scope.mimapa=true;
+console.log($scope.map);
+
+ 
+ 
+
+       $scope.map.markers = [
         {
-          id: 1,
+          id: "user",
           location: {
-            latitude: 53.406754,
-            longitude: -2.158843
+            latitude: latituden,
+            longitude: longitudn
           },
           options: {
-            title: 'Marker1'
+            title: 'Mi ubicacion',
+            icon: imagen_user,
+            animation: google.maps.Animation.DROP
           },
           showWindow: false
         }
       ];
+$scope.dist_rela=9999999;
+$scope.min=9999999;
+for( var i=1;i<$scope.data.length+1;i++){
+
+  $scope.map.markers[i] = {
+        id: i-1,
+          location: {
+            latitude:  $scope.data[i-1].latitud,
+            longitude: $scope.data[i-1].longitud
+          },
+          options: {
+            title: $scope.data[i-1].tipo+" : "+$scope.data[i-1].nombre,
+            icon: imagen_posta,
+            animation: google.maps.Animation.DROP
+          },
+          showWindow: false
+  }
+
+  $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
+if($scope.dist_rela<$scope.min){
+  $scope.min = $scope.dist_rela;
+
+    $scope.nombre = $scope.data[i-1]["nombre"];
+    $scope.tipo = $scope.data[i-1]["tipo"];
+    $scope.ubica = $scope.data[i-1]["direccion"];
+    $scope.resp = $scope.data[i-1]["resp"];
+
+  console.log($scope.min);
+}
+
+}
+
+
+
       $scope.map.markerEvents = {
-        dblclick: function (gMarker, eventName, model, latLngArgs) {
+        click: function (gMarker, eventName, model, latLngArgs) {
           var id = model.idKey || model.id;
-          alert("Marker double clicked! Model: " + id);
+          $("#cercano").empty();
+          $scope.nombre = $scope.data[id]["nombre"];
+          $scope.tipo = $scope.data[id]["tipo"];
+          $scope.ubica = $scope.data[id]["direccion"];
+          $scope.resp = $scope.data[id]["resp"];
+
+        
+         
+         
         }
       }
-      $timeout(function () {
-        $scope.map.markers[0].latitude = 53.416754;
-        $scope.map.markers[0].longitude = -2.148843;
+    
 
-        _.range(10).forEach(function (i) {
-          $scope.map.markers.push({
-            id: i + 1,
-            location: {
-              latitude: $scope.map.markers[0].latitude + 1 * i,
-              longitude: $scope.map.markers[0].longitude + 1 * i
-            },
-            options: {
-              title: 'Marker2'
-            },
-            showWindow: false
-          })
-        });
-      }, 1000);
+
+
+    })}
+
+   
     });
+
+   };
+   $scope.init();
+   $scope.load();
+     
   }])
 
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
