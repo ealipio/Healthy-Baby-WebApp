@@ -37,4 +37,11 @@
 		};
 	});
 
+	.filter('estadoFilter', function(){
+	return function(id){
+		var estados = ['Inactivo', 'Activo'];
+			return estados[id];
+		};
+	})
+
 })();
