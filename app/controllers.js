@@ -226,6 +226,9 @@
             if(response.perfiles[0].id_perfil==1){
                 location.href= 'administracion/index.html';
             }
+            else if(response.perfiles[0].id_perfil==2){
+                location.href= 'vacunas/index.html';
+            }
           //location.href= 'administracion/index.html';
         }
       });
