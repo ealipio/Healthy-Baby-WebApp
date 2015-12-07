@@ -74,7 +74,7 @@
               
                 latituden = position.coords.latitude;
                 longitudn = position.coords.longitude;
-                console.log(latituden,longitudn);
+               //console.log(latituden,longitudn);
                 $scope.printPosition();
                 $scope.printMarkers();
               }, function() {
@@ -113,7 +113,7 @@
 
     };
     $scope.mimapa=true;
-    console.log($scope.map);
+    //console.log($scope.map);
         $scope.map.markers = [
 
         {
@@ -160,7 +160,7 @@
         $scope.tipo = $scope.data[i-1]["tipo"];
         $scope.ubica = $scope.data[i-1]["direccion"];
         $scope.resp = $scope.data[i-1]["resp"];
-        console.log($scope.min);
+        //console.log($scope.min);
       }
   }
       $scope.map.markerEvents = {
