@@ -31,7 +31,7 @@
     //
   }])
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
-    $scope.nino = {tipo:1};
+    $scope.nino = {tipo:1, numero:10360934};
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;
       delete $scope.nino_ws;
@@ -52,9 +52,10 @@
           }
       });
     };
+
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
-    $scope.nino = {tipo:1};
+    $scope.nino = {tipo:1, numero:12345678};
     $scope.getVacunas=function() {
       $http.post ('api/getVacunas.php')
             .success(function(data) {
@@ -85,6 +86,13 @@
             $scope.nino_ws = response;
             $scope.getVacunas();
           }
+      });
+    };
+
+    $scope.realizarRegistro = function(nene){
+      console.log(nene);
+      $http({method:'POST',url: 'api/realizar-registro.php', data: $.param({data:nene}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+          console.log(response);
       });
     };
   }]);
