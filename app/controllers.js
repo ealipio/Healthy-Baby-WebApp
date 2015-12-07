@@ -52,6 +52,7 @@
         .success(function(data) {
                 $scope.data = data;
                console.log($scope.data);
+               $scope.load();
             })
         .error(function(data) {
                 console.log('Error: ' + data);
@@ -60,8 +61,8 @@
 
   var latituden;
   var longitudn;
-  var imagen_user = '/minsa/img/user.png';
-  var imagen_posta = '/minsa/img/posta.png';
+  var imagen_user = '../minsa/img/user.png';
+  var imagen_posta = '../minsa/img/posta.png';
   $scope.dist_rela=9999999;
   $scope.min=9999999;
 
@@ -96,7 +97,7 @@
     });
    };
    $scope.init();
-   $scope.load();
+   
 
    $scope.printPosition= function(){
        $scope.map = {
