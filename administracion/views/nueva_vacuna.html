@@ -1,16 +1,17 @@
 <div class="row">
 
 <h2>Nueva Vacuna:</h2></br></br>
-<form class="col s12">
-   
+<form class="col s12" name='nuevaVacunaForm' id='nuevaVacunaForm'
+      ng-submit='nuevaVacunaForm.$valid && agregar_dosis(ds)'>
+   form: {{nuevaVacunaForm.$valid}}
   <div class="row">
     <div class="input-field col s6">
-      <input id="nombre_vacuna" ng-model='va.nombre_vacuna' type="text" class="validate">
+      <input id="nombre_vacuna" ng-model='va.nombre_vacuna' type="text" class="validate" required>
       <label for="nombre_vacuna">Nombre Vacuna</label>
     </div>
     
     <div class="input-field col s6">
-        <select ng-model='va.estado' type="text" class="validate" material-select watch>
+        <select ng-model='va.estado' type="text" class="validate" material-select watch required>
           <option value="1">Activo</option>
           <option value="0">Inactivo</option>
       </select>
@@ -42,7 +43,7 @@
       <label for="estado">Tiempo aplicación (meses)</label>
     </div>
     <div class="col-sm-offset-1 col-sm-3">
-      <button type='button' ng-click="agregar_dosis(ds)" class="btn btn-primary" >Agregar Dosis</button>
+      <button type='submit' class="btn btn-primary" >Agregar Dosis</button>
     </div>
   </div>
 
@@ -75,8 +76,8 @@
 
   <div class="row"> 
     <div class="col-sm-offset-1 col-sm-3">
-      <button type='submit' ng-click="registro_vacuna(va, vacunas.dosis)" class="btn btn-primary" >Guardar</button>
-      <a href="#vacunas"><button type="submit" class="btn btn-primary">Cancelar</button></a>
+      <button type='submit' class="btn btn-primary" >Guardar</button>
+      <a href="#vacunas"><button type="cancel" class="btn btn-primary">Cancelar</button></a>
     </div>
   </div>
 

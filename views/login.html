@@ -4,12 +4,12 @@
     <div class="col m2 valign">&nbsp;</div>
     <div class="col s12 m8 valign">
       <div class="card ">
-        <form name='loginForm' id='loginForm' ng-submit="loginForm.$valid && loginProcess(login)" novalidate>
+        <form name='loginForm' id='loginForm' ng-submit="loginForm.$valid && loginProcess(login)">
         <div class="card-content white-text">
           <span class="card-title black-text">Login</span>
           
             <div input-field>
-                <input type="text" class="black-text" ng-model="login.usuario" required>
+                <input type="text" class="black-text" ng-model="login.usuario" class="validate" required>
                 <label>Usuario</label>
             </div>
 
@@ -17,8 +17,6 @@
                 <input type="password"  class="black-text" ng-model="login.password" required>
                 <label>Password</label>
             </div>
-      
-          
         </div>
         <div class="card-action">
           <button type="submit" class="btn waves-effect waves-light right">Login</button>
