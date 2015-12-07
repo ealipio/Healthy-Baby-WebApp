@@ -2,7 +2,7 @@
 
 session_start();
 require_once('config/mysql.php');
-include_once dirname(__FILE__) . '\config\config.php';
+include_once dirname(__FILE__) . '/config/config.php';
 
 $usuario  = $_POST['usuario'];
 $password = $_POST['password'];

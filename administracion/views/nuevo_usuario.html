@@ -4,26 +4,27 @@
 
 
 <h2>Nuevo Usuario:</h2></br></br>
-<form class="col s12" ng-submit='registro_usuario(us)'>
-   
+<form class="col s12" name='nuevoUsuarioForm' id='nuevoUsuarioForm'
+ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
+  
   <div class="row">
     <div class="input-field col s6">
-      <input id="codigo" ng-model='us.username' type="text" class="validate">
-      <label for="codigo">Código Usuario</label>
+      <input id="codigo" ng-model='us.username' type="text" class="validate" required>
+      <label for="codigo">Código Usuariosss</label>
     </div>
     <div class="input-field col s6">
-      <input id="nombres" ng-model='us.nombres' type="text" class="validate">
+      <input id="nombres" ng-model='us.nombres' type="text" class="validate" required>
       <label for="nombres">Nombres</label>
     </div>
   </div>
 
   <div class="row">
     <div class="input-field col s6">
-      <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate">
+      <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate" required>
       <label for="apep">Apellido Paterno</label>
     </div>
     <div class="input-field col s6">
-      <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate">
+      <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate" required>
       <label for="apem">Apellido Materno</label>
     </div>
   </div>
@@ -52,7 +53,7 @@
   <div class="row"> 
     <div class="col-sm-offset-1 col-sm-3">
       <button type='submit' class="btn btn-primary" >Guardar</button>
-      <a href="#ususarios"><button type="submit" class="btn btn-primary">Cancelar</button></a>
+      <a href="#ususarios"><button type="cancel" class="btn btn-primary">Cancelar</button></a>
     </div>
   </div>
 
