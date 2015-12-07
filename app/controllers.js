@@ -171,7 +171,7 @@
             $scope.nombre = $scope.data[id]["nombre"];
             $scope.telefono = $scope.data[id]["telefono"];    
             $scope.horario = $scope.data[id]["horario"];    
-            $scope.ubica2 = $scope.data[id]["distrito"]+" - "+$scope.data[id]["provincia"]+" - "+$scope.data[id]["departamento"];    
+            $scope.ubica2 = ", "+$scope.data[id]["distrito"]+", "+$scope.data[id]["provincia"]+", "+$scope.data[id]["departamento"];    
             $scope.tipo = $scope.data[id]["tipo"];
             $scope.ubica = $scope.data[id]["direccion"];
             $scope.resp = $scope.data[id]["resp"];       
