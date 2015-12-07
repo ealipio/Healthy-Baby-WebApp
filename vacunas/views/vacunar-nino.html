@@ -19,7 +19,28 @@
         <button class="btn" ng-click="buscarNino(nino)"><i class="mdi-action-search"></i></button>
     </div>
 
-
   </div>
+
+
+<div class="row" ng-show='nino_ws'>
+    <table class="highlight">
+        <tbody>
+            <tr>
+                <td>Apellidos</td>
+                <td>{{nino_ws.apellido_paterno}} {{nino_ws.apellido_materno}}</td>
+            </tr>
+            <tr>
+                <td>Nacimiento:</td>
+                <td> {{nino_ws.fecha_nac}} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="card-panel center light-blue darken-3" ng-show="nino_error">
+          <span class="flow-text white-text ng-binding">{{nino_error.error}}.</span>
+      </div>
 
 </div>

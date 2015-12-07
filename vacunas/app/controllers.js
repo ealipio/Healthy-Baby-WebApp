@@ -27,29 +27,47 @@
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:1};
     $scope.buscarNino = function(nino){
-      console.log(nino);
-      alert('Estamos consultando el webservice por favor espere');
+      delete $scope.nino_error;
+      delete $scope.nino_ws;
+      if(nino.numero){
+        //alert('Estamos consultando el webservice por favor espere');
+      } else {
+        alert('Por favor complete todos los campos.');
+      }
       // consumir el webservice con esa info
-/*
-      $http({method:'POST',url: 'api/guardar.php',data:$.param({data: data}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+      //http://localhost/minsa/vacunas/api/webservice.php?nro_documento=10360934
+      $http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
           console.log(response);
-          $scope.respuesta = response;
+          if(response.error){
+            $scope.nino_error = response;
+          } else{
+            //
+            $scope.nino_ws = response;
+          }
       });
-*/
     };
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:1};
     $scope.buscarNino = function(nino){
-      console.log(nino);
-      alert('Estamos consultando el webservice por favor espere');
+      delete $scope.nino_error;
+      delete $scope.nino_ws;
+      if(nino.numero){
+        //alert('Estamos consultando el webservice por favor espere');
+      } else {
+        alert('Por favor complete todos los campos.');
+      }
       // consumir el webservice con esa info
-/*
-      $http({method:'POST',url: 'api/guardar.php',data:$.param({data: data}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+      //http://localhost/minsa/vacunas/api/webservice.php?nro_documento=10360934
+      $http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
           console.log(response);
-          $scope.respuesta = response;
+          if(response.error){
+            $scope.nino_error = response;
+          } else{
+            //
+            $scope.nino_ws = response;
+          }
       });
-*/
     };
   }]);
 
