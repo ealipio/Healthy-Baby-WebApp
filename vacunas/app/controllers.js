@@ -95,6 +95,13 @@
           console.log(response);
       });
     };
+  }])
+  .controller('InfoAdicionalController',['$scope', '$route', '$routeParams','$http', function($scope, $route, $routeParams, $http){
+    console.log($routeParams);
+    $scope.adicional={};
+    $scope.adicional.id_nino=$routeParams.id;
+   // alert("asd");
+
   }]);
 
 })();
