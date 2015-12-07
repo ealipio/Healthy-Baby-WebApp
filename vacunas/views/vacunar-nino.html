@@ -33,7 +33,13 @@
             </tr>
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.fecha_nac.split(' ')[0] }} </td>
+                <td> {{nino_ws.fecha_nac.split(' ')[0] | date:'fullDate' }} </td>
+            </tr>
+            <tr>
+                <td>Edad:</td>
+                <td>
+                    <span>{{nino_ws.fecha_nac.split(' ')[0] | amDifference : null : 'months' }} Meses</span>
+                </td>
             </tr>
         </tbody>
     </table>

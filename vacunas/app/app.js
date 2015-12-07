@@ -7,6 +7,7 @@ var app = angular.module('eissonApp', [
   'ngAnimate',
   'angular-loading-bar',
   'ui.materialize',
+  'angularMoment',
   'Controllers']);
 
     app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
