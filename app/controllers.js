@@ -121,9 +121,21 @@ for( var i=1;i<$scope.data.length+1;i++){
     //
   }])
   .controller('LoginController',['$scope', '$http', function($scope, $http){
-      $scope.loginProcess = function(){
-        window.location="/minsa/administracion";
-      };
+      $scope.login = {};
+    $scope.loginProcess = function(login){
+      console.log('login', login);
+      $http({method:'POST',url: 'api/login.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+        console.log('response', response);
+        if(response.login == 0){
+          alert("Error, el usuario y contraseña ingresados no concuerdan");
+        } else if(response.login == "ok"){
+            if(response.perfiles[0].id_perfil==1){
+                location.href= 'administracion/index.html';
+            }
+          //location.href= 'administracion/index.html';
+        }
+      });
+    };
   }])
 
 })();

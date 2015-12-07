@@ -17,6 +17,12 @@
     };
   })
 
+.filter('estadoFilter', function(){
+  return function(id){
+    var estados = ['Inactivo', 'Activo'];
+      return estados[id];
+    };
+  })
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($route.current);
      $scope.$route = $route;
@@ -122,12 +128,29 @@
           $http.post('api/getUsuarios_by_id.php', {username :id})
           .success(function(response) {
               $scope.us=response.usuarios;
-              console.log($scope.us);
+              $scope.pf=response.perfil;
+              $scope.perfiles=response.perfiles;
+              console.log(response);
+
            })
           .error(function(data) {
             console.log('Error: ' + data);
             alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
           });
+        }
+        $scope.editar_usuario = function(us,p){
+          console.log(us,p);
+
+          //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
+          $http.post('api/editarUsuario.php', {usuario :us, perfiles :p})
+            .success(function(response) {
+              location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+             })
+            .error(function(data) {
+              console.log('Error: ' + data);
+              alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+            });
+
         }
       $scope.init();
    }])
@@ -152,6 +175,19 @@
                     console.log('Error: ' + data);
             });
 
+      }
+      $scope.delVacuna = function( codigo, index ) {
+        if ( confirm("¿Está seguro que desea eliminar la vacuna seleccionada?") ) {
+            $scope.usuarios.usuarios.splice(index,1);
+            $http.post('api/delVacuna.php', { id: codigo } )
+              .success(function(data) {
+                console.log(data);
+              })
+              .error(function(data) {
+                console.log('Error: ' + data);
+                alert("no succes");
+              });
+        }
       }
 
       $scope.init();
@@ -188,6 +224,48 @@
       
   }])
 
+  .controller('EditarVacunaController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
+        $scope.init = function(){
+          var id = $routeParams.id;
+          console.log(id);
+          
+          $http.post('api/getVacunas_by_id.php', {id_vacuna :id})
+          .success(function(response) {
+              $scope.va=response.vacunas;
+              $scope.dosis=response.dosis;
+              console.log(response.vacunas);
+
+           })
+          .error(function(data) {
+            console.log('Error: ' + data);
+            alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+          });
+        }
+
+        $scope.agregar_dosis = function(ds){
+          console.log(ds);
+              var elemento = {"nombre_dosis":ds.nombre_dosis,"meses":ds.meses,"nuevo":1};
+            $scope.dosis.push(elemento);
+            $scope.ds.nombre_dosis="";
+            $scope.ds.meses="";
+          }
+
+        $scope.editar_vacuna = function(us,p){
+          console.log(us,p);
+
+          //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
+          $http.post('api/editarVacuna.php', {vacuna :us, dosis :p})
+            .success(function(response) {
+              location.href=location.protocol+"//"+location.hostname+location.pathname+"#/vacunas";
+             })
+            .error(function(data) {
+              console.log('Error: ' + data);
+              alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+            });
+
+        }
+      $scope.init();
+   }])
   //#########################################################
   // Admin
   //#########################################################

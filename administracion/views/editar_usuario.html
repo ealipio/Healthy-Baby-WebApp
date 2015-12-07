@@ -4,7 +4,7 @@
 
 
 <h2>Editar Usuario:</h2></br></br>
-<form class="col s12" ng-submit='editar_usuario(us)'>
+<form class="col s12" ng-submit='editar_usuario(us,perfiles)'>
   <div class="row">
     <div class="input-field col s6">
       <input id="codigo" ng-model='us.username' type="text" class="validate">
@@ -37,8 +37,8 @@
   <div class="row">
     <div class="input-field col s4">
       <label >Seleccionar Perfiles:</label><br/>
-    <p ng-repeat="p in usuarios.perfiles">
-      <input type="checkbox" id="{{p.id_perfil}}"  ng-model="us.perfil[p.id_perfil]"/>
+    <p ng-repeat="p in perfiles">
+      <input type="checkbox" id="{{p.id_perfil}}" ng-model="p.valor" ng-true-value="1" ng-false-value="0"/>
       <label for="{{p.id_perfil}}">
         {{p.nombre_perfil}}</label>
     </p>

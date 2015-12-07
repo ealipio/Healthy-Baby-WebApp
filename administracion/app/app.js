@@ -45,6 +45,12 @@ var app = angular.module('eissonApp', [
           controller: 'NuevaVacunaController',
           activetab: 'vacunas'
         }).
+        when('/editar_vacuna/:id', {
+          templateUrl: 'views/editar_vacuna.html',
+          caseInsensitiveMatch: true,
+          controller: 'EditarVacunaController',
+          activetab: 'vacunas'
+        }).
 
         
         
