@@ -10,10 +10,10 @@
   angular
   .module('Controllers', [])
 
-  .filter('tipoCategoria', function(){
+  .filter('documento', function(){
     return function(input){
-      var estados = ["", "Bien de Capital", "Insumo", "Servicio"];
-      return estados[input];
+      var documento = ["", "DNI", "CUI"];
+      return documento[input];
     };
   })
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){

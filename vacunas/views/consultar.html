@@ -23,15 +23,28 @@
 
 
 <div class="row" ng-show='nino_ws'>
-    <table class="highlight">
+    <table class="highlight bordered">
         <tbody>
+
+            <tr>
+                <td>{{ nino_ws.tipo_documento  | documento }}</td>
+                <td>{{nino_ws.nro_documento}}</td>
+            </tr>
+
+            <tr>
+                <td>Nombres</td>
+                <td>{{nino_ws.nombres}}</td>
+            </tr>
+
+
             <tr>
                 <td>Apellidos</td>
                 <td>{{nino_ws.apellido_paterno}} {{nino_ws.apellido_materno}}</td>
             </tr>
+
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.fecha_nac}} </td>
+                <td> {{nino_ws.fecha_nac.split(' ')[0] }} </td>
             </tr>
         </tbody>
     </table>
