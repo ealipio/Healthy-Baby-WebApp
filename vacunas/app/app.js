@@ -14,36 +14,28 @@ var app = angular.module('eissonApp', [
       cfpLoadingBarProvider.latencyThreshold = 1;
 
       $routeProvider.
-        
-        when('/', {
-          templateUrl: 'views/usuarios.html',
-          caseInsensitiveMatch: true,
-          controller: 'UsuariosController',
-          activetab: 'usuarios'
-        }).
-        when('/nuevo_usuario', {
-          templateUrl: 'views/nuevo_usuario.html',
-          caseInsensitiveMatch: true,
-          controller: 'NuevoUsuarioController',
-          activetab: 'usuarios'
-        }).
+
         when('/vacunas', {
-          templateUrl: 'views/vacunas.html',
+          templateUrl: 'views/crear-vacuna.html',
           caseInsensitiveMatch: true,
           controller: 'VacunasController',
           activetab: 'vacunas'
         }).
-        when('/nueva_vacuna', {
-          templateUrl: 'views/nueva_vacuna.html',
+        when('/consultar', {
+          templateUrl: 'views/consultar.html',
           caseInsensitiveMatch: true,
-          controller: 'NuevaVacunaController',
-          activetab: 'vacunas'
+          controller: 'ConsultarController',
+          activetab: 'Consultar'
+        }).
+        when('/vacunar-nino', {
+          templateUrl: 'views/vacunar-nino.html',
+          caseInsensitiveMatch: true,
+          controller: 'VacunarNinoController',
+          activetab: 'vacunar'
         }).
 
-        
-        
         otherwise({
-          redirectTo: '/'
+          redirectTo: '/vacunar-nino'
         });
 
       }]);

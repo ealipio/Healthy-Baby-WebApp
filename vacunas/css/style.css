@@ -1,0 +1,95 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+/* Footer Adhesivo  */
+ body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+/* Fin del footer Adhesivo  */
+
+nav ul a,
+nav .brand-logo {
+  color: #FFF;
+}
+
+p {
+  line-height: 2rem;
+}
+
+footer.page-footer {
+  margin: 0;
+}
+
+/* eisson */
+#container>div{
+  margin-top: 2.5em;
+  margin-bottom: 5em;
+}
+.home{
+  height: 400px;
+}
+td,th{
+  border-radius: 0;
+}
+.tabs .indicator {
+background-color: #263238;
+}
+
+.tabs .tab a:hover {
+color: #64b5f6;
+}
+
+.tabs .tab a {
+color: #1e88e5;
+}
+
+.tab-body{
+  margin-top: 2em;
+}
+/*************************
+* modal
+**************************/
+.modal{
+  width: 95%;
+  top: 5%;
+  max-height: 95%;
+}
+/**************************
+* ui-select
+************************/
+.ui-select-search{
+  width: 100% !important;
+}
+.ui-select-match-item{
+  margin: 2px;
+}
+.ui-select-container.open .ui-select-choices-content{
+  background-color: #FFF;
+  color: #000;
+  border: 1px solid #CCC;
+  padding: 10px;
+  box-shadow: 5px 5px 10px -2px #000;
+}
+
+.ui-select-choices-row {
+/*     background-color: #f0f;
+    color: #fff;
+     */    padding: 5px;
+}
+
+.ui-select-choices-row:hover{
+  background-color: #283593;
+  color: #fff !important;
+  padding: 5px;
+}
