@@ -1,3 +1,4 @@
 api/config
 views/pasos
 *.txt
+*.sql

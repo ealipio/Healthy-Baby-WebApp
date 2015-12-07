@@ -1,7 +1,7 @@
 <?php
 
 require_once('../../api/config/mysql.php');
-
+//select fecha_nac as nacimiento, CURRENT_TIMESTAMP,TIMESTAMPDIFF(MONTH,fecha_nac, CURRENT_TIMESTAMP) as edad_in_days from tb_eisson_consulta_api
 $r = array('error' => 'Lo siento, los parametros son incorrectos.' );
 
 if( isset( $_GET['nro_documento'] ) ){
