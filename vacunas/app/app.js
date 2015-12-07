@@ -32,8 +32,13 @@ var app = angular.module('eissonApp', [
           caseInsensitiveMatch: true,
           controller: 'VacunarNinoController',
           activetab: 'vacunar'
+          }).
+        when('/adicional/:id', {
+          templateUrl: 'views/info-adicional.html',
+          caseInsensitiveMatch: true,
+          controller: 'InfoAdicionalController',
+          activetab: 'vacunar'
         }).
-
         otherwise({
           redirectTo: '/vacunar-nino'
         });
