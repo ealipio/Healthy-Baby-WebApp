@@ -1,7 +1,5 @@
-<div class="container">
 <h4>Vacunar nuevo niño:</h4>
   <div class="row">
-
     <div class="col s5 input-field">
         <select class="" ng-model="nino.tipo" material-select watch>
             <option value="" disabled selected>Tipo de Documento</option>
@@ -9,39 +7,30 @@
             <option value="2">CUI</option>
         </select>
     </div>
-
     <div class="col s5" input-field>
         <input type="number" ng-model="nino.numero" />
         <label>Numero</label>
     </div>
-
     <div class="col s2 input-field">
         <button class="btn" ng-click="buscarNino(nino)"><i class="mdi-action-search"></i></button>
     </div>
-
   </div>
-
 
 <div class="row" ng-show='nino_ws'>
     <table class="highlight bordered">
         <tbody>
-
             <tr>
                 <td>{{ nino_ws.tipo_documento  | documento }}</td>
                 <td>{{nino_ws.nro_documento}}</td>
             </tr>
-
             <tr>
                 <td>Nombres</td>
                 <td>{{nino_ws.nombres}}</td>
             </tr>
-
-
             <tr>
                 <td>Apellidos</td>
                 <td>{{nino_ws.apellido_paterno}} {{nino_ws.apellido_materno}}</td>
             </tr>
-
             <tr>
                 <td>Nacimiento:</td>
                 <td> {{nino_ws.fecha_nac.split(' ')[0] }} </td>
@@ -49,36 +38,29 @@
         </tbody>
     </table>
     <br/>
+
     <h4>Vacunas</h4>
-    <table class="table table-bordered" id="searchObjResults">
-            <thead>
-                <tr>
-                    <th>Vacuna</th>
-                    <th ng-repeat="j in vacunas.total">DOSIS {{$index +1}}</th>
-              <!--      <th>Estado</th>-->
-            <th>Observaciones</th> 
-                  
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr ng-repeat="n in vacunas.vacunas">
-                
-                    <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
-                    <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></td> 
-                <!--    <td>{{n.estado | estadoFilter}} </td>-->
-                    <td >{{n.observaciones}}</td>
-                  
-                </tr>
-            </tbody>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Vacuna</th>
+                <th ng-repeat="j in vacunas.total">DOSIS {{$index +1}}</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="n in vacunas.vacunas">
+                <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
+                <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></td>
+                <td >{{n.observaciones}}</td>
+            </tr>
+        </tbody>
     </table>
-
+    <div class="enviar">
+        <button class="btn">Realizar Registro</button>
+    </div>
 </div>
 
-
-
 <div class="card-panel center light-blue darken-3" ng-show="nino_error">
-          <span class="flow-text white-text ng-binding">{{nino_error.error}}.</span>
-      </div>
-
+    <span class="flow-text white-text ng-binding">{{nino_error.error}}.</span>
 </div>
