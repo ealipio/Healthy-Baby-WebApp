@@ -45,85 +45,39 @@
 
 .controller('CentrosController',['$rootScope', '$scope', '$timeout', '$log', 'uiGmapGoogleMapApi', '$http',
   function ($rootScope, $scope, $timeout, $log, GoogleMapApi, $http) {
-
     $scope.init = function(){
-
         $http.post ('api/getCentros.php')
         .success(function(data) {
                 $scope.data = data;
                 console.log($scope.data);
                 $scope.load();
-            })
-        .error(function(data) {
-                console.log('Error: ' + data);
-        });
-
+        }).error(function(data) { console.log('Error: ' + data); });
     };
-
-
   var latituden;
   var longitudn;
   var imagen_user = '../minsa/img/user.png';
   var imagen_posta = '../minsa/img/posta.png';
-
-
-
    $scope.load= function(){
-
      //when the API is really ready and loaded play w/ the scope
     GoogleMapApi.then(function (map) {
           if (navigator.geolocation) {
-
-
    navigator.geolocation.getCurrentPosition(function(position) {
-
         latituden = position.coords.latitude;
         longitudn = position.coords.longitude;
         console.log(latituden,longitudn);
     $scope.map = {
-      center: {
-        latitude: latituden,
-        longitude: longitudn
-      },
-      pan: true,
-      zoom: 13,
-      refresh: true,
-      events: {},
-      bounds: {}
-
+      center: {latitude: latituden,longitude: longitudn},
+      pan: true, zoom: 13, refresh: true, events: {}, bounds: {}
     };
-
-
 $scope.mimapa=true;
-console.log($scope.map);
-
-
-
-
-       $scope.map.markers = [
-        {
-          id: "user",
-          location: {
-            latitude: latituden,
-            longitude: longitudn
-          },
-          options: {
-            title: 'Mi ubicacion',
-            icon: imagen_user,
-            animation: google.maps.Animation.DROP
-          },
-          showWindow: false
-        }
-      ];
+//console.log($scope.map);
+$scope.map.markers = [ { id: "user", location: { latitude: latituden, longitude: longitudn }, options: { title: 'Mi ubicacion', icon: imagen_user, animation: google.maps.Animation.DROP }, showWindow: false } ];
 $scope.dist_rela=9999999;
 $scope.min=9999999;
 for( var i=1;i<$scope.data.length+1;i++){
-
   $scope.map.markers[i] = {
         id: i-1,
-          location: {
-            latitude:  $scope.data[i-1].latitud,
-            longitude: $scope.data[i-1].longitud
+          location: { latitude:  $scope.data[i-1].latitud, longitude: $scope.data[i-1].longitud
           },
           options: {
             title: $scope.data[i-1].tipo+" : "+$scope.data[i-1].nombre,
@@ -132,23 +86,16 @@ for( var i=1;i<$scope.data.length+1;i++){
           },
           showWindow: false
   }
-
   $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
-if($scope.dist_rela<$scope.min){
-  $scope.min = $scope.dist_rela;
-
-    $scope.nombre = $scope.data[i-1]["nombre"];
-    $scope.tipo = $scope.data[i-1]["tipo"];
-    $scope.ubica = $scope.data[i-1]["direccion"];
-    $scope.resp = $scope.data[i-1]["resp"];
-
-  console.log($scope.min);
+  if($scope.dist_rela<$scope.min){
+    $scope.min = $scope.dist_rela;
+      $scope.nombre = $scope.data[i-1]["nombre"];
+      $scope.tipo = $scope.data[i-1]["tipo"];
+      $scope.ubica = $scope.data[i-1]["direccion"];
+      $scope.resp = $scope.data[i-1]["resp"];
+      console.log($scope.min);
+  }
 }
-
-}
-
-
-
       $scope.map.markerEvents = {
         click: function (gMarker, eventName, model, latLngArgs) {
           var id = model.idKey || model.id;
@@ -157,19 +104,9 @@ if($scope.dist_rela<$scope.min){
           $scope.tipo = $scope.data[id]["tipo"];
           $scope.ubica = $scope.data[id]["direccion"];
           $scope.resp = $scope.data[id]["resp"];
-
-
-
-
         }
       }
-
-
-
-
     })}
-
-
     });
 
    };
