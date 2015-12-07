@@ -9,6 +9,13 @@
 
   angular.module('Controllers', ['uiGmapgoogle-maps'])
 
+  .filter('estadoFilter', function(){
+  return function(id){
+    var estados = ['Inactivo', 'Activo'];
+      return estados[id];
+    };
+  })
+
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
@@ -113,8 +120,24 @@ for( var i=1;i<$scope.data.length+1;i++){
    $scope.init();
   }])
 
-  .controller('VacunasController',['$scope', '$http', function($scope, $http){
-    // aqui
+  .controller('VacunasController',['$scope', '$http', '$route', function ($scope, $http, $route) {
+      $scope.init = function(){
+        document.title = "Vacunas";
+        //console.log($route.current.activetab);
+        $route.current.activetab ? $scope.$route = $route : null
+
+        $http.post ('administracion/api/getVacunas.php')
+            .success(function(data) {
+                    $scope.vacunas = data;
+                    console.log(data);
+                })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+
+      }
+
+      $scope.init();
   }])
 
   .controller('AcercaController',['$scope', '$http', function($scope, $http){

@@ -1,10 +1,33 @@
-<h4>Vacunas</h4>
+<div class="row">
+    <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 table-responsive">
+		 <h2>Lista de Vacunas</h2></br></br>
 
-<dl>
-	<dt>BCG:</dt>
-	<dd>Es una vacuna que previene enfermedades y se pone al recién nacido.</dd>
-	<dt>HvB:</dt>
-	<dd>Es una vacuna que previene enfermedades y se pone al recién nacido.</dd>
-	<dt>IPV:</dt>
-	<dd>Es una vacuna que previene enfermedades y se pone al recién nacido.</dd>
-</dl>
+</br></br>
+    <table class="table table-bordered" id="searchObjResults">
+			<thead>
+				<tr>
+				    <th>Vacuna</th>
+				    <th ng-repeat="j in vacunas.total">DOSIS {{$index +1}}</th>
+				    <th>Estado</th>
+            <th>Observaciones</th> 
+				  
+				</tr>
+			</thead>
+
+            <tbody>
+            	<tr ng-repeat="n in vacunas.vacunas">
+                
+                    <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
+                    <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></td> 
+                    <td>{{n.estado | estadoFilter}} </td>
+                    <td >{{n.observaciones}}</td>
+                  
+                </tr>
+            </tbody>
+               </table>
+        
+  
+ 
+    </div>        
+    </div>
+    <style type="text/css">td   { text-align: center; } th  { text-align: center; }</style>
