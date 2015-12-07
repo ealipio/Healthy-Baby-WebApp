@@ -9,6 +9,12 @@
 
   angular
   .module('Controllers', [])
+  .filter('estadoFilter', function(){
+  return function(id){
+    var estados = ['Inactivo', 'Activo'];
+      return estados[id];
+    };
+  })
 
   .filter('documento', function(){
     return function(input){
@@ -49,6 +55,17 @@
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:1};
+    $scope.getVacunas=function() {
+      $http.post ('api/getVacunas.php')
+            .success(function(data) {
+                    $scope.vacunas = data;
+                    console.log(data);
+                })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+    }
+
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;
       delete $scope.nino_ws;
@@ -66,6 +83,7 @@
           } else{
             //
             $scope.nino_ws = response;
+            $scope.getVacunas();
           }
       });
     };
