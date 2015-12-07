@@ -27,6 +27,12 @@ var app = angular.module('eissonApp', [
           controller: 'NuevoUsuarioController',
           activetab: 'usuarios'
         }).
+        when('/editar_usuario/:id', {
+          templateUrl: 'views/editar_usuario.html',
+          caseInsensitiveMatch: true,
+          controller: 'EditarUsuarioController',
+          activetab: 'usuarios'
+        }).
         when('/vacunas', {
           templateUrl: 'views/vacunas.html',
           caseInsensitiveMatch: true,
@@ -37,6 +43,12 @@ var app = angular.module('eissonApp', [
           templateUrl: 'views/nueva_vacuna.html',
           caseInsensitiveMatch: true,
           controller: 'NuevaVacunaController',
+          activetab: 'vacunas'
+        }).
+        when('/editar_vacuna/:id', {
+          templateUrl: 'views/editar_vacuna.html',
+          caseInsensitiveMatch: true,
+          controller: 'EditarVacunaController',
           activetab: 'vacunas'
         }).
 

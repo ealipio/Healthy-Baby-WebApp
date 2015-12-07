@@ -10,7 +10,8 @@
 				<tr>
 				    <th><a href="" ng-click="reverse=!reverse;order('username', reverse)">Vacuna</a></th>
 				    <th ng-repeat="j in vacunas.total">DOSIS {{$index +1}}</th>
-				    <th>Observaciones</th> 
+				    <th>Estado</th> 
+            <th>Observaciones</th> 
 				    <th>Acciones</th>
 				  
 				</tr>
@@ -21,29 +22,14 @@
                 
                     <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
                     <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></td> 
-                    <td data-ng-show="n.observaciones">{{n.observaciones}}</td>
-                    <td class="col-lg-2"><a href="#mod_user/{{n.username}}">[editar]   </a><a href="#usuarios" ng-click="delUsuario(n.username, $index)">[eliminar]</a></td>
+                    <td>{{n.estado | estadoFilter}} </td>
+                    <td >{{n.observaciones}}</td>
+                    <td class="col-lg-2"><a href="#editar_vacuna/{{n.id_vacuna}}">[editar]   </a></td>
                   
                 </tr>
             </tbody>
                </table>
-       
-          <div >
-            <ul class="pagination">
-              <li ng-class="prevPageDisabled()">
-                <a href ng-click="prevPage()">« Prev</a>
-              </li>
-              <li ng-repeat="n in range()" ng-class="{active: n == currentPage}" ng-click="setPage(n)">
-                <a href="#/usuarios">{{n+1}}</a>
-              </li>
-              <li ng-class="nextPageDisabled()">
-                <a href ng-click="nextPage()">Next »</a>
-              </li>
-            </ul>
-          </div>
         
-
-          <p id="n_filter">{{(names | filter:search).length}}</p>
   
  
     </div>        

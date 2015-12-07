@@ -1,11 +1,10 @@
 <?php
-class DAO extends DBConnect{
+class DAO{
 
 	function getCentros(){
-		$db  = new DBConnect();
-		$dbh = $db->enchufalo();
-		//$id_empresa = $_GET['id'];
-
+		require_once('config/mysql.php');
+		$db              = new EissonConnect();
+		$dbh             = $db->enchufalo();
 		$q = 'select * from tb_centros ';
 		$stmt = $dbh->prepare($q);
 		$stmt->execute();

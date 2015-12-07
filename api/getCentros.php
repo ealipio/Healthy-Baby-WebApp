@@ -1,6 +1,6 @@
 <?php
-require_once("/config/mysql.php");
-require_once("DAO.php");
+//require_once("config/mysql.php");
+require_once("dao.php");
 
 $DAO=new DAO();
 

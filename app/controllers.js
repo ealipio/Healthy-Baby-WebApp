@@ -31,9 +31,9 @@
     $scope.vacuna = {};
       $scope.saveVacuna = function(vacuna){
         console.log(vacuna);
-//        $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-  //          console.log(response);
-    //    });
+        $http({method:'POST',url: 'api/crear-vacuna.php',data:$.param({data: vacuna}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+            console.log(response);
+        });
       };
   }])
 
@@ -47,18 +47,16 @@
   function ($rootScope, $scope, $timeout, $log, GoogleMapApi, $http) {
 
     $scope.init = function(){
-      
+
         $http.post ('api/getCentros.php')
         .success(function(data) {
                 $scope.data = data;
-               // console.log($scope.data);
+               console.log($scope.data);
             })
         .error(function(data) {
                 console.log('Error: ' + data);
         });
-
     };
-
 
   var latituden;
   var longitudn;
@@ -66,7 +64,6 @@
   var imagen_posta = '/minsa/img/posta.png';
   $scope.dist_rela=9999999;
   $scope.min=9999999;
-
 
    $scope.load= function(){
      //when the API is really ready and loaded play w/ the scope
@@ -77,7 +74,7 @@
               
                 latituden = position.coords.latitude;
                 longitudn = position.coords.longitude;
-                //console.log(latituden,longitudn);
+                console.log(latituden,longitudn);
                 $scope.printPosition();
                 $scope.printMarkers();
               }, function() {
@@ -103,6 +100,7 @@
 
    $scope.printPosition= function(){
        $scope.map = {
+
       center: {
         latitude: latituden,
         longitude: longitudn
@@ -115,8 +113,9 @@
 
     };
     $scope.mimapa=true;
-    //console.log($scope.map);
+    console.log($scope.map);
         $scope.map.markers = [
+
         {
           id: "user",
           location: {
@@ -161,7 +160,7 @@
         $scope.tipo = $scope.data[i-1]["tipo"];
         $scope.ubica = $scope.data[i-1]["direccion"];
         $scope.resp = $scope.data[i-1]["resp"];
-        //console.log($scope.min);
+        console.log($scope.min);
       }
   }
       $scope.map.markerEvents = {
@@ -180,6 +179,7 @@
   };
  }])
 
+
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
     // aqui
   }])
@@ -188,9 +188,21 @@
     //
   }])
   .controller('LoginController',['$scope', '$http', function($scope, $http){
-      $scope.loginProcess = function(){
-        window.location="/minsa/administracion";
-      };
+      $scope.login = {};
+    $scope.loginProcess = function(login){
+      console.log('login', login);
+      $http({method:'POST',url: 'api/login.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+        console.log('response', response);
+        if(response.login == 0){
+          alert("Error, el usuario y contraseña ingresados no concuerdan");
+        } else if(response.login == "ok"){
+            if(response.perfiles[0].id_perfil==1){
+                location.href= 'administracion/index.html';
+            }
+          //location.href= 'administracion/index.html';
+        }
+      });
+    };
   }])
 
 })();

@@ -1,29 +1,33 @@
-        <div class="container" id="container">
-          <div class="row valign-wrapper">
-            <div class="col m2 valign">&nbsp;</div>
-            <div class="col s12 m8 valign">
-              <div class="card ">
-                <div class="card-content white-text">
-                  <span class="card-title black-text">Login</span>
-                  <form name='loginForm' id='loginForm' ng-submit="loginProcess(login)">
-                    <div input-field>
-                        <input type="text" class="black-text" ng-model="login.usuario">
-                        <label>Usuario</label>
-                    </div>
 
-                    <div input-field>
-                        <input type="password"  class="black-text" ng-model="login.password">
-                        <label>Password</label>
-                    </div>
-
-                  </form>
-                </div>
-                <div class="card-action">
-                  <button type="button" class="btn waves-effect waves-light right" ng-click="loginProcess(login)">Login</button>
-                  <br>
-                  <br>
-                </div>
-              </div>
+<div class="container" id="container">
+  <div class="row valign-wrapper">
+    <div class="col m2 valign">&nbsp;</div>
+    <div class="col s12 m8 valign">
+      <div class="card ">
+        <form name='loginForm' id='loginForm' ng-submit="loginForm.$valid && loginProcess(login)" novalidate>
+        <div class="card-content white-text">
+          <span class="card-title black-text">Login</span>
+          
+            <div input-field>
+                <input type="text" class="black-text" ng-model="login.usuario" required>
+                <label>Usuario</label>
             </div>
-          </div>
+
+            <div input-field>
+                <input type="password"  class="black-text" ng-model="login.password" required>
+                <label>Password</label>
+            </div>
+      
+          
         </div>
+        <div class="card-action">
+          <button type="submit" class="btn waves-effect waves-light right">Login</button>
+          <br>
+          <br>
+        </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
