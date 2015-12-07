@@ -102,6 +102,19 @@
     $scope.adicional.id_nino=$routeParams.id;
    // alert("asd");
 
+   $scope.saveadicional =function(adicional){
+    console.log(adicional);
+       $http.post('api/addAdicional.php', { datos:adicional } )
+                .success(function(data) {
+                        console.log(data);
+                        location.href=location.protocol+"//"+location.hostname+location.pathname+"#/vacunar-nino";
+                    })
+                .error(function(data) {
+                        console.log('Error: ' + data);
+                         alert("no succes");
+                });
+   };
+
   }]);
 
 })();
