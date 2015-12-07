@@ -38,7 +38,7 @@
   }])
 
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
-    console.log($route.current);
+    //console.log($route.current);
      $scope.$route = $route;
   }])
 
@@ -51,7 +51,7 @@
         $http.post ('api/getCentros.php')
         .success(function(data) {
                 $scope.data = data;
-                console.log($scope.data);
+               // console.log($scope.data);
             })
         .error(function(data) {
                 console.log('Error: ' + data);
@@ -64,42 +64,59 @@
   var longitudn;
   var imagen_user = '/minsa/img/user.png';
   var imagen_posta = '/minsa/img/posta.png';
-
+  $scope.dist_rela=9999999;
+  $scope.min=9999999;
 
 
    $scope.load= function(){
-
      //when the API is really ready and loaded play w/ the scope
-    GoogleMapApi.then(function (map) {
+      GoogleMapApi.then(function (map) {
           if (navigator.geolocation) {
 
+              navigator.geolocation.getCurrentPosition(function(position) {
+              
+                latituden = position.coords.latitude;
+                longitudn = position.coords.longitude;
+                //console.log(latituden,longitudn);
+                $scope.printPosition();
+                $scope.printMarkers();
+              }, function() {
+                   latituden = -12.045865;
+                   longitudn = -77.030562;
 
-   navigator.geolocation.getCurrentPosition(function(position) {
-      
-        latituden = position.coords.latitude;
-        longitudn = position.coords.longitude;
-        console.log(latituden,longitudn);
-    $scope.map = {
+                  $scope.printPosition();
+                  $scope.printMarkers();
+                });
+               }
+
+          else{
+            latituden = -12.045865;
+            longitudn = -77.030562;
+
+            $scope.printPosition();
+            $scope.printMarkers();
+          }
+    });
+   };
+   $scope.init();
+   $scope.load();
+
+   $scope.printPosition= function(){
+       $scope.map = {
       center: {
         latitude: latituden,
         longitude: longitudn
       },
       pan: true,
-      zoom: 13,
+      zoom: 15,
       refresh: true,
       events: {},
       bounds: {}
 
     };
-
-
-$scope.mimapa=true;
-console.log($scope.map);
-
- 
- 
-
-       $scope.map.markers = [
+    $scope.mimapa=true;
+    //console.log($scope.map);
+        $scope.map.markers = [
         {
           id: "user",
           location: {
@@ -112,71 +129,56 @@ console.log($scope.map);
             animation: google.maps.Animation.DROP
           },
           showWindow: false
-        }
-      ];
-$scope.dist_rela=9999999;
-$scope.min=9999999;
-for( var i=1;i<$scope.data.length+1;i++){
+        }];
+   };
 
-  $scope.map.markers[i] = {
-        id: i-1,
-          location: {
-            latitude:  $scope.data[i-1].latitud,
-            longitude: $scope.data[i-1].longitud
-          },
-          options: {
-            title: $scope.data[i-1].tipo+" : "+$scope.data[i-1].nombre,
-            icon: imagen_posta,
-            animation: google.maps.Animation.DROP
-          },
-          showWindow: false
+ $scope.printMarkers= function(){
+
+  for( var i=1;i<$scope.data.length+1;i++){
+
+    $scope.map.markers[i] = {
+          id: i-1,
+            location: {
+              latitude:  $scope.data[i-1].latitud,
+              longitude: $scope.data[i-1].longitud
+            },
+            options: {
+              title: $scope.data[i-1].tipo+" : "+$scope.data[i-1].nombre,
+              icon: imagen_posta,
+              animation: google.maps.Animation.DROP
+            },
+            showWindow: false
+    }
+
+      $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
+      if($scope.dist_rela<$scope.min){
+        $scope.min = $scope.dist_rela;
+
+        $scope.nombre = $scope.data[i-1]["nombre"];
+        $scope.telefono = $scope.data[i-1]["telefono"];    
+        $scope.horario = $scope.data[i-1]["horario"];    
+        $scope.ubica2 = ", "+$scope.data[i-1]["distrito"]+", "+$scope.data[i-1]["provincia"]+", "+$scope.data[i-1]["departamento"];    
+        $scope.tipo = $scope.data[i-1]["tipo"];
+        $scope.ubica = $scope.data[i-1]["direccion"];
+        $scope.resp = $scope.data[i-1]["resp"];
+        //console.log($scope.min);
+      }
   }
-
-  $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
-if($scope.dist_rela<$scope.min){
-  $scope.min = $scope.dist_rela;
-
-    $scope.nombre = $scope.data[i-1]["nombre"];
-    $scope.tipo = $scope.data[i-1]["tipo"];
-    $scope.ubica = $scope.data[i-1]["direccion"];
-    $scope.resp = $scope.data[i-1]["resp"];
-
-  console.log($scope.min);
-}
-
-}
-
-
-
       $scope.map.markerEvents = {
         click: function (gMarker, eventName, model, latLngArgs) {
           var id = model.idKey || model.id;
           $("#cercano").empty();
-          $scope.nombre = $scope.data[id]["nombre"];
-          $scope.tipo = $scope.data[id]["tipo"];
-          $scope.ubica = $scope.data[id]["direccion"];
-          $scope.resp = $scope.data[id]["resp"];
-
-        
-         
-         
+            $scope.nombre = $scope.data[id]["nombre"];
+            $scope.telefono = $scope.data[id]["telefono"];    
+            $scope.horario = $scope.data[id]["horario"];    
+            $scope.ubica2 = $scope.data[id]["distrito"]+" - "+$scope.data[id]["provincia"]+" - "+$scope.data[id]["departamento"];    
+            $scope.tipo = $scope.data[id]["tipo"];
+            $scope.ubica = $scope.data[id]["direccion"];
+            $scope.resp = $scope.data[id]["resp"];       
         }
       }
-    
-
-
-
-    })}
-
-   
-    });
-
-   };
-   $scope.init();
-   $scope.load();
-     
-
-  }])
+  };
+ }])
 
   .controller('VacunasController',['$scope', '$http', function($scope, $http){
     // aqui
