@@ -1,5 +1,5 @@
 <?php
-  require_once('config/mysql.php');
+  require_once('../../api/config/mysql.php');
   
   $db  = new EissonConnect();
   $dbh = $db->enchufalo();
@@ -7,9 +7,6 @@
   
   $vacuna = $rspta->vacuna;
   $dosis = $rspta->dosis;
-
-	var_dump($vacuna);
-	var_dump($dosis);
 
 
 	$q = 'INSERT INTO tb_vacunas (nombre_vacuna, observaciones, estado, created_at) 

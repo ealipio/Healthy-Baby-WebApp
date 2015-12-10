@@ -55,7 +55,7 @@
 
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
-    $scope.nino = {tipo:1, numero:12345678};
+    $scope.nino = {tipo:1, numero:10360934};
     $scope.getVacunas=function() {
       $http.post ('api/getVacunas.php')
             .success(function(data) {
@@ -92,29 +92,70 @@
     $scope.realizarRegistro = function(nene){
       console.log(nene);
       $http({method:'POST',url: 'api/realizar-registro.php', data: $.param({data:nene}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-          console.log(response);
+          //console.log(response);
       });
     };
-  }])
-  .controller('InfoAdicionalController',['$scope', '$route', '$routeParams','$http', function($scope, $route, $routeParams, $http){
-    console.log($routeParams);
-    $scope.adicional={};
-    $scope.adicional.id_nino=$routeParams.id;
-   // alert("asd");
 
-   $scope.saveadicional =function(adicional){
-    console.log(adicional);
+    $scope.crear_vacuna = function(dosis, vacuna){
+      $scope.nuevaVacuna ={};
+      $('ul.tabs').tabs('select_tab', 'crear-vacuna');
+      $scope.nuevaVacuna.dosis = dosis;
+      $scope.nuevaVacuna.vacuna = vacuna;
+      
+      $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.nro_documento;
+
+      //var f = new Date();
+      //var hoy = 
+      //document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
+
+      //$scope.nuevaVacuna.dosis.fecha = '2015-12-09';
+      //console.log($scope.nuevaVacuna);
+    };
+
+    $scope.saveVacuna = function(){
+      
+      //console.log($scope.nuevaVacuna.dosis);
+
+      $http({method:'POST',url: 'api/crear_vacuna.php', data: $scope.nuevaVacuna.dosis, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+          alert(response);
+      });
+
+      $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+
+    };
+      $scope.mostraradicional = function(){
+   $scope.adicional={};
+      $('ul.tabs').tabs('select_tab', 'info-adicional');
+      $scope.adicional.id_nino=$scope.nino_ws.nro_documento;
+      
+    };
+      $scope.cancel = function(){
+      $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+     
+    };
+
+      $scope.saveadicional =function(adicional){
+
+      console.log(adicional);
+
        $http.post('api/addAdicional.php', { datos:adicional } )
-                .success(function(data) {
-                        console.log(data);
-                        location.href=location.protocol+"//"+location.hostname+location.pathname+"#/vacunar-nino";
-                    })
-                .error(function(data) {
-                        console.log('Error: ' + data);
-                         alert("no succes");
-                });
-   };
+        .success(function(data) {
+                console.log(data);
+                   $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+            })
+        .error(function(data) {
+                console.log('Error: ' + data);
+                 alert("no succes");
+        });
+     };
 
-  }]);
+  }])
+
+  .controller('InfoAdicionalController',['$scope', '$route','$http', function($scope, $route, $http){
+    console.log($routeParams);
+    
+  }])
+
+;
 
 })();

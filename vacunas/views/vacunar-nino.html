@@ -9,7 +9,7 @@
     </div>
     <div class="col s5" input-field>
         <input type="number" ng-model="nino.numero" />
-        <label>Numero</label>
+        <label>Numero documento</label>
     </div>
     <div class="col s2 input-field">
         <button class="btn" ng-click="buscarNino(nino)"><i class="mdi-action-search"></i></button>
@@ -43,29 +43,29 @@
             </tr>
         </tbody>
     </table>
-    <br/>
 
-    <h4>Vacunas</h4>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Vacuna</th>
-                <th ng-repeat="j in vacunas.total">DOSIS {{$index +1}}</th>
-                <th>Observaciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="n in vacunas.vacunas">
-                <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
-                <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></td>
-                <td >{{n.observaciones}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="enviar">
-        <a class="btn" href='#/adicional/{{nino_ws.nro_documento}}'>Registrar Info Adicional</a>
-        <!-- <button class="btn" ng-click='realizarRegistro(nino_ws)'>Registrar Info Adicional</button> -->
+    <div class="row" style="display: none">
+        <div class="col s12">
+            <ul class="tabs" tabs>
+                <li class="tab col s6"><a href="#tabla-vacunacion">Categoria</a></li>
+                <li class="tab col s6"><a href="#crear-vacuna">Versiones</a></li>
+                <li class="tab col s6"><a href="#info-adicional">info-adicional</a></li>
+            </ul>
+        </div>
     </div>
+
+    <div class="row">
+        <div id="tabla-vacunacion" class="col s12 tab-body">
+            <div ng-include src="'views/tabla-vacunacion.html'"></div>
+        </div>
+        <div id="crear-vacuna" class="col s12 tab-body">
+          <div ng-include src="'views/crear-vacuna.html'"></div>
+        </div> 
+        <div id="info-adicional" class="col s12 tab-body">
+          <div ng-include src="'views/info-adicional.html'"></div>
+        </div>
+    </div>
+ 
 </div>
 
 <div class="card-panel center light-blue darken-3" ng-show="nino_error">
