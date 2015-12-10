@@ -1,55 +1,60 @@
 <div class="container">
-      <div class="row">
-        <div class="col s6" input-field>
-            <input type="text" ng-model="vacuna.id_nino" />
-            <label>id nino</label>
-        </div>
-        <div class="col s6" input-field>
-            <input type="text" ng-model="vacuna.id_vacuna" />
-            <label>id_vacuna</label>
-        </div>
+  <h5>Registrar Nueva Vacuna</h5>
+  <form class="col s12" name='nuevaVacunaForm' id='nuevaVacunaForm'
+      ng-submit='nuevaVacunaForm.$valid && saveVacuna(vacuna)'>
+
+    <div class="row">
+      <div class="col s6" input-field>
+          <label><b>Nombre Vacuna:</b> </br>{{nuevaVacuna.vacuna.nombre_vacuna}}</label>
       </div>
 
-      <div class="row">
-        <div class="col s6" input-field>
-            <input type="text" ng-model="vacuna.id_dosis_vacuna" />
-            <label>id_dosis_vacuna</label>
-        </div>
+      <div class="col s6" input-field>
+          <label><b>Dosis</b> </br>{{nuevaVacuna.dosis.nombre_dosis}}</br>{{nuevaVacuna.dosis.meses}} meses</label>
+      </div>
+    </div>
+</br></br></br>
+    <div class="row">
 
-        <div class="col s6">
-			<label for="inputCreated">Fecha de Nacimiento</label>
+    <div class="col s6">
+			<label for="inputCreated">Fecha de Vacunación</label>
 			<input input-date
 			    type="text"
 			    name="created"
 			    id="inputCreated"
-			    ng-model="consulta.fecha_nac"
+			    ng-model="nuevaVacuna.dosis.fecha_vacunacion"
 			    container="body"
 			    format="yyyy-mm-dd"
-			    today="null"
+			    today="Today"
 			    close="close"
-			    select-years="90"/>
+			    select-years="90" class="validate" required/>
         </div>
         <!-- <div class="col s6" input-field>
             <input type="text" ng-model="vacuna.fecha_vacunacion" />
             <label>fecha_vacunacion</label>
         </div>
          -->
+      
+        <div class="col s6" input-field>
+            <input type="text" ng-model="nuevaVacuna.dosis.centro_salud" class="validate" required/>
+            <label>Centro de Salud</label>
+        </div>
+
       </div>
 
       <div class="row">
         <div class="col s6" input-field>
-            <input type="text" ng-model="vacuna.centro_salud" />
-            <label>centro_salud</label>
-        </div>
-        <div class="col s6" input-field>
-            <input type="text" ng-model="vacuna.observaciones" />
-            <label>observaciones</label>
+            <input type="text" ng-model="nuevaVacuna.dosis.observaciones" />
+            <label>Observaciones</label>
         </div>
       </div>
       <div class="row">
-        <div class="col s12">
-			<button type="button" ng-click="saveVacuna(vacuna)" class="cyan darken-2 waves-effect waves-light btn" style="height: 60px; width: 100%;"> <i class="mdi-action-thumb-up"></i> Registrar Vacuna</button>
+        <div class="col s6">
+      <button type="submit" class="cyan darken-2 waves-effect waves-light btn" style="height: 60px; width: 100%;"> <i class="mdi-action-thumb-up"></i> Registrar Vacuna</button>
+        </div>
+        <div class="col s6">
+      <button type="reset" ng-click="cancelar()" class="cyan darken-2 waves-effect waves-light btn" style="height: 60px; width: 100%;"> <i class="mdi-action-thumb-down"></i> Cancelar</button>
         </div>
 
       </div>
+  </form>
 </div>
