@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['id_perfil'][0]['id_perfil'])){  
+     header('location:..');
+}
+else{
+    if($_SESSION['id_perfil'][0]['id_perfil']==3){
+        header('location:..');
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,8 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.min.css">
-    <link rel="stylesheet" href="/vendor/angular/xeditable/css/xeditable.css" >
-    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-app="eissonApp">
@@ -20,10 +32,15 @@
                     <img class="img-responsive center" src="../img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
-                    <li ng-class="{active: $route.current.activetab == 'usuarios'}" ><a href="#/">Usuarios</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
-                    <li><a href="../vacunas">Profesional de la Salud</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'salir'}" ><a href="../#/">Salir</a></li>
+                  <?php 
+                  
+                  if($_SESSION['id_perfil'][0]['id_perfil']==1){
+                  echo "<li><a href='../administracion'>Volver</a></li>" ;
+                    }?>                    
+                    <li ng-class="{active: $route.current.activetab == 'consultar'}" ><a href="#/consultar">Consultar</a></li>
+                    <!-- <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas x Niño</a></li> -->
+                    <li ng-class="{active: $route.current.activetab == 'vacunar'}" ><a href="#/vacunar-nino">Vacunar</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController"><a href="../#/" ng-click="salir()">Salir</a></li>
                   </ul>
             </div>
             </nav>
@@ -58,9 +75,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
+    <script src='https://code.angularjs.org/1.3.15/i18n/angular-locale_es-pe.js'></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.10.6/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/angular.moment/1.0.0-beta.3/angular-moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-    <script src="/vendor/angular/xeditable/js/xeditable.min.js"></script>
     <script src="/vendor/angular/angular-materialize/angular-materialize.js"></script>
     <script src="/vendor/angular/ui-select/dist/select.js"></script>
     <!-- App -->
