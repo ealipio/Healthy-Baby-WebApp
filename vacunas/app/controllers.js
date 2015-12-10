@@ -9,6 +9,7 @@
 
   angular
   .module('Controllers', [])
+  
   .filter('estadoFilter', function(){
   return function(id){
     var estados = ['Inactivo', 'Activo'];
@@ -56,8 +57,9 @@
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:1, numero:10360934};
+    
     $scope.getVacunas=function() {
-      $http.post ('api/getVacunas.php')
+      $http.post ('api/getVacunas.php', { fecha_nacimiento: $scope.nino_ws.fecha_nac, id_nino: $scope.nino_ws.nro_documento })
             .success(function(data) {
                     $scope.vacunas = data;
                     console.log(data);
@@ -103,13 +105,6 @@
       $scope.nuevaVacuna.vacuna = vacuna;
       
       $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.nro_documento;
-
-      //var f = new Date();
-      //var hoy = 
-      //document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
-
-      //$scope.nuevaVacuna.dosis.fecha = '2015-12-09';
-      //console.log($scope.nuevaVacuna);
     };
 
     $scope.saveVacuna = function(){
