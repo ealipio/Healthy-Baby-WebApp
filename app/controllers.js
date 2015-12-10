@@ -217,10 +217,10 @@
           alert("Error, el usuario y contraseña ingresados no concuerdan");
         } else if(response.login == "ok"){
             if(response.perfiles[0].id_perfil==1){
-                location.href= 'administracion/index.html';
+                location.href= 'administracion/#/';
             }
             else if(response.perfiles[0].id_perfil==2){
-                location.href= 'vacunas/index.html';
+                location.href= 'vacunas/#/consultar';
             }
           //location.href= 'administracion/index.html';
         }
