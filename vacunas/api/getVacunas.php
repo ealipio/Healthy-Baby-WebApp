@@ -3,9 +3,18 @@
 
 	$db  = new EissonConnect();
 	$dbh = $db->enchufalo();
+	$dato = json_decode(file_get_contents("php://input"));
 
-	$q = 'SELECT max(suma) as total from (SELECT count(id_dosis_vacunas) as suma from tb_dosis_vacunas
-			group by id_vacuna) as t';
+	$fecha_nac = split(" ", $dato->fecha_nacimiento);
+	$id_nino = $dato->id_nino;
+
+	//var_dump($fecha_nac);
+
+	$q = 'SELECT max(suma) as total from 
+		(SELECT count(dv.id_dosis_vacunas) as suma 
+		 from tb_dosis_vacunas dv inner join tb_vacunas va on dv.id_vacuna=va.id_vacuna
+		 where va.estado=1
+		group by dv.id_vacuna) as t';
 	$stmt = $dbh->prepare($q);
 	$stmt->execute();
 	$total= $stmt->fetch(PDO::FETCH_ASSOC);
@@ -21,19 +30,43 @@
 	$stmt->execute();
 	$r['vacunas'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-	$q = 'SELECT * from tb_dosis_vacunas';
+	$q = 'SELECT *, DATE_ADD(:fecha_nacimiento, INTERVAL meses MONTH) as fecha_estimada, 0 as vacunado
+			from tb_dosis_vacunas';
 	$stmt = $dbh->prepare($q);
+	$stmt->bindParam(':fecha_nacimiento',  $fecha_nac[0], PDO::PARAM_STR);
 	$stmt->execute();
+
 	$r['dosis'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+	// metiendo informacion en blanco sobre dosis para parsear columnas
 	foreach ($r['vacunas'] as $v) {
 
 		$falta=  $total['total'] - $v['nro_dosis'];
-		$arr = array('id_vacuna' => $v['id_vacuna'], 'nombre_dosis'=>'');
+		$arr = array('id_vacuna' => $v['id_vacuna'], 'nombre_dosis'=>'', 'id_dosis_vacunas'=>'');
 
 		for($i=0; $i < $falta; $i++){
 			array_push($r['dosis'], $arr);
 		}
+	}
+
+	$q = 'SELECT * from tb_vacunas_x_ninos
+			WHERE id_nino =:id_nino';
+	$stmt = $dbh->prepare($q);
+	$stmt->bindParam(':id_nino',  $id_nino, PDO::PARAM_STR);
+	$stmt->execute();
+
+	$r['vacuanasNino'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	$ii = 0;
+	foreach ($r['dosis'] as $v) {
+		$tmpActivo=0;
+		foreach ($r['vacuanasNino'] as $w) {
+			
+			if($v['id_dosis_vacunas'] == $w['id_dosis_vacunas']){
+				$r['dosis'][$ii]['vacunado'] = 1;
+			}
+		}
+		$ii++;
 	}
 
 	//var_dump($r);

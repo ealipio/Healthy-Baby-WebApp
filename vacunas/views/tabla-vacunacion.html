@@ -10,7 +10,13 @@
         <tbody>
             <tr ng-repeat="n in vacunas.vacunas">
                 <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
-                <td ng-click="crear_vacuna(m, n)" ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" ><a href="">{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></a></td>
+                <td ng-click="!m.vacunado && crear_vacuna(m, n)" ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" ><a href="">
+                <table><td ng-class="{'teal grey-text text-lighten-5':m.vacunado}">
+                    <span  ng-show="m.nombre_dosis">
+                        {{m.nombre_dosis}} <br> {{m.meses}} meses
+                    </span>
+               </table></td>    
+                </a></td>
                 <td >{{n.observaciones}}</td>
             </tr>
         </tbody>
