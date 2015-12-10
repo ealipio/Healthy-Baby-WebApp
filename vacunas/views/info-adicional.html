@@ -1,0 +1,61 @@
+<div class="container">
+      <div class="row">
+        <div class="col s12" input-field>
+            <p> DNI del niño : {{adicional.id_nino}}</p>
+        </div></div>
+
+		<div class="row">
+            <div class="col s12" input-field>
+            <input type="text" ng-model="adicional.peso" />
+            <label>Peso</label>
+        </div></div>
+
+        <div class="row">
+            <div class="col s12" input-field>
+            <input type="text" ng-model="adicional.talla" />
+            <label>Talla</label>
+        </div></div>
+
+        <div class="row">
+            <div class="col s12" input-field>
+            <input type="text" ng-model="adicional.nutrientes" />
+            <label>Nutrientes</label>
+        </div></div>
+
+        <div class="row">
+            <div class="col s12" input-field>
+            <input type="text" ng-model="adicional.observaciones" />
+            <label>Observaciones</label>
+        </div></div>
+
+        <div class="row">
+        <div class="col s12">
+			<label for="inputCreated">Fecha de toma de datos</label>
+			<input input-date
+			    type="text"
+			    name="created"
+			    id="inputCreated"
+			    ng-model="adicional.fecha_medicion"
+			    container="body"
+			    format="yyyy-mm-dd"
+			    today="null"
+			    close="close"
+			    select-years="90"/>
+        </div></div>
+      
+         <div class="row">
+            <div class="col s12" input-field>
+            <input type="text" ng-model="adicional.username" />
+            <label>Username</label>
+        </div></div>
+
+          </div>
+
+ 
+      <div class="row">
+        <div class="col s12">
+			<button type="button" ng-click="saveadicional(adicional)" class="cyan darken-2 waves-effect waves-light btn" style="height: 60px; width: 100%;"> <i class="mdi-action-thumb-up"></i> Guardar </button>
+        </div>
+
+      </div>
+</div>

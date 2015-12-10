@@ -1,6 +1,6 @@
 <?php
-  require_once('config/mysql.php');
-  include_once dirname(__FILE__) . '\config\config.php';
+  require_once('../../api/config/mysql.php');
+  include_once dirname(__FILE__) . '../../api/config/config.php';
   
   $db  = new EissonConnect();
   $dbh = $db->enchufalo();

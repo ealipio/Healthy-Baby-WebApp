@@ -1,0 +1,21 @@
+<h4>Tabla de Vacunación</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Vacuna</th>
+                <th ng-repeat="j in vacunas.total">DOSIS {{$index +1}}</th>
+                <th>Observacionessss</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="n in vacunas.vacunas">
+                <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
+                <td ng-click="crear_vacuna(m, n)" ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" ><a href="">{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></a></td>
+                <td >{{n.observaciones}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="enviar">
+        <a class="btn" href='#/adicional/{{nino_ws.nro_documento}}'>Registrar Info Adicional</a>
+        <!-- <button class="btn" ng-click='realizarRegistro(nino_ws)'>Registrar Info Adicional</button> -->
+    </div>

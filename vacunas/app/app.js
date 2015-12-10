@@ -7,6 +7,7 @@ var app = angular.module('eissonApp', [
   'ngAnimate',
   'angular-loading-bar',
   'ui.materialize',
+  'angularMoment',
   'Controllers']);
 
     app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
@@ -32,8 +33,13 @@ var app = angular.module('eissonApp', [
           caseInsensitiveMatch: true,
           controller: 'VacunarNinoController',
           activetab: 'vacunar'
+          }).
+        when('/adicional/:id', {
+          templateUrl: 'views/info-adicional.html',
+          caseInsensitiveMatch: true,
+          controller: 'InfoAdicionalController',
+          activetab: 'vacunar'
         }).
-
         otherwise({
           redirectTo: '/vacunar-nino'
         });
