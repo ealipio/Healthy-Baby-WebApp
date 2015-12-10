@@ -7,6 +7,14 @@
  */
 
 /* Footer Adhesivo  */
+header{
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+#container{
+  margin-top: 90px;
+}
  body {
     display: flex;
     min-height: 100vh;
@@ -16,6 +24,10 @@
   main {
     flex: 1 0 auto;
   }
+
+  #acerca_text{
+  font-size: 125%;
+}
 /* Fin del footer Adhesivo  */
 
 nav ul a,

@@ -7,6 +7,14 @@
  */
 
 /* Footer Adhesivo  */
+header{
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+#container{
+  margin-top: 90px;
+}
  body {
     display: flex;
     min-height: 100vh;
@@ -26,6 +34,7 @@ nav .brand-logo {
 p {
   line-height: 2rem;
 }
+
 
 footer.page-footer {
   margin: 0;

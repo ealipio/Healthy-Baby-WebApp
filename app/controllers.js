@@ -53,8 +53,6 @@
 .controller('CentrosController',['$rootScope', '$scope', '$timeout', '$log', 'uiGmapGoogleMapApi', '$http',
   function ($rootScope, $scope, $timeout, $log, GoogleMapApi, $http) {
     $scope.init = function(){
-      alert("1");
-
         $http.post ('api/getCentros.php')
         .success(function(data) {
                 $scope.data = data;
@@ -65,7 +63,6 @@
                 console.log('Error: ' + data);
         });
     };
-
 
   var latituden;
   var longitudn;
@@ -79,21 +76,14 @@
    $scope.load= function(){
      //when the API is really ready and loaded play w/ the scope
       GoogleMapApi.then(function (map) {
-        alert("2");
 
           if (navigator.geolocation) {
-alert("3");
-
               navigator.geolocation.getCurrentPosition(function(position) {
-
                 latituden = position.coords.latitude;
                 longitudn = position.coords.longitude;
                //console.log(latituden,longitudn);
-               alert("4");
-
                 $scope.printPosition();
                 $scope.printMarkers();
-                alert("5");
 
               }, function() {
                    latituden = -12.045865;
@@ -133,7 +123,6 @@ alert("3");
     $scope.mimapa=true;
     //console.log($scope.map);
         $scope.map.markers = [
-
         {
           id: "user",
           location: {
@@ -148,11 +137,8 @@ alert("3");
           showWindow: false
         }];
    };
-
  $scope.printMarkers= function(){
-
   for( var i=1;i<$scope.data.length+1;i++){
-
     $scope.map.markers[i] = {
           id: i-1,
             location: {
@@ -166,7 +152,6 @@ alert("3");
             },
             showWindow: false
     }
-
       $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
       if($scope.dist_rela<$scope.min){
         $scope.min = $scope.dist_rela;
@@ -181,7 +166,6 @@ alert("3");
         //console.log($scope.min);
       }
   }
-
       $scope.map.markerEvents = {
         click: function (gMarker, eventName, model, latLngArgs) {
           var id = model.idKey || model.id;
