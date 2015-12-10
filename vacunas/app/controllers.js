@@ -124,6 +124,10 @@
 
     };
 
+    $scope.cancelar_vacuna = function(){
+      $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+    };
+
   }])
   .controller('InfoAdicionalController',['$scope', '$route', '$routeParams','$http', function($scope, $route, $routeParams, $http){
     console.log($routeParams);
@@ -147,7 +151,5 @@
   }])
 
 ;
-
-  
 
 })();
