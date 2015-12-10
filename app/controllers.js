@@ -53,6 +53,8 @@
 .controller('CentrosController',['$rootScope', '$scope', '$timeout', '$log', 'uiGmapGoogleMapApi', '$http',
   function ($rootScope, $scope, $timeout, $log, GoogleMapApi, $http) {
     $scope.init = function(){
+      alert("1");
+
         $http.post ('api/getCentros.php')
         .success(function(data) {
                 $scope.data = data;
@@ -77,15 +79,22 @@
    $scope.load= function(){
      //when the API is really ready and loaded play w/ the scope
       GoogleMapApi.then(function (map) {
+        alert("2");
+
           if (navigator.geolocation) {
+alert("3");
 
               navigator.geolocation.getCurrentPosition(function(position) {
 
                 latituden = position.coords.latitude;
                 longitudn = position.coords.longitude;
                //console.log(latituden,longitudn);
+               alert("4");
+
                 $scope.printPosition();
                 $scope.printMarkers();
+                alert("5");
+
               }, function() {
                    latituden = -12.045865;
                    longitudn = -77.030562;
