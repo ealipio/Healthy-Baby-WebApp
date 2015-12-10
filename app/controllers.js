@@ -64,7 +64,6 @@
         });
     };
 
-
   var latituden;
   var longitudn;
   var imagen_user = '../minsa/img/user.png';
@@ -77,15 +76,15 @@
    $scope.load= function(){
      //when the API is really ready and loaded play w/ the scope
       GoogleMapApi.then(function (map) {
+
           if (navigator.geolocation) {
-
               navigator.geolocation.getCurrentPosition(function(position) {
-
                 latituden = position.coords.latitude;
                 longitudn = position.coords.longitude;
                //console.log(latituden,longitudn);
                 $scope.printPosition();
                 $scope.printMarkers();
+
               }, function() {
                    latituden = -12.045865;
                    longitudn = -77.030562;
@@ -124,7 +123,6 @@
     $scope.mimapa=true;
     //console.log($scope.map);
         $scope.map.markers = [
-
         {
           id: "user",
           location: {
@@ -139,11 +137,8 @@
           showWindow: false
         }];
    };
-
  $scope.printMarkers= function(){
-
   for( var i=1;i<$scope.data.length+1;i++){
-
     $scope.map.markers[i] = {
           id: i-1,
             location: {
@@ -157,7 +152,6 @@
             },
             showWindow: false
     }
-
       $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
       if($scope.dist_rela<$scope.min){
         $scope.min = $scope.dist_rela;
@@ -172,7 +166,6 @@
         //console.log($scope.min);
       }
   }
-
       $scope.map.markerEvents = {
         click: function (gMarker, eventName, model, latLngArgs) {
           var id = model.idKey || model.id;
