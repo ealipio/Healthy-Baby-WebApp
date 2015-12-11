@@ -32,6 +32,8 @@
     //
   }])
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
+    $route.current.activetab ? $scope.$route = $route : null
+    
     $scope.nino = {tipo:1, numero:10360934};
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;

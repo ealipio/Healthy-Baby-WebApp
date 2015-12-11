@@ -15,11 +15,11 @@ var app = angular.module('eissonApp', [
       cfpLoadingBarProvider.latencyThreshold = 1;
 
       $routeProvider.
-        when('/consultar', {
+        when('/', {
           templateUrl: 'views/consultar.html',
           caseInsensitiveMatch: true,
           controller: 'ConsultarController',
-          activetab: 'Consultar'
+          activetab: 'consultar'
         }).
         when('/vacunar-nino', {
           templateUrl: 'views/vacunar-nino.html',
@@ -34,7 +34,7 @@ var app = angular.module('eissonApp', [
           activetab: 'vacunar'
         }).
         otherwise({
-          redirectTo: '/vacunar-nino'
+          redirectTo: '/consultar'
         });
 
       }]);

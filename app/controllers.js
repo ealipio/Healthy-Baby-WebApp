@@ -282,7 +282,7 @@
                 location.href= 'administracion/#/';
             }
             else if(response.perfiles[0].id_perfil==2){
-                location.href= 'vacunas/#/consultar';
+                location.href= 'vacunas/#/';
             }
           //location.href= 'administracion/index.html';
         }
