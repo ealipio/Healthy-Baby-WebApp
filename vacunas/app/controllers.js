@@ -160,7 +160,7 @@
                 })
             .error(function(data) {
                     console.log('Error: ' + data);
-                     alert("no succes");
+                     //alert("no succes");
             });
           };
   }])

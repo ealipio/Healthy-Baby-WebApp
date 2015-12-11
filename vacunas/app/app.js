@@ -15,13 +15,6 @@ var app = angular.module('eissonApp', [
       cfpLoadingBarProvider.latencyThreshold = 1;
 
       $routeProvider.
-
-        when('/vacunas', {
-          templateUrl: 'views/crear-vacuna.html',
-          caseInsensitiveMatch: true,
-          controller: 'VacunasController',
-          activetab: 'vacunas'
-        }).
         when('/consultar', {
           templateUrl: 'views/consultar.html',
           caseInsensitiveMatch: true,
