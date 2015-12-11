@@ -30,10 +30,12 @@
 	$stmt->execute();
 	$r['vacunas'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-	$q = 'SELECT *, DATE_ADD(:fecha_nacimiento, INTERVAL meses MONTH) as fecha_estimada, 0 as vacunado
+	$q = 'SELECT * , DATE_ADD(:fecha_nacimiento, INTERVAL meses MONTH) as fecha_estimada, 0 as  vacunado, IF(datediff(now(), DATE_ADD(:fecha_nacimiento1, INTERVAL meses MONTH))<0,1,2) as estimado
 			from tb_dosis_vacunas';
+
 	$stmt = $dbh->prepare($q);
 	$stmt->bindParam(':fecha_nacimiento',  $fecha_nac[0], PDO::PARAM_STR);
+	$stmt->bindParam(':fecha_nacimiento1',  $fecha_nac[0], PDO::PARAM_STR);
 	$stmt->execute();
 
 	$r['dosis'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
