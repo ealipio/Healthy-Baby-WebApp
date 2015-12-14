@@ -273,5 +273,18 @@
   .controller('AdminController',['$scope', '$http', function($scope, $http){
     //
   }])
+  .controller('logoutController',['$scope', '$route','$http', function($scope, $route, $http){
+
+    $scope.salir = function(){
+     $http.post('api/logout.php')
+        .success(function(data) {
+                console.log(data);
+            })
+        .error(function(data) {
+                console.log('Error: ' + data);
+                 //alert("no succes");
+        });
+      };
+  }])
 
 })();

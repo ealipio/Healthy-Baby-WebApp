@@ -28,6 +28,7 @@ $r = $stmt->fetch(PDO::FETCH_ASSOC);
 if ( $r ) {
 	
 	$_SESSION['id_usuario'] = $r['username'];
+	
 
 	$q = 'SELECT tbhp.id_perfil, tp.nombre_perfil
 			FROM tb_usuarios_x_perfil tbhp
@@ -39,6 +40,10 @@ if ( $r ) {
 	$stmt->execute();
 	$rpta['perfiles'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+	$_SESSION['id_perfil'] = $rpta['perfiles'];
+	$_SESSION['usuario'] = $usuario;
+
+	//echo $rpta['perfiles'];
 	//$_SESSION['id_perfil'] = $r['id_perfil'];
 	//$_SESSION['nombre_perfil'] = $r['nombre_perfil'];
 

@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['id_perfil'][0]['id_perfil'])){  
+     header('location:..');
+     echo"no existe";
+}
+else{
+    if($_SESSION['id_perfil'][0]['id_perfil']==2){
+        header('location:..');
+    }
+}
+//echo $_SESSION['id_perfil'][0]['id_perfil'];
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,8 +36,8 @@
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
                     <li ng-class="{active: $route.current.activetab == 'usuarios'}" ><a href="#/">Usuarios</a></li>
                     <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
-                    <li><a href="../vacunas">Profesional de la Salud</a></li>
-                    <li ng-class="{active: $route.current.activetab == 'salir'}" ><a href="../#/">Salir</a></li>
+                    <li><a href="../vacunas/#/">Profesional de la Salud</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController"><a href="../#/" ng-click="salir()">Salir</a></li>
                   </ul>
             </div>
             </nav>

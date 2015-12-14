@@ -1,5 +1,5 @@
 <?php
-	require_once('../../api/config/mysql.php');
+	require_once('config/mysql.php');
 
 	$db  = new EissonConnect();
 	$dbh = $db->enchufalo();

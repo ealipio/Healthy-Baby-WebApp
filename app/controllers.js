@@ -16,13 +16,23 @@
     };
   })
 
+  .filter('documento', function(){
+    return function(input){
+      var documento = ["", "DNI", "CUI"];
+      return documento[input];
+    };
+  })
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
-      $scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
+      $scope.nino = {tipo:1, numero:10360934};
+      $scope.subs = {};
+      $scope.subs.correo="";
+      //$scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
 
       $route.current.activetab ? $scope.$route = $route : null;
+      /*
       $scope.consultar = function(nene){
         //console.log(nene);
         $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
@@ -30,19 +40,71 @@
             //$scope.respuesta = response;
         });
       };
-    }])
+      */
 
-  .controller('CrearVacunaController',['$scope', '$route','$http', function($scope, $route, $http){
-    //console.log($route.current);
-    //saveVacuna
-    $scope.vacuna = {};
-      $scope.saveVacuna = function(vacuna){
-        console.log(vacuna);
-        $http({method:'POST',url: 'api/crear-vacuna.php',data:$.param({data: vacuna}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-            console.log(response);
-        });
-      };
-  }])
+    $scope.getVacunas=function() {
+      
+      $http.post ('api/getVacunas.php', { fecha_nacimiento: $scope.nino_ws.fecha_nac, id_nino: $scope.nino_ws.nro_documento })
+          .success(function(data) {
+                  $scope.vacunas = data;
+                  console.log(data);
+              })
+          .error(function(data) {
+                  console.log('Error: ' + data);
+          });
+    };
+
+    $scope.buscarNino = function(nino){
+      delete $scope.nino_error;
+      delete $scope.nino_ws;
+      if(nino.numero){
+        //alert('Estamos consultando el webservice por favor espere');
+      } else {
+        alert('Por favor complete todos los campos.');
+      }
+      // consumir el webservice con esa info
+      //http://localhost/minsa/vacunas/api/webservice.php?nro_documento=10360934
+      $http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+          console.log(response);
+          if(response.error){
+            $scope.nino_error = response;
+          } else{
+            //
+            $scope.nino_ws = response;
+            $scope.getVacunas();
+            $scope.getCorreos();
+            
+          }
+      });
+    };
+
+    $scope.suscribirse = function(data){
+        console.log(data.correo);
+        if(data.correo.length>0){
+          $http.post ('api/guardarSuscripcion.php', { id_nino: $scope.nino_ws.nro_documento, correo: data.correo })
+            .success(function(data) {
+                console.log(data);
+              })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+        }
+    };
+
+    $scope.getCorreos=function() {
+      
+      $http.post ('api/getCorreos.php', { id_nino: $scope.nino_ws.nro_documento })
+          .success(function(data) {
+                  $scope.correos = data;
+                  console.log(data);
+              })
+          .error(function(data) {
+                  console.log('Error: ' + data);
+          });
+    };
+
+
+    }])
 
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     //console.log($route.current);
@@ -217,10 +279,10 @@
           alert("Error, el usuario y contraseña ingresados no concuerdan");
         } else if(response.login == "ok"){
             if(response.perfiles[0].id_perfil==1){
-                location.href= 'administracion/index.html';
+                location.href= 'administracion/#/';
             }
             else if(response.perfiles[0].id_perfil==2){
-                location.href= 'vacunas/index.html';
+                location.href= 'vacunas/#/';
             }
           //location.href= 'administracion/index.html';
         }

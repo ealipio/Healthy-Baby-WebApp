@@ -9,6 +9,7 @@
 
   angular
   .module('Controllers', [])
+  
   .filter('estadoFilter', function(){
   return function(id){
     var estados = ['Inactivo', 'Activo'];
@@ -31,6 +32,8 @@
     //
   }])
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
+    $route.current.activetab ? $scope.$route = $route : null
+    
     $scope.nino = {tipo:1, numero:10360934};
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;
@@ -56,8 +59,9 @@
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:1, numero:10360934};
+    
     $scope.getVacunas=function() {
-      $http.post ('api/getVacunas.php')
+      $http.post ('api/getVacunas.php', { fecha_nacimiento: $scope.nino_ws.fecha_nac, id_nino: $scope.nino_ws.nro_documento })
             .success(function(data) {
                     $scope.vacunas = data;
                     console.log(data);
@@ -103,13 +107,6 @@
       $scope.nuevaVacuna.vacuna = vacuna;
       
       $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.nro_documento;
-
-      //var f = new Date();
-      //var hoy = 
-      //document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
-
-      //$scope.nuevaVacuna.dosis.fecha = '2015-12-09';
-      //console.log($scope.nuevaVacuna);
     };
 
     $scope.saveVacuna = function(){
@@ -154,6 +151,20 @@
   .controller('InfoAdicionalController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($routeParams);
     
+  }])
+
+  .controller('logoutController',['$scope', '$route','$http', function($scope, $route, $http){
+
+    $scope.salir = function(){
+         $http.post('api/logout.php')
+            .success(function(data) {
+                    console.log(data);
+                })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+                     //alert("no succes");
+            });
+          };
   }])
 
 ;
