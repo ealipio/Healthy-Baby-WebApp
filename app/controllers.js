@@ -22,6 +22,14 @@
       return documento[input];
     };
   })
+
+  .filter('negativo', function(){
+  return function(id){
+    var valor= id*(-1);
+
+      return valor;
+    };
+  })
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
@@ -84,6 +92,7 @@
           $http.post ('api/guardarSuscripcion.php', { id_nino: $scope.nino_ws.nro_documento, correo: data.correo })
             .success(function(data) {
                 console.log(data);
+                $scope.correos.push({'email': data.email});
               })
             .error(function(data) {
                     console.log('Error: ' + data);

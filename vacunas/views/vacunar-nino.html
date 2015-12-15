@@ -38,7 +38,7 @@
             <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.fecha_nac.split(' ')[0] | amDifference : null : 'days' }} Meses</span>
+                    <span>{{nino_ws.fecha_nac.split(' ')[0] | amDifference : null : 'days' | negativo }} Días</span>
                 </td>
             </tr>
         </tbody>

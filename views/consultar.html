@@ -1,3 +1,9 @@
+<style>
+    
+    .gc td{border:1px solid #ddd;}
+    .gc th{background:#333; color:#fff;}
+</style>
+
 <h4>Consultar:</h4>
   <div class="row">
     <div class="col s5 input-field">
@@ -35,12 +41,12 @@
                 <td>Nacimiento:</td>
                 <td> {{nino_ws.fecha_nac.split(' ')[0] | date:'fullDate' }} </td>
             </tr>
-           <!-- <tr>
+           <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.fecha_nac.split(' ')[0] | amDifference : null : 'months' }} Meses</span>
+                    <span>{{nino_ws.fecha_nac.split(' ')[0] | amDifference : null : 'days' | negativo }} Días</span>
                 </td>
-            </tr>-->
+            </tr>
         </tbody>
     </table>
 
@@ -78,7 +84,7 @@
 </br>
     <div class="row col s6" ng-show='correos'>
         <h6>Emails suscritos:</h6>   
-        <table class="table table-bordered">
+        <table class="table table-bordered gc">
             <thead>
                 <tr>
                     <th>Email</th>

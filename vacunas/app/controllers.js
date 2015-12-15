@@ -17,6 +17,15 @@
     };
   })
 
+  .filter('negativo', function(){
+  return function(id){
+    var valor= id*(-1);
+
+      return valor;
+    };
+  })
+
+
   .filter('documento', function(){
     return function(input){
       var documento = ["", "DNI", "CUI"];
