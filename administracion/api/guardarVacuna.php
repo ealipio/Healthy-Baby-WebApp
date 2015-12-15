@@ -8,6 +8,7 @@
   $vacuna = $rspta->vacuna;
   $dosis = $rspta->dosis;
 
+var_dump($vacuna);
 
 	$q = 'INSERT INTO tb_vacunas (nombre_vacuna, observaciones, estado, created_at) 
 			values (:nombre_vacuna, :observaciones, :estado, CURRENT_TIMESTAMP)';
@@ -22,7 +23,7 @@
 	$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 	foreach ($dosis as $vdosis => $value) {
-		//var_dump($value->nombre_dosis);
+		var_dump($value->nombre_dosis);
 
 		$q = 'INSERT INTO tb_dosis_vacunas (nombre_dosis, meses, id_vacuna, created_at) 
 			values (:nombre_dosis, :meses, :id_vacuna, CURRENT_TIMESTAMP)';

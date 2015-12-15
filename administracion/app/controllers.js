@@ -198,8 +198,8 @@
     $scope.vacunas.dosis=[];
    
     $scope.registro_vacuna = function(va, ds){
-      console.log(va);
-      console.log(ds);
+      //console.log(va);
+      //console.log(ds);
         
         //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
         $http.post('api/guardarVacuna.php', {vacuna :va, dosis: ds})
@@ -208,16 +208,22 @@
            })
           .error(function(data) {
             console.log('Error: ' + data);
-            alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+            alert("Se encontró un error al intentar crear una nueva vacuna. Favor contactarse con el administrador del sistema.");
           });
       }
 
       $scope.agregar_dosis = function(ds){
-      console.log(ds);
+     // console.log(ds);
+
+        if(ds.nombre_dosis!="" && ds.meses!=""){
           var elemento = {"nombre_dosis":ds.nombre_dosis,"meses":ds.meses};
-        $scope.vacunas.dosis.push(elemento);
-        $scope.ds.nombre_dosis="";
-        $scope.ds.meses="";
+          $scope.vacunas.dosis.push(elemento);
+          $scope.ds.nombre_dosis="";
+          $scope.ds.meses="";
+        }
+        else{
+          alert('Favor de completar todos los campos de la dosis.');
+        }
       }
 
       $scope.deleteDosis = function(i){ $scope.vacunas.dosis.splice(i,1); }
@@ -238,7 +244,7 @@
            })
           .error(function(data) {
             console.log('Error: ' + data);
-            alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+            alert("Se encontró un error al intentar buscar la vacuna. Favor contactarse con el administrador del sistema.");
           });
         }
 

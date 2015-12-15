@@ -2,7 +2,7 @@
 
 <h2>Nueva Vacuna:</h2></br></br>
 <form class="col s12" name='nuevaVacunaForm' id='nuevaVacunaForm'
-      ng-submit='nuevaVacunaForm.$valid && agregar_dosis(ds)'>
+      ng-submit='nuevaVacunaForm.$valid && registro_vacuna(va, vacunas.dosis)'>
   <div class="row">
     <div class="input-field col s6">
       <input id="nombre_vacuna" ng-model='va.nombre_vacuna' type="text" class="validate" required>
@@ -38,11 +38,11 @@
       <label for="nombre_vacuna">Nombre Dosis</label>
     </div>
     <div class="input-field col s4">
-      <input id="estado" ng-model='ds.meses' type="text" class="validate">
+      <input id="estado" ng-model='ds.meses' type="number" class="validate">
       <label for="estado">Tiempo aplicación (meses)</label>
     </div>
     <div class="col-sm-offset-1 col-sm-3">
-      <button type='submit' class="btn btn-primary" >Agregar Dosis</button>
+      <button type='button' ng-click="agregar_dosis(ds)" class="btn btn-primary">Agregar Dosis</button>
     </div>
   </div>
 
