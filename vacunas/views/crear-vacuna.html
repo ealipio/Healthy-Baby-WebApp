@@ -14,14 +14,18 @@
     </div>
 </br></br></br>
     <div class="row">
-
-    <div class="col s6" input-field>
-			
-			<input type="text"
-			    id="inputCreated"
-			    ng-model="nuevaVacuna.dosis.fecha_vacunacion"
-			   class="validate" required/>
-         <label for="inputCreated">Fecha de Vacunación</label>
+ <div class="col s6">
+      <label for="inputCreated">Fecha de Vacunación</label>
+      <input input-date
+          type="text"
+          name="created"
+          id="inputCreated"
+          ng-model="nuevaVacuna.dosis.fecha_vacunacion"
+          container="body"
+          format="yyyy-mm-dd"
+          today="Today"
+          close="close"
+          select-years="90" class="validate" required/>
         </div>
         <!-- <div class="col s6" input-field>
             <input type="text" ng-model="vacuna.fecha_vacunacion" />
