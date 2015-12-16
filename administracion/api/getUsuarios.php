@@ -4,7 +4,8 @@
   $db  = new EissonConnect();
   $dbh = $db->enchufalo();
 
-	$q = 'SELECT username,nombres,apellido_paterno,apellido_materno,centro_salud from tb_usuarios';
+	$q = 'SELECT username,nombres,apellido_paterno,apellido_materno,centro_salud
+		from tb_usuarios where activo=1';
 	$stmt = $dbh->prepare($q);
 	$stmt->execute();
 	$r['usuarios'] = $stmt->fetchAll(PDO::FETCH_ASSOC);

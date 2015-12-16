@@ -98,12 +98,14 @@
       }
     $scope.registro_usuario = function(us){
         us.perfiles = [];
-        $.each(us.perfil,function(i,v){
-
-        var elemento = {"id_perfil": i};
-            us.perfiles.push(elemento);
-        })
-
+        
+        if(us.perfil){
+          $.each(us.perfil,function(i,v){
+        
+          var elemento = {"id_perfil": i};
+              us.perfiles.push(elemento);
+          })
+        }
         //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
         $http.post('api/guardarUsuario.php', {usuario :us})
           .success(function(response) {
@@ -223,13 +225,17 @@
       }
 
       $scope.agregar_dosis = function(ds){
-     // console.log(ds);
-
-        if(ds.nombre_dosis!="" && ds.meses!=""){
-          var elemento = {"nombre_dosis":ds.nombre_dosis,"meses":ds.meses};
-          $scope.vacunas.dosis.push(elemento);
-          $scope.ds.nombre_dosis="";
-          $scope.ds.meses="";
+      console.log(ds);
+        if(ds){
+          if(ds.nombre_dosis && ds.meses){
+            var elemento = {"nombre_dosis":ds.nombre_dosis,"meses":ds.meses};
+            $scope.vacunas.dosis.push(elemento);
+            $scope.ds.nombre_dosis="";
+            $scope.ds.meses="";
+          }
+          else{
+            alert('Favor de completar todos los campos de la dosis.');
+          }
         }
         else{
           alert('Favor de completar todos los campos de la dosis.');

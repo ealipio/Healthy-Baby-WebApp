@@ -2,6 +2,9 @@
     
     .gc td{border:1px solid #ddd;}
     .gc th{background:#333; color:#fff;}
+
+    
+
 </style>
 
 <h4>Consultar:</h4>
@@ -14,7 +17,7 @@
         </select>
     </div>
     <div class="col s5" input-field>
-        <input type="number" ng-model="nino.numero" />
+        <input type="number" min=0 ng-model="nino.numero" />
         <label>Numero documento</label>
     </div>
     <div class="col s2 input-field">

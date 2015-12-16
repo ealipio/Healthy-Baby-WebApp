@@ -15,8 +15,8 @@
 	//var_dump($dato->perfiles);
 
 
-	$q = 'INSERT INTO tb_usuarios (`username`,`password`,`nombres`,`apellido_paterno`,`apellido_materno`,`centro_salud`,`created_at`) 
-			values (:username, AES_ENCRYPT(:password,:llave) , :nombres, :apellido_paterno, :apellido_materno, :centro_salud, CURRENT_TIMESTAMP)';
+	$q = 'INSERT INTO tb_usuarios (`username`,`password`,`nombres`,`apellido_paterno`,`apellido_materno`,`centro_salud`, `activo`, `created_at`) 
+			values (:username, AES_ENCRYPT(:password,:llave) , :nombres, :apellido_paterno, :apellido_materno, :centro_salud, 1, CURRENT_TIMESTAMP)';
 	
 	$stmt = $dbh->prepare($q);
 	$stmt->bindParam(':username',  $dato->username, PDO::PARAM_STR);
