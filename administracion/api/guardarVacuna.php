@@ -24,6 +24,7 @@
 
 
 	if($valor1){
+		$valor2=true;
 		foreach ($dosis as $vdosis => $value) {
 
 			$q = 'INSERT INTO tb_dosis_vacunas (nombre_dosis, meses, id_vacuna, created_at) 

@@ -9,9 +9,7 @@ else{
         header('location:..');
     }
 }
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="es">
 <head>
     <title>MINSA</title>

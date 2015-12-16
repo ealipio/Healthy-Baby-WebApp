@@ -1,6 +1,5 @@
 <?php
   require_once('../../api/config/mysql.php');
-  include_once dirname(__FILE__) . '../../api/config/config.php';
   
   $db  = new EissonConnect();
   $dbh = $db->enchufalo();
@@ -35,17 +34,16 @@
 		foreach ($perfil as $v) {
 			
 			$stmt = $dbh->prepare($q);
-			var_dump($v);
+			//var_dump($v);
 			if($v->valor == 1){
 				$q = 'INSERT INTO tb_usuarios_x_perfil (username, id_perfil) 
 				values (:username, :id_perfil)';
-				echo "entro:".$v->id_perfil;
+
 				$stmt = $dbh->prepare($q);
 				$stmt->bindParam(':username',  $usuario->username, PDO::PARAM_STR);
 				$stmt->bindParam(':id_perfil',  $v->id_perfil, PDO::PARAM_STR);
 				$stmt->execute();
 			}
-			
 		}
 	}
 
