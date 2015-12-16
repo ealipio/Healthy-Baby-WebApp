@@ -31,15 +31,15 @@ else{
                 <a id="logo-container" class="navbar-brand white-text" href="#/">
                     <img class="img-responsive center" src="../img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
-                  <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
-                  <?php 
-                  
-                  if($_SESSION['id_perfil'][0]['id_perfil']==1){
-                  echo "<li><a href='../administracion'>Volver</a></li>" ;
-                    }?>                    
+                  <ul class="right hide-on-med-and-down" ng-controller='TabsController'>                
                     <li ng-class="{active: $route.current.activetab == 'consultar'}" ><a href="#/">Consultar</a></li>
                     <!-- <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas x Niño</a></li> -->
                     <li ng-class="{active: $route.current.activetab == 'vacunar'}" ><a href="#/vacunar-nino">Vacunar</a></li>
+                    <?php 
+                  
+                  if($_SESSION['id_perfil'][0]['id_perfil']==1){
+                  echo "<li><a href='../administracion'>Módulo de Administración</a></li>" ;
+                    }?>
                     <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController"><a href="../#/" ng-click="salir()">Salir</a></li>
                   </ul>
             </div>

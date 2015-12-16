@@ -22,12 +22,13 @@
 		$stmt->bindParam(':fecha_vacunacion',  $vacuna->fecha_vacunacion, PDO::PARAM_STR);
 		$stmt->bindParam(':centro_salud',  $vacuna->centro_salud, PDO::PARAM_STR);
 		$stmt->bindParam(':observaciones',  $vacuna->observaciones, PDO::PARAM_STR);
-		$stmt->execute();
+		$valor= $stmt->execute();
 
-		echo"Vacuna guardada correctamente.";
+		echo json_encode($valor);
 	}
 	else{
-		echo"Error al intentar guardar vacuna";
+		$valor= FALSE;
+		echo json_encode($valor);
 	}
 
 ?>

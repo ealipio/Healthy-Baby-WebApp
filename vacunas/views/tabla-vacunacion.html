@@ -10,12 +10,14 @@
         <tbody>
             <tr ng-repeat="n in vacunas.vacunas">
                 <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
-                <td ng-click="!m.vacunado && crear_vacuna(m, n)" ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" ><a href="">
-                <table><td ng-class="{'green accent-4 white-text':m.vacunado=='1', 'light-blue darken-4 white-text':(m.estimado=='1' && m.vacunado=='0'), 'red accent-4 white-text':(m.estimado=='2' && m.vacunado=='0')}">
+                <td ng-click="m.vacunado=='0' && crear_vacuna(m, n)" ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}:true" ><a href="">
+                <table><td ng-class="{'green white-text':m.vacunado=='1', 'blue white-text':(m.estimado=='1' && m.vacunado=='0'), 'red white-text':(m.estimado=='2' && m.vacunado=='0')}">
                     <span  ng-show="m.nombre_dosis">
                         {{m.nombre_dosis}} <br> {{m.meses}} meses
                     </span>
-               </table></td>    
+                    </td>
+               </table>
+
                 </a></td>
                 <td >{{n.observaciones}}</td>
             </tr>
@@ -28,13 +30,13 @@
             &nbsp;
         </div>
         <div class="col s8 center">
-            <div class="col s4 green accent-4 white-text">
+            <div class="col s4 green white-text">
                 <label class="white-text">Vacuna Puesta</label>
             </div>
-            <div class="col s4 red accent-4 white-text">
+            <div class="col s4 red white-text">
                 <label class="white-text">Vacuna Pendiente</label>
             </div>
-            <div class="col s4 light-blue darken-4 white-text">
+            <div class="col s4 blue white-text">
                 <label class="white-text">Próximas Vacunas</label>
             </div>
             

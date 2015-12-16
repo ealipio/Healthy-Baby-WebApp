@@ -24,6 +24,7 @@ else{
     <link rel="stylesheet" href="/vendor/angular/xeditable/css/xeditable.css" >
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body ng-app="eissonApp">
     <main>
@@ -36,7 +37,7 @@ else{
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
                     <li ng-class="{active: $route.current.activetab == 'usuarios'}" ><a href="#/">Usuarios</a></li>
                     <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
-                    <li><a href="../vacunas/#/">Profesional de la Salud</a></li>
+                    <li><a href="../vacunas/#/">Módulo de Vacunación</a></li>
                     <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController"><a href="../#/" ng-click="salir()">Salir</a></li>
                   </ul>
             </div>

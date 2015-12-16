@@ -23,6 +23,16 @@
       return estados[id];
     };
   })
+
+.filter('DosisVacunas', function(){
+  return function(id){
+    console.log(id);
+
+    //var estados = ['Inactivo', 'Activo'];
+      return id;
+    };
+  })
+
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($route.current);
      $scope.$route = $route;

@@ -24,7 +24,6 @@
 	$stmt->bindParam(':observaciones',  $vacuna->observaciones, PDO::PARAM_STR);
 	$stmt->bindParam(':estado',  $vacuna->estado, PDO::PARAM_INT);
 	$stmt->execute();
-	$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 	foreach ($dosis as $v) {
 		var_dump($v);
@@ -36,7 +35,6 @@
 			$stmt->bindParam(':meses',  $v->meses, PDO::PARAM_STR);
 			$stmt->bindParam(':id_vacuna',  $vacuna->id_vacuna, PDO::PARAM_INT);
 			$stmt->execute();
-			$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 		
 	}

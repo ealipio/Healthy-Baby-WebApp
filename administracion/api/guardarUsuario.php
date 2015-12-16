@@ -5,7 +5,7 @@
   $db  = new EissonConnect();
   $dbh = $db->enchufalo();
   $rspta = json_decode(file_get_contents("php://input"));
-  $dato=$rspta->usuario;
+  $dato= $rspta->usuario;
 
   $clave = CLAVE;
 
@@ -26,24 +26,23 @@
 	$stmt->bindParam(':apellido_materno',  $dato->apellido_materno, PDO::PARAM_STR);
 	$stmt->bindParam(':centro_salud',  $dato->centro_salud, PDO::PARAM_STR);
 	$stmt->bindParam(':llave',  $clave, PDO::PARAM_STR);
-	$stmt->execute();
-	$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-	foreach ($dato->perfiles as $v) {
-
-		$q = 'INSERT INTO tb_usuarios_x_perfil (username, id_perfil) 
-			values (:username, :id_perfil)';
+	$valor = $stmt->execute();
 	
-		$stmt = $dbh->prepare($q);
-		$stmt->bindParam(':username',  $dato->username, PDO::PARAM_STR);
-		$stmt->bindParam(':id_perfil',  $v->id_perfil, PDO::PARAM_STR);
-		$stmt->execute();
-		$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	if($valor){
+		foreach ($dato->perfiles as $v) {
+
+			$q = 'INSERT INTO tb_usuarios_x_perfil (username, id_perfil) 
+				values (:username, :id_perfil)';
+		
+			$stmt = $dbh->prepare($q);
+			$stmt->bindParam(':username',  $dato->username, PDO::PARAM_STR);
+			$stmt->bindParam(':id_perfil',  $v->id_perfil, PDO::PARAM_STR);
+			$stmt->execute();
+		}
 	}
 
-
-	//var_dump($r);
-	echo json_encode($r);
+	
+	echo json_encode($valor);
 
 ?>
 

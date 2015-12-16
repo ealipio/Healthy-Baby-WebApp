@@ -5,7 +5,7 @@ class DAO{
 		require_once('config/mysql.php');
 		$db              = new EissonConnect();
 		$dbh             = $db->enchufalo();
-		$q = 'select * from tb_centros ';
+		$q = 'SELECT * from tb_centros ';
 		$stmt = $dbh->prepare($q);
 		$stmt->execute();
 		$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
