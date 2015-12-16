@@ -11,18 +11,18 @@
       <label for="codigo">Código Usuario</label>
     </div>
     <div class="input-field col s6">
-      <input id="nombres" ng-model='us.nombres' type="text" class="validate">
+      <input id="nombres" ng-model='us.nombres' type="text" class="validate only_text">
       <label for="nombres">Nombres</label>
     </div>
   </div>
 
   <div class="row">
     <div class="input-field col s6">
-      <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate">
+      <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate only_text">
       <label for="apep">Apellido Paterno</label>
     </div>
     <div class="input-field col s6">
-      <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate">
+      <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate only_text">
       <label for="apem">Apellido Materno</label>
     </div>
   </div>
@@ -57,4 +57,19 @@
 
 </form>
 </div>
-  
+    <script type="text/javascript">
+ $( document ).ready(function() {
+  $(".only_text").on('keydown', function(e) {
+    var val = $(this).val();
+   if (val.match(/[^a-zA-Z\s]/g)) {
+       $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
+   }
+});  
+$(".only_text").on('keyup', function(e) {
+    var val = $(this).val();
+   if (val.match(/[^a-zA-Z\s]/g)) {
+       $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
+   }
+}); });
+
+</script>
