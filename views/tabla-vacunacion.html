@@ -1,16 +1,16 @@
 <h4>Tabla de Vacunación</h4>
-    <table class="table table-bordered">
+    <table class="table table-bordered bordered centered">
         <thead>
             <tr>
                 <th>Vacuna</th>
                 <th ng-repeat="j in vacunas.total">DOSIS {{$index +1}}</th>
-                <th>Observacionessss</th>
+                <th>Observaciones</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="n in vacunas.vacunas">
-                <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
-                <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}:true" ><a href="">
+                <td data-ng-show="n.nombre_vacuna" class="col s3">{{n.nombre_vacuna}}</td>
+                <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}:true" class="col s2"><a href="">
                 <table><td ng-class="{'green white-text':m.vacunado=='1', 'blue white-text':(m.estimado=='1' && m.vacunado=='0'), 'red white-text':(m.estimado=='2' && m.vacunado=='0')}">
                     <span  ng-show="m.nombre_dosis">
                         {{m.nombre_dosis}} <br> {{m.meses}} meses
@@ -19,7 +19,7 @@
                </table>
    
                 </a></td>
-                <td >{{n.observaciones}}</td>
+                <td class="col s5">{{n.observaciones}}</td>
             </tr>
         </tbody>
     </table>
