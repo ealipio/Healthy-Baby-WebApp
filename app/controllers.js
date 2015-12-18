@@ -1,3 +1,4 @@
+window.map="";
 /**
  * List Controller
  * @version v0.2.2 - 2015-04-23 * @link http://csluni.org
@@ -138,7 +139,7 @@
   var latituden;
   var longitudn;
   var imagen_user = '../minsa/img/user.png';
-  var imagen_posta = '../minsa/img/posta.png';
+  var imagen_posta = '../minsa/img/centros.png';
 
   $scope.dist_rela=9999999;
   $scope.min=9999999;
@@ -205,7 +206,7 @@
             icon: imagen_user,
             animation: google.maps.Animation.DROP
           },
-          showWindow: false
+          showWindow: true
         }];
    };
  $scope.printMarkers= function(){
@@ -220,8 +221,8 @@
               title: $scope.data[i-1].tipo+" : "+$scope.data[i-1].nombre,
               icon: imagen_posta,
               animation: google.maps.Animation.DROP
-            },
-            showWindow: false
+            }
+          
     }
       $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
       if($scope.dist_rela<$scope.min){
@@ -233,12 +234,14 @@
         $scope.ubica2 = ", "+$scope.data[i-1]["distrito"]+", "+$scope.data[i-1]["provincia"]+", "+$scope.data[i-1]["departamento"];
         $scope.tipo = $scope.data[i-1]["tipo"];
         $scope.ubica = $scope.data[i-1]["direccion"];
+
         $scope.resp = $scope.data[i-1]["resp"];
         //console.log($scope.min);
       }
   }
       $scope.map.markerEvents = {
         click: function (gMarker, eventName, model, latLngArgs) {
+
           var id = model.idKey || model.id;
           $("#cercano").empty();
 
@@ -249,6 +252,15 @@
             $scope.tipo = $scope.data[id]["tipo"];
             $scope.ubica = $scope.data[id]["direccion"];
             $scope.resp = $scope.data[id]["resp"];
+
+
+
+            var infowindow = new google.maps.InfoWindow({
+                content: "asdasdasdasd"
+              });
+            
+                infowindow.open(map, $scope.map.markers[id+1]);
+              
         }
       }
   };
@@ -276,7 +288,114 @@
 
   .controller('AcercaController',['$scope', '$http', function($scope, $http){
     //
+  }])  
+
+  .controller('MapixController',['$scope', '$http', function($scope, $http){
+ 
+ $scope.handleLocationError = function(browserHasGeolocation, infoWindow, pos){    
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+}
+
+//function initMap() {
+  $scope.initMap = function(){
+  var pos;
+  
+  var infoWindow = new google.maps.InfoWindow({map: map});
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+       geoLatitude = position.coords.latitude;
+       geoLongitude = position.coords.longitude
+
+   map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: geoLatitude, lng: geoLongitude},
+    zoom: 15
+  });
+
+       pos = {
+        lat: geoLatitude,
+        lng: geoLongitude
+      };
+      infoWindow.setPosition(pos);
+      map.setCenter(pos);
+
+      var GeoMarker = new google.maps.Marker({
+    position: pos,
+    map: map,
+    icon: user });
+$scope.printMarkers();
+    }, function() { $scope.handleLocationError(true, infoWindow, map.getCenter()); });     
+  } else {
+    // Browser doesn't support Geolocation
+    $scope.handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+
+     $scope.init = function(){
+        $http.post ('api/getCentros.php')
+        .success(function(data) {
+                $scope.data = data;
+               console.log($scope.data);
+               $scope.initMap();
+            })
+        .error(function(data) {
+                console.log('Error: ' + data);
+        });
+    };
+    var beachMarker =[];
+    var user = "img/user.png";
+    var centroimg = "img/centros.png";
+    var geoLatitude ;
+    var geoLongitude;
+     $scope.dist_rela=9999999;
+  $scope.min=9999999;
+
+$scope.init();
+
+$scope.printMarkers = function(){
+   for( var i=0;i<$scope.data.length;i++){
+        beachMarker[i] = new google.maps.Marker({
+           position: {lat: parseFloat($scope.data[i].latitud), lng: parseFloat($scope.data[i].longitud)},
+            map: map,
+            icon: centroimg,
+            animation: google.maps.Animation.DROP,
+            title: $scope.data[i].nombre
+  });
+        beachMarker[i].addListener('click', function() {
+          var infowindow = new google.maps.InfoWindow({
+    content: "olaaaaaaa"
+  });
+   infowindow.open(map, beachMarker[i]);
+  });
+
+         $scope.dist_rela=Math.sqrt(Math.pow((geoLatitude-$scope.data[i].latitud),2)+Math.pow((geoLongitude-$scope.data[i].longitud),2));
+      if($scope.dist_rela<$scope.min){
+        $scope.min = $scope.dist_rela;
+
+        $scope.nombre = $scope.data[i]["nombre"];
+        $scope.telefono = $scope.data[i]["telefono"];
+        $scope.horario = $scope.data[i]["horario"];
+        $scope.ubica2 = ", "+$scope.data[i]["distrito"]+", "+$scope.data[i]["provincia"]+", "+$scope.data[i]["departamento"];
+        $scope.tipo = $scope.data[i]["tipo"];
+        $scope.ubica = $scope.data[i]["direccion"];
+
+        $scope.resp = $scope.data[i]["resp"];
+        //console.log($scope.min);
+
+      }
+   }
+};
+
+$scope.evento_marker = function(i){
+  alert("ola");
+
+
+};
   }])
+
 
   .controller('LoginController',['$scope', '$http', function($scope, $http){
       $scope.login = {};
@@ -300,3 +419,4 @@
   }])
 
 })();
+
