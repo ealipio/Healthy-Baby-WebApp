@@ -33,9 +33,13 @@
         </div>
          -->
       
-        <div class="col s6" input-field>
-            <input type="text" ng-model="nuevaVacuna.dosis.centro_salud" class="validate" required/>
-            <label>Centro de Salud</label>
+        <div class="row">
+          <div class="input-field col s6">
+            <select id="ccsalud" name="ccsalud" class="js-example-basic-multiple validate" ng-model='us.centro_salud' required material-select watch>
+              <option disabled selected>Seleccione el Centro de Salud</option>
+              <option ng-repeat="ce in Centros" value="{{cu.codigo}}">{{ce.nombre}}</option>
+            </select>
+          </div>
         </div>
 
       </div>

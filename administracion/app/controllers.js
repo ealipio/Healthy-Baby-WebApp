@@ -81,6 +81,8 @@
   .controller('NuevoUsuarioController',['$scope', '$http', function($scope, $http){
     $scope.usuario = {};
     $scope.usuario.perfiles1 = [];
+    $(".js-example-basic-multiple").select2();
+
     $scope.init = function(){
         document.title = "Crear Usuarios";
       
@@ -89,6 +91,15 @@
         $http.post ('api/getUsuarios.php')
             .success(function(data) {
                     $scope.usuarios = data;
+                    console.log(data);
+                })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+
+        $http.post ('api/getCentros.php')
+            .success(function(data) {
+                    $scope.Centros = data;
                     console.log(data);
                 })
             .error(function(data) {

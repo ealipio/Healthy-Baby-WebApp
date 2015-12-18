@@ -27,9 +27,14 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
   </div>
 
   <div class="row">
-    <div class="input-field col s8">
-      <input id="centrosalud" ng-model='us.centro_salud' type="text" class="validate" required>
-      <label for="centrosalud">Centro de Salud</label>
+    <div class="input-field col s6">
+      <!--<input id="centrosalud" ng-model='us.centro_salud' type="text" class="validate" required>-->
+      
+
+      <select id="ccsalud" name="ccsalud" class="js-example-basic-multiple validate" ng-model='us.centro_salud' required material-select watch>
+        <option disabled selected>Seleccione el Centro de Salud</option>
+        <option ng-repeat="ce in Centros" value="{{cu.codigo}}">{{ce.nombre}}</option>
+      </select>
     </div>
   </div>
 

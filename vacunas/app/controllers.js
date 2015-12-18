@@ -67,7 +67,18 @@
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:1, numero:10360934};
+    $(".js-example-basic-multiple").select2();
     
+    $http.post ('api/getCentros.php')
+            .success(function(data) {
+                    $scope.Centros = data;
+                    console.log(data);
+                })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+
+
     $scope.getVacunas=function() {
       $http.post ('api/getVacunas.php', { fecha_nacimiento: $scope.nino_ws.fecha_nac, id_nino: $scope.nino_ws.nro_documento })
             .success(function(data) {
