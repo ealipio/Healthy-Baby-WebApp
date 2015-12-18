@@ -25,7 +25,6 @@
     };
   })
 
-
   .filter('documento', function(){
     return function(input){
       var documento = ["", "DNI", "CUI"];
@@ -123,7 +122,7 @@
       //console.log($scope.nuevaVacuna.dosis);
 
       $http({method:'POST',url: 'api/crear_vacuna.php', data: $scope.nuevaVacuna.dosis, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-          alert(response);
+          //alert(response);
       });
 
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
