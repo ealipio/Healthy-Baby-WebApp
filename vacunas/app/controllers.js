@@ -25,7 +25,6 @@
     };
   })
 
-
   .filter('documento', function(){
     return function(input){
       var documento = ["", "DNI", "CUI"];
@@ -68,7 +67,18 @@
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:1, numero:10360934};
+    $(".js-example-basic-multiple").select2();
     
+    $http.post ('api/getCentros.php')
+            .success(function(data) {
+                    $scope.Centros = data;
+                    console.log(data);
+                })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+
+
     $scope.getVacunas=function() {
       $http.post ('api/getVacunas.php', { fecha_nacimiento: $scope.nino_ws.fecha_nac, id_nino: $scope.nino_ws.nro_documento })
             .success(function(data) {
@@ -119,15 +129,13 @@
     };
 
     $scope.saveVacuna = function(){
-      
-      //console.log($scope.nuevaVacuna.dosis);
+      if($scope.nuevaVacuna.dosis.centro_salud){
+        $http({method:'POST',url: 'api/crear_vacuna.php', data: $scope.nuevaVacuna.dosis, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+            //alert(response);
+        });
 
-      $http({method:'POST',url: 'api/crear_vacuna.php', data: $scope.nuevaVacuna.dosis, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-          alert(response);
-      });
-
-      $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
-
+        $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+      }else{alert("Ingrese el centro de salud");}
     };
       $scope.mostraradicional = function(){
    $scope.adicional={};

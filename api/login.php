@@ -14,7 +14,7 @@ $rpta['login']=0;
 $db       = new EissonConnect();
 $dbh      = $db->enchufalo();
 
-$q        = 'SELECT username FROM tb_usuarios WHERE username = :username AND password = AES_ENCRYPT(:password, :llave)';
+$q        = 'SELECT username FROM tb_usuarios WHERE username = :username AND password = AES_ENCRYPT(:password, :llave) and activo=1';
 $stmt     = $dbh->prepare($q);
 $stmt->bindParam(':username', $usuario,PDO::PARAM_STR);
 $stmt->bindParam(':password', $password,PDO::PARAM_STR);

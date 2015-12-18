@@ -81,6 +81,8 @@
   .controller('NuevoUsuarioController',['$scope', '$http', function($scope, $http){
     $scope.usuario = {};
     $scope.usuario.perfiles1 = [];
+    $(".js-example-basic-multiple").select2();
+
     $scope.init = function(){
         document.title = "Crear Usuarios";
       
@@ -95,28 +97,36 @@
                     console.log('Error: ' + data);
             });
 
+        $http.post ('api/getCentros.php')
+            .success(function(data) {
+                    $scope.Centros = data;
+                    console.log(data);
+                })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+
       }
     $scope.registro_usuario = function(us){
         us.perfiles = [];
-        
-        if(us.perfil){
-          $.each(us.perfil,function(i,v){
-        
-          var elemento = {"id_perfil": i};
-              us.perfiles.push(elemento);
-          })
-        }
-        //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
-        $http.post('api/guardarUsuario.php', {usuario :us})
-          .success(function(response) {
-            location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
-           })
-          .error(function(data) {
-            console.log('Error: ' + data);
-            alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
-          });
-
-
+        if(us.centro_salud){
+          if(us.perfil){
+            $.each(us.perfil,function(i,v){
+          
+            var elemento = {"id_perfil": i};
+                us.perfiles.push(elemento);
+            })
+          }
+          //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
+          $http.post('api/guardarUsuario.php', {usuario :us})
+            .success(function(response) {
+              location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+             })
+            .error(function(data) {
+              console.log('Error: ' + data);
+              alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+            });
+        }else{alert("Ingrese el Centro de Salud");}
       }
       $scope.agregar_perfil = function(pf){
       console.log(pf);

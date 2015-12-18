@@ -25,6 +25,7 @@ else{
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet"/>
 </head>
 <body ng-app="eissonApp">
     <main>
@@ -78,6 +79,7 @@ else{
     <script src="/vendor/angular/xeditable/js/xeditable.min.js"></script>
     <script src="/vendor/angular/angular-materialize/angular-materialize.js"></script>
     <script src="/vendor/angular/ui-select/dist/select.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
     <!-- App -->
     <script src="app/app.js"></script>
     <script src="app/controllers.js"></script>

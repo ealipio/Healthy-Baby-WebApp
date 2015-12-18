@@ -20,6 +20,7 @@ else{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.min.css">
     <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
     <link rel="stylesheet" href="css/style.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet"/>
 </head>
 <body ng-app="eissonApp">
     <main>
@@ -80,6 +81,7 @@ else{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
     <script src="/vendor/angular/angular-materialize/angular-materialize.js"></script>
     <script src="/vendor/angular/ui-select/dist/select.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
     <!-- App -->
     <script src="app/app.js"></script>
     <script src="app/controllers.js"></script>
