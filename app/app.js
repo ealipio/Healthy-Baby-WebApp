@@ -38,7 +38,7 @@ var app = angular.module('eissonApp', [
           activetab: 'centros'
         }).
 
-when('/mapix', {
+        when('/mapix', {
           templateUrl: 'views/mapix.html',
           caseInsensitiveMatch: true,
           controller: 'MapixController'

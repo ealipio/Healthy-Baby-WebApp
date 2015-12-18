@@ -129,15 +129,13 @@
     };
 
     $scope.saveVacuna = function(){
-      
-      //console.log($scope.nuevaVacuna.dosis);
+      if($scope.nuevaVacuna.dosis.centro_salud){
+        $http({method:'POST',url: 'api/crear_vacuna.php', data: $scope.nuevaVacuna.dosis, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+            //alert(response);
+        });
 
-      $http({method:'POST',url: 'api/crear_vacuna.php', data: $scope.nuevaVacuna.dosis, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-          //alert(response);
-      });
-
-      $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
-
+        $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+      }else{alert("Ingrese el centro de salud");}
     };
       $scope.mostraradicional = function(){
    $scope.adicional={};
