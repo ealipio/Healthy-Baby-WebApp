@@ -139,7 +139,7 @@ window.map="";
   var latituden;
   var longitudn;
   var imagen_user = '../minsa/img/user.png';
-  var imagen_posta = '../minsa/img/posta.png';
+  var imagen_posta = '../minsa/img/centros.png';
 
   $scope.dist_rela=9999999;
   $scope.min=9999999;
@@ -206,7 +206,7 @@ window.map="";
             icon: imagen_user,
             animation: google.maps.Animation.DROP
           },
-          showWindow: false
+          showWindow: true
         }];
    };
  $scope.printMarkers= function(){
@@ -221,8 +221,8 @@ window.map="";
               title: $scope.data[i-1].tipo+" : "+$scope.data[i-1].nombre,
               icon: imagen_posta,
               animation: google.maps.Animation.DROP
-            },
-            showWindow: false
+            }
+          
     }
       $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
       if($scope.dist_rela<$scope.min){
@@ -241,6 +241,7 @@ window.map="";
   }
       $scope.map.markerEvents = {
         click: function (gMarker, eventName, model, latLngArgs) {
+
           var id = model.idKey || model.id;
           $("#cercano").empty();
 
@@ -251,6 +252,15 @@ window.map="";
             $scope.tipo = $scope.data[id]["tipo"];
             $scope.ubica = $scope.data[id]["direccion"];
             $scope.resp = $scope.data[id]["resp"];
+
+
+
+            var infowindow = new google.maps.InfoWindow({
+                content: "asdasdasdasd"
+              });
+            
+                infowindow.open(map, $scope.map.markers[id+1]);
+              
         }
       }
   };
