@@ -291,7 +291,8 @@ window.map="";
   }])  
 
   .controller('MapixController',['$scope', '$http', function($scope, $http){
-    var beachMarker =[];
+    var markers =[];
+    var infoWindow;
     var user = "img/user.png";
     var centroimg = "img/centros.png";
     var geoLatitude ;
@@ -310,21 +311,21 @@ window.map="";
   $scope.initMap = function(data){
   var pos;
   
-  var infoWindow = new google.maps.InfoWindow({map: map});
+  //var infoWindow = new google.maps.InfoWindow({map: map});
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
        geoLatitude = position.coords.latitude;
        geoLongitude = position.coords.longitude
 
-   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: geoLatitude, lng: geoLongitude},
-    zoom: 15
-  });
+         map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: geoLatitude, lng: geoLongitude},
+          zoom: 15
+        });
        pos = {
         lat: geoLatitude,
         lng: geoLongitude
       };
-      infoWindow.setPosition(pos);
+      //infoWindow.setPosition(pos);
       map.setCenter(pos);
 
       var GeoMarker = new google.maps.Marker({
@@ -333,6 +334,7 @@ window.map="";
     icon: user });
       $.each(data , function( index, value ) {
           $scope.printMarkers(map, value);
+          console.log(parseFloat(value.latitud));
       });
       
 //$scope.printMarkers();
@@ -362,7 +364,7 @@ window.map="";
     $scope.init();
 
 $scope.printMarkers = function(map, data){
-   
+      var beachMarker;
         beachMarker = new google.maps.Marker({
            position: {lat: parseFloat(data.latitud), lng: parseFloat(data.longitud)},
             map: map,
@@ -370,11 +372,17 @@ $scope.printMarkers = function(map, data){
             animation: google.maps.Animation.DROP,
             title: $scope.data.nombre
         });
+         markers.push(beachMarker); // add marker to array
+
         beachMarker.addListener('click', function() {
-          var infowindow = new google.maps.InfoWindow({
-                content: data.direccion
+            if ($scope.infoWindow !== void 0) {
+                    $scope.infoWindow.close();
+                }
+
+            infoWindow = new google.maps.InfoWindow({
+                content: data.latitud + ' - ' + data.longitud
               });
-         infowindow.open(map, beachMarker);
+           infoWindow.open(map, beachMarker);
         });
 
          $scope.dist_rela=Math.sqrt(Math.pow((geoLatitude-$scope.data.latitud),2)+Math.pow((geoLongitude-$scope.data.longitud),2));
