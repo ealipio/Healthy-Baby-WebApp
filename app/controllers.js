@@ -124,6 +124,7 @@ window.map="";
 
 
 .controller('CentrosController',['$scope', '$http', function($scope, $http){
+  $scope.first=true;
       var markers =[];
     var infoWindow;
     var user = "img/user.png";
@@ -166,12 +167,14 @@ window.map="";
                 map: map,
                 icon: user 
            });
+
           $.each(data , function( index, value ) {
               $scope.printMarkers(map, value);
               //console.log(parseFloat(value.latitud));
               $scope.dist_rela=Math.sqrt(Math.pow((geoLatitude-value.latitud),2)+Math.pow((geoLongitude-value.longitud),2));
             
-              if($scope.dist_rela<$scope.min){
+              if($scope.dist_rela<$scope.min && $scope.first==true){
+                console.log(value.resp);
                 $scope.min = $scope.dist_rela;
                 $scope.nombre = value.nombre;
                 $scope.telefono = value.telefono;
