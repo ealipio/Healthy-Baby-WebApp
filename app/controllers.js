@@ -36,7 +36,7 @@ window.map="";
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
-      $scope.nino = {tipo:1, numero:10360934};
+      $scope.nino = {tipo:3, numero:1000999595};
       $scope.subs = {};
       $scope.subs.correo="";
       //$scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
@@ -54,7 +54,7 @@ window.map="";
 
     $scope.getVacunas=function() {
       
-      $http.post ('api/getVacunas.php', { fecha_nacimiento: $scope.nino_ws.fecha_nac, id_nino: $scope.nino_ws.nro_documento })
+      $http.post ('api/getVacunas.php', { FecNac: $scope.nino_ws.FecNac, NuCnv: $scope.nino_ws.NuCnv })
           .success(function(data) {
                   $scope.vacunas = data;
                   console.log(data);
@@ -65,6 +65,7 @@ window.map="";
     };
 
     $scope.buscarNino = function(nino){
+
       delete $scope.nino_error;
       delete $scope.nino_ws;
       if(nino.numero){
@@ -74,24 +75,43 @@ window.map="";
       }
       // consumir el webservice con esa info
       //http://localhost/minsa/vacunas/api/webservice.php?nro_documento=10360934
-      $http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+      /*$http({method:'POST',url: 'api/ws.php' { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
           console.log(response);
           if(response.error){
             $scope.nino_error = response;
+
           } else{
             //
+            alert("ola");
             $scope.nino_ws = response;
             $scope.getVacunas();
             $scope.getCorreos();
             
           }
-      });
+      });*/
+ $http.post ('api/ws.php', { id : nino } )
+        .success(function(data) {
+            $scope.nino_ws = data;
+            console.log($scope.nino_ws);
+            var year = $scope.nino_ws.FecNac.substr(0,4)
+            var month = $scope.nino_ws.FecNac.substr(4,2)
+            var day = $scope.nino_ws.FecNac.substr(6,2)
+            $scope.nino_ws.FecNac = year+"-"+month+"-"+day
+            $scope.getVacunas();
+            $scope.getCorreos();
+   
+
+        })
+        .error(function(data) {
+          alert("error")
+                console.log('Error: ' + data);
+        });
     };
 
     $scope.suscribirse = function(data){
         console.log(data.correo);
         if(data.correo.length>0){
-          $http.post ('api/guardarSuscripcion.php', { id_nino: $scope.nino_ws.nro_documento, correo: data.correo })
+          $http.post ('api/guardarSuscripcion.php', { id_nino: $scope.nino_ws.NuCnv, correo: data.correo })
             .success(function(data) {
                 console.log(data);
                 $scope.correos.push({'email': data.email});
@@ -104,7 +124,7 @@ window.map="";
 
     $scope.getCorreos=function() {
       
-      $http.post ('api/getCorreos.php', { id_nino: $scope.nino_ws.nro_documento })
+      $http.post ('api/getCorreos.php', { NuCnv: $scope.nino_ws.NuCnv })
           .success(function(data) {
                   $scope.correos = data;
                   console.log(data);
@@ -167,6 +187,8 @@ window.map="";
                 map: map,
                 icon: user 
            });
+          $scope.cercano = {};
+
 
           $.each(data , function( index, value ) {
               $scope.printMarkers(map, value);
@@ -174,15 +196,15 @@ window.map="";
               $scope.dist_rela=Math.sqrt(Math.pow((geoLatitude-value.latitud),2)+Math.pow((geoLongitude-value.longitud),2));
             
               if($scope.dist_rela<$scope.min && $scope.first==true){
-                console.log(value.resp);
+               
                 $scope.min = $scope.dist_rela;
-                $scope.nombre = value.nombre;
-                $scope.telefono = value.telefono;
-                $scope.horario = value.horario;
-                $scope.ubica2 = ", "+value.distrito+", "+value.provincia+", "+value.departamento;
-                $scope.tipo = value.tipo;
-                $scope.ubica = value.direccion;
-                $scope.resp = value.resp;
+                $scope.cercano.nombre = value.nombre;
+                $scope.cercano.telefono = value.telefono;
+                $scope.cercano.horario = value.horario;
+                $scope.cercano.ubica2 = ", "+value.distrito+", "+value.provincia+", "+value.departamento;
+                $scope.cercano.tipo = value.tipo;
+                $scope.cercano.ubica = value.direccion;
+                $scope.cercano.resp = value.resp;
               }
           });
 
@@ -190,6 +212,7 @@ window.map="";
       } else {
         // Browser doesn't support Geolocation
         $scope.handleLocationError(false, infoWindow, map.getCenter());
+
       }
     }
 
@@ -220,7 +243,8 @@ window.map="";
       markers.push(beachMarker); // add marker to array
 
       beachMarker.addListener('click', function() {
-         if ($scope.infoWindow !== void 0) {
+        $scope.first=false;
+         if (infoWindow !== void 0) {
               infoWindow.close();
          }
 
@@ -232,6 +256,14 @@ window.map="";
           maxHeight: 400,
           maxWidth: 300
          });
+                $scope.cercano.nombre = data.nombre;
+                $scope.cercano.telefono = data.telefono;
+                $scope.cercano.horario = data.horario;
+                $scope.cercano.ubica2 = ", "+data.distrito+", "+data.provincia+", "+data.departamento;
+                $scope.cercano.tipo = data.tipo;
+                $scope.cercano.ubica = data.direccion;
+                $scope.cercano.resp = data.resp;
+
          if (infoWindow) {
              infoWindow.close();
           }

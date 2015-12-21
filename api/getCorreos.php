@@ -5,7 +5,7 @@
 	$dbh = $db->enchufalo();
 	$dato = json_decode(file_get_contents("php://input"));
 
-	$id_nino = $dato->id_nino;
+	$id_nino = $dato->NuCnv;
 
 	$q = 'SELECT * from tb_suscripciones
 			WHERE id_nino =:id_nino';
