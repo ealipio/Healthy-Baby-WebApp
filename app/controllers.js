@@ -220,7 +220,7 @@ window.map="";
       markers.push(beachMarker); // add marker to array
 
       beachMarker.addListener('click', function() {
-         if ($scope.infoWindow !== void 0) {
+         if (infoWindow !== void 0) {
               infoWindow.close();
          }
 
@@ -233,6 +233,7 @@ window.map="";
           maxWidth: 300
          });
          if (infoWindow) {
+//           alert('entró');
              infoWindow.close();
           }
            infoWindow.open(map, beachMarker);
