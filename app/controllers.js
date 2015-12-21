@@ -222,10 +222,12 @@ window.map="";
          }
 
          infoWindow = new google.maps.InfoWindow({
-            content: "<table><tbody><tr><td>Tipo : </td><td>"+data.tipo+"</td></tr><tr><td>Nombre : </td>"+
-            "<td>"+data.nombre+"</td></tr><tr><td>Ubicacion</td><td>"+data.direccion+", "+data.distrito+", "+data.provincia+", "+data.departamento+"</td>"+
-          "</tr><tr><td>Telefono : </td><td>"+data.telefono+"</td></tr><tr><td>Horario : </td><td>"+data.horario+"</td>"+
-          "</tr><tr><td>Responsable : </td><td>"+data.resp+"</td></tr></tbody></table>"
+            content: "<div id='up'><div id='up_right'><table style='font-size: 0.95em;'><tbody><tr><td>"+data.tipo+"</td></tr><tr>"+
+            "<td><b>"+data.nombre+"</b></td></tr></table></div><div id='up_left'><img src='img/centros_big.png'/></div></div>"+"<hr>"+"<table style='font-size: 0.875em;'><tr><td><i class='fa fa-map-marker fa-1x'></i></td><td>"+data.direccion+", "+data.distrito+", "+data.provincia+", "+data.departamento+"</td>"+
+          "</tr><tr><td><i class='fa fa-phone fa-1.5x'></i></td><td>"+data.telefono+"</td></tr><tr><td><i class='fa fa-clock-o fa-1x'></i></td><td>"+data.horario+"</td>"+
+          "</tr><tr><td><i class='fa fa-user fa-1x'></i></td><td>"+data.resp+"</td></tr></tbody></table>",
+          maxHeight: 400,
+          maxWidth: 300
          });
          if (infoWindow) {
              infoWindow.close();
