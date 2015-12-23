@@ -5,8 +5,8 @@
 	$dbh = $db->enchufalo();
 	$dato = json_decode(file_get_contents("php://input"));
 
-	$fecha_nac = split(" ", $dato->fecha_nacimiento);
-	$id_nino = $dato->id_nino;
+	$fecha_nac = $dato->FecNac;
+	$id_nino = $dato->NuCnv;
 
 	//var_dump($fecha_nac);
 
@@ -34,8 +34,8 @@
 			from tb_dosis_vacunas';
 
 	$stmt = $dbh->prepare($q);
-	$stmt->bindParam(':fecha_nacimiento',  $fecha_nac[0], PDO::PARAM_STR);
-	$stmt->bindParam(':fecha_nacimiento1',  $fecha_nac[0], PDO::PARAM_STR);
+	$stmt->bindParam(':fecha_nacimiento',  $fecha_nac, PDO::PARAM_STR);
+	$stmt->bindParam(':fecha_nacimiento1',  $fecha_nac, PDO::PARAM_STR);
 	$stmt->execute();
 
 	$r['dosis'] = $stmt->fetchAll(PDO::FETCH_ASSOC);

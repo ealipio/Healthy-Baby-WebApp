@@ -42,7 +42,7 @@
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $route.current.activetab ? $scope.$route = $route : null
     
-    $scope.nino = {tipo:1, numero:10360934};
+    $scope.nino = {tipo:3, numero:1000999595};
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;
       delete $scope.nino_ws;
@@ -53,7 +53,7 @@
       }
       // consumir el webservice con esa info
       //http://localhost/minsa/vacunas/api/webservice.php?nro_documento=10360934
-      $http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+      /*$http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
           console.log(response);
           if(response.error){
             $scope.nino_error = response;
@@ -61,12 +61,27 @@
             //
             $scope.nino_ws = response;
           }
-      });
+      });*/
+   $http.post ('../api/ws.php', { id : nino } )
+        .success(function(data) {
+            $scope.nino_ws = data;
+            console.log($scope.nino_ws);
+            var year = $scope.nino_ws.FecNac.substr(0,4)
+            var month = $scope.nino_ws.FecNac.substr(4,2)
+            var day = $scope.nino_ws.FecNac.substr(6,2)
+            $scope.nino_ws.FecNac = year+"-"+month+"-"+day
+           
+            $scope.getVacunas();
+        })
+        .error(function(data) {
+          alert("error")
+                console.log('Error: ' + data);
+        });
     };
 
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
-    $scope.nino = {tipo:1, numero:10360934};
+    $scope.nino = {tipo:3, numero:1000999595};
     $(".js-example-basic-multiple").select2();
     
     $http.post ('api/getCentros.php')
@@ -80,7 +95,7 @@
 
 
     $scope.getVacunas=function() {
-      $http.post ('api/getVacunas.php', { fecha_nacimiento: $scope.nino_ws.fecha_nac, id_nino: $scope.nino_ws.nro_documento })
+      $http.post ('api/getVacunas.php', { FecNac: $scope.nino_ws.FecNac, NuCnv: $scope.nino_ws.NuCnv })
             .success(function(data) {
                     $scope.vacunas = data;
                     console.log(data);
@@ -100,7 +115,7 @@
       }
       // consumir el webservice con esa info
       //http://localhost/minsa/vacunas/api/webservice.php?nro_documento=10360934
-      $http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+      /*$http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
           console.log(response);
           if(response.error){
             $scope.nino_error = response;
@@ -109,7 +124,22 @@
             $scope.nino_ws = response;
             $scope.getVacunas();
           }
-      });
+      });*/
+   $http.post ('../api/ws.php', { id : nino } )
+        .success(function(data) {
+            $scope.nino_ws = data;
+            console.log($scope.nino_ws);
+            var year = $scope.nino_ws.FecNac.substr(0,4)
+            var month = $scope.nino_ws.FecNac.substr(4,2)
+            var day = $scope.nino_ws.FecNac.substr(6,2)
+            $scope.nino_ws.FecNac = year+"-"+month+"-"+day
+     
+            $scope.getVacunas();
+        })
+        .error(function(data) {
+          alert("error")
+                console.log('Error: ' + data);
+        });
     };
 
     $scope.realizarRegistro = function(nene){
@@ -125,7 +155,7 @@
       $scope.nuevaVacuna.dosis = dosis;
       $scope.nuevaVacuna.vacuna = vacuna;
       
-      $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.nro_documento;
+      $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.NuCnv;
     };
 
     $scope.saveVacuna = function(){
@@ -140,7 +170,7 @@
       $scope.mostraradicional = function(){
    $scope.adicional={};
       $('ul.tabs').tabs('select_tab', 'info-adicional');
-      $scope.adicional.id_nino=$scope.nino_ws.nro_documento;
+      $scope.adicional.id_nino=$scope.nino_ws.NuCnv;
       
     };
       $scope.cancel = function(){

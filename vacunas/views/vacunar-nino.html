@@ -1,13 +1,19 @@
 <h4>Vacunar nuevo niño:</h4>
   <div class="row">
-    <div class="col s5 input-field">
+   <div class="col s4">
+      <label for="inputCreated">Fecha de Vacunación</label>
+           <input name="created" id="inputCreated"  ng-model="nino.fecha_nac" type="date" required>
+    </div>
+      
+    <div class="col s3 input-field">
         <select class="" ng-model="nino.tipo" material-select watch>
             <option value="" disabled selected>Tipo de Documento</option>
             <option value="1">DNI</option>
             <option value="2">CUI</option>
+            <option value="3">CNV</option>
         </select>
     </div>
-    <div class="col s5" input-field>
+    <div class="col s3" input-field>
         <input type="number" ng-model="nino.numero" />
         <label>Numero documento</label>
     </div>
@@ -33,12 +39,12 @@
             </tr>
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.fecha_nac.split(' ')[0] | date:'fullDate' }} </td>
+                <td> {{nino_ws.FecNac.split(' ')[0] | date:'fullDate' }} </td>
             </tr>
             <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.fecha_nac.split(' ')[0] | amDifference : null : 'days' | negativo }} Días</span>
+                    <span>{{nino_ws.FecNac.split(' ')[0] | amDifference : null : 'days' | negativo }} Días</span>
                 </td>
             </tr>
         </tbody>

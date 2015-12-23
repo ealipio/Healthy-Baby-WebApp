@@ -11,8 +11,8 @@
 
 	if(isset($_SESSION['id_usuario'])){
 
-		$q = 'INSERT INTO tb_vacunas_x_ninos (id_nino, id_vacuna, id_dosis_vacunas, username, fecha_vacunacion, centro_salud, observaciones, created_at, last_user) 
-				values (:id_nino, :id_vacuna, :id_dosis_vacunas, :username, :fecha_vacunacion, :centro_salud, :observaciones, CURRENT_TIMESTAMP, :last_user)';
+		$q = 'INSERT INTO tb_vacunas_x_ninos (id_nino, id_vacuna, id_dosis_vacunas, username, fecha_vacunacion, centro_salud, observaciones, created_at) 
+				values (:id_nino, :id_vacuna, :id_dosis_vacunas, :username, :fecha_vacunacion, :centro_salud, :observaciones, CURRENT_TIMESTAMP)';
 		
 		$stmt = $dbh->prepare($q);
 		$stmt->bindParam(':id_nino',  $vacuna->id_nino, PDO::PARAM_STR);
@@ -22,7 +22,6 @@
 		$stmt->bindParam(':fecha_vacunacion',  $vacuna->fecha_vacunacion, PDO::PARAM_STR);
 		$stmt->bindParam(':centro_salud',  $vacuna->centro_salud, PDO::PARAM_STR);
 		$stmt->bindParam(':observaciones',  $vacuna->observaciones, PDO::PARAM_STR);
-		$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
 		$valor= $stmt->execute();
 
 		echo json_encode($valor);
