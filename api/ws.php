@@ -6,9 +6,8 @@ $nino=$objDatos->id;
 $only_fecha=substr($nino->fecha_nac, 0, 10);
 $fechas= explode("-", $only_fecha);
 $fecha=$fechas[0].$fechas[1].$fechas[2];
-//var_dump($fecha);
 
-$wsURI      ="http://ws_min.minsa.gob.pe/ws_cnv/wscnv.asmx?wsdl"; 
+$wsURI      ="http://ws_min.minsa.gob.pe/ws_cnv/wscnv.asmx?wsdl";
 	$ws_params  = array('usuario' => "wsops1", 'clave' => "abc123z.");
 	$fcn_param  = array('sFecha' => $fecha);
 	$soapClient = new SoapClient($wsURI);
@@ -20,7 +19,7 @@ $wsURI      ="http://ws_min.minsa.gob.pe/ws_cnv/wscnv.asmx?wsdl";
 
 foreach ($resultados as $k => $v) {
     foreach ($v as $a => $b) {
-    	if($a=="NuCnv"){ 
+    	if($a=="NuCnv"){
     	if($b==$nino->numero)  {
 			echo json_encode($v) ;
     		}
