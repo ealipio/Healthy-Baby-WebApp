@@ -81,6 +81,7 @@
   .controller('NuevoUsuarioController',['$scope', '$http', function($scope, $http){
     $scope.usuario = {};
     $scope.usuario.perfiles1 = [];
+    $scope.myRegex = /^[a-zA-Z0-9]*$/;
     $(".js-example-basic-multiple").select2();
 
     $scope.init = function(){
@@ -126,8 +127,9 @@
               console.log('Error: ' + data);
               alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
             });
-        }else{alert("Ingrese el Centro de Salud");}
+        } else{alert("Ingrese el Centro de Salud");}
       }
+
       $scope.agregar_perfil = function(pf){
       console.log(pf);
       //console.log($scope.tmp.perfiles);
@@ -139,6 +141,7 @@
       }
 
       $scope.deletePerfil = function(i){ $scope.usuario.perfiles1.splice(i,1); }
+    
     $scope.init();
   }])
   
