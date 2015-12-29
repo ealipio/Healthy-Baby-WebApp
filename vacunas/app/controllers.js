@@ -9,7 +9,7 @@
 
   angular
   .module('Controllers', [])
-  
+
   .filter('estadoFilter', function(){
   return function(id){
     var estados = ['Inactivo', 'Activo'];
@@ -41,49 +41,26 @@
   }])
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $route.current.activetab ? $scope.$route = $route : null
-    
+
     $scope.nino = {tipo:3, numero:1000999595};
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;
       delete $scope.nino_ws;
-      if(nino.numero){
-        //alert('Estamos consultando el webservice por favor espere');
-      } else {
-        alert('Por favor complete todos los campos.');
-      }
-      // consumir el webservice con esa info
-      //http://localhost/minsa/vacunas/api/webservice.php?nro_documento=10360934
-      /*$http({method:'POST',url: 'api/webservice.php?nro_documento='+nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-          console.log(response);
-          if(response.error){
-            $scope.nino_error = response;
-          } else{
-            //
-            $scope.nino_ws = response;
-          }
-      });*/
-   $http.post ('../api/ws.php', { id : nino } )
-        .success(function(data) {
+      $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
             $scope.nino_ws = data;
             console.log($scope.nino_ws);
-            var year = $scope.nino_ws.FecNac.substr(0,4)
-            var month = $scope.nino_ws.FecNac.substr(4,2)
-            var day = $scope.nino_ws.FecNac.substr(6,2)
-            $scope.nino_ws.FecNac = year+"-"+month+"-"+day
-           
+            var year = $scope.nino_ws.FecNac.substr(0,4);
+            var month = $scope.nino_ws.FecNac.substr(4,2);
+            var day = $scope.nino_ws.FecNac.substr(6,2);
+            $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
             $scope.getVacunas();
-        })
-        .error(function(data) {
-          alert("error")
-                console.log('Error: ' + data);
-        });
+        }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
     };
-
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:3, numero:1000999595};
     $(".js-example-basic-multiple").select2();
-    
+
     $http.post ('api/getCentros.php')
             .success(function(data) {
                     $scope.Centros = data;
@@ -133,7 +110,7 @@
             var month = $scope.nino_ws.FecNac.substr(4,2)
             var day = $scope.nino_ws.FecNac.substr(6,2)
             $scope.nino_ws.FecNac = year+"-"+month+"-"+day
-     
+
             $scope.getVacunas();
         })
         .error(function(data) {
@@ -154,7 +131,7 @@
       $('ul.tabs').tabs('select_tab', 'crear-vacuna');
       $scope.nuevaVacuna.dosis = dosis;
       $scope.nuevaVacuna.vacuna = vacuna;
-      
+
       $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.NuCnv;
     };
 
@@ -171,11 +148,11 @@
    $scope.adicional={};
       $('ul.tabs').tabs('select_tab', 'info-adicional');
       $scope.adicional.id_nino=$scope.nino_ws.NuCnv;
-      
+
     };
       $scope.cancel = function(){
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
-     
+
     };
 
       $scope.saveadicional =function(adicional){
@@ -197,7 +174,7 @@
 
   .controller('InfoAdicionalController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($routeParams);
-    
+
   }])
 
   .controller('logoutController',['$scope', '$route','$http', function($scope, $route, $http){
