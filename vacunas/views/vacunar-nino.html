@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.FecNac.split(' ')[0] | date:'fullDate' }} </td>
+                <td> {{nino_ws.FecNac | date:'fullDate' }} </td>
             </tr>
             <tr>
                 <td>Sexo:</td>
@@ -45,7 +45,7 @@
             <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.FecNac.split(' ')[0] | amDifference : null : 'days' | negativo }} Días</span>
+                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo }} Días</span>
                 </td>
             </tr>
         </tbody>
