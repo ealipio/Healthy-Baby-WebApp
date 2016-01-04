@@ -143,8 +143,10 @@
       $scope.deletePerfil = function(i){ $scope.usuario.perfiles1.splice(i,1); }
     
     $scope.init();
-  }])
   
+  
+  }])
+
     .controller('EditarUsuarioController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
         $scope.init = function(){
           var id = $routeParams.id;

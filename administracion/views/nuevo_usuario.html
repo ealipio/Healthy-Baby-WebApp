@@ -29,7 +29,7 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row"  ng-hide="us.perfil[1]">
     <div class="input-field col s6">
       <select id="ccsalud" name="ccsalud" class="js-example-basic-multiple validate" ng-model='us.centro_salud' material-select watch>
         <option disabled selected>Seleccione el Centro de Salud</option>
@@ -78,6 +78,15 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
       if (val.match(/[^a-zA-Z\s]/g)) {
         $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
       }
+    });
+
+    $("#1").click(function(){
+        if($("#1").is(':checked')){
+          alert("esta como super!!!");
+        }
+        else{
+          alert("ya no es super :(");
+        }
     });
 
   });
