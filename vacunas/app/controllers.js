@@ -58,9 +58,9 @@
       delete $scope.nino_error;
       delete $scope.nino_ws;
       $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
-            
+
 //{"success":{"NuCnv":"1000999595","UbiDomMad":"250302","Sexo":"F","Peso":"2680","FecNac":"20151201","LugNac":"01","UbiNac":"250302","AtePor":"02","TipPar":"01","ConPar":"01","DurEmb":"39","Fin":"02"}}
-            
+
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
             var year = $scope.nino_ws.FecNac.substr(0,4);
@@ -88,7 +88,12 @@
 
 
     $scope.getVacunas=function() {
-      console.log($scope.nino_ws.FecNac);
+      console.log($scope.nino_ws);
+      $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+        $scope.vacunas = response;
+        console.log(response);
+      });
+  /*
       $http.post ('api/getVacunas.php', { FecNac: $scope.nino_ws.FecNac, NuCnv: $scope.nino_ws.NuCnv })
             .success(function(data) {
                     $scope.vacunas = data;
@@ -96,16 +101,16 @@
                 })
             .error(function(data) {
                     console.log('Error: ' + data);
-            });
+            });*/
     }
 
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;
       delete $scope.nino_ws;
       $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
-            
+
 //{"success":{"NuCnv":"1000999595","UbiDomMad":"250302","Sexo":"F","Peso":"2680","FecNac":"20151201","LugNac":"01","UbiNac":"250302","AtePor":"02","TipPar":"01","ConPar":"01","DurEmb":"39","Fin":"02"}}
-            
+
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
             var year = $scope.nino_ws.FecNac.substr(0,4);
@@ -113,7 +118,7 @@
             var day = $scope.nino_ws.FecNac.substr(6,2);
             //$scope.nino_ws.FecNac = day + "-"+month+"-"+year;
             $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
-            
+
             $scope.getVacunas();
         }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
     };
