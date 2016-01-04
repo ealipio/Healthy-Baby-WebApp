@@ -53,7 +53,12 @@ window.map="";
       */
 
     $scope.getVacunas=function() {
-      
+
+      $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+        $scope.vacunas = response;
+        console.log(response);
+      });
+       /*
       $http.post ('api/getVacunas.php', { FecNac: $scope.nino_ws.FecNac, NuCnv: $scope.nino_ws.NuCnv })
           .success(function(data) {
                   $scope.vacunas = data;
@@ -61,7 +66,7 @@ window.map="";
               })
           .error(function(data) {
                   console.log('Error: ' + data);
-          });
+          });*/
     };
 
     $scope.buscarNino = function(nino){
@@ -86,7 +91,7 @@ window.map="";
             $scope.nino_ws = response;
             $scope.getVacunas();
             $scope.getCorreos();
-            
+
           }
       });*/
  $http.post ('api/ws.php', { id : nino } )
@@ -99,7 +104,7 @@ window.map="";
             $scope.nino_ws.FecNac = year+"-"+month+"-"+day
             $scope.getVacunas();
             $scope.getCorreos();
-   
+
 
         })
         .error(function(data) {
@@ -123,7 +128,7 @@ window.map="";
     };
 
     $scope.getCorreos=function() {
-      
+
       $http.post ('api/getCorreos.php', { NuCnv: $scope.nino_ws.NuCnv })
           .success(function(data) {
                   $scope.correos = data;
@@ -153,8 +158,8 @@ window.map="";
     var geoLongitude;
     $scope.dist_rela=9999999;
     $scope.min=9999999;
-    
-    $scope.handleLocationError = function(browserHasGeolocation, infoWindow, pos){    
+
+    $scope.handleLocationError = function(browserHasGeolocation, infoWindow, pos){
       infoWindow.setPosition(pos);
       infoWindow.setContent(browserHasGeolocation ?
         'Error: The Geolocation service failed.' :
@@ -164,7 +169,7 @@ window.map="";
 //function initMap() {
     $scope.initMap = function(data){
         var pos;
-        
+
       //var infoWindow = new google.maps.InfoWindow({map: map});
         if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -185,7 +190,7 @@ window.map="";
           var GeoMarker = new google.maps.Marker({
                 position: pos,
                 map: map,
-                icon: user 
+                icon: user
            });
           $scope.cercano = {};
 
@@ -194,9 +199,9 @@ window.map="";
               $scope.printMarkers(map, value);
               //console.log(parseFloat(value.latitud));
               $scope.dist_rela=Math.sqrt(Math.pow((geoLatitude-value.latitud),2)+Math.pow((geoLongitude-value.longitud),2));
-            
+
               if($scope.dist_rela<$scope.min && $scope.first==true){
-               
+
                 $scope.min = $scope.dist_rela;
                 $scope.cercano.nombre = value.nombre;
                 $scope.cercano.telefono = value.telefono;
@@ -208,7 +213,7 @@ window.map="";
               }
           });
 
-        }, function() { $scope.handleLocationError(true, infoWindow, map.getCenter()); });     
+        }, function() { $scope.handleLocationError(true, infoWindow, map.getCenter()); });
       } else {
         // Browser doesn't support Geolocation
         $scope.handleLocationError(false, infoWindow, map.getCenter());
@@ -300,7 +305,7 @@ window.map="";
 
   .controller('AcercaController',['$scope', '$http', function($scope, $http){
     //
-  }])  
+  }])
 
 
   .controller('LoginController',['$scope', '$http', function($scope, $http){

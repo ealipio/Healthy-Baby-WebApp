@@ -1,19 +1,14 @@
 <?php
 	require_once('config/mysql.php');
-
-	$db  = new EissonConnect();
-	$dbh = $db->enchufalo();
-	$dato = json_decode(file_get_contents("php://input"));
-
-	//$fecha_nac = split(" ", $dato->fecha_nacimiento);
-	//var_dump($dato);
-	$fecha_nac = $dato->FecNac;
-	$id_nino = $dato->NuCnv;
-
-	//var_dump($fecha_nac);
-
-	$q = 'SELECT max(suma) as total from 
-		(SELECT count(dv.id_dosis_vacunas) as suma 
+	$db        = new EissonConnect();
+	$dbh       = $db->enchufalo();
+	//---------------------------------------------------------
+	$dato      = $_POST['data'];
+	$fecha_nac = $dato['FecNac'];
+	$id_nino   = $dato['NuCnv'];
+	//---------------------------------------------------------
+	$q = 'SELECT max(suma) as total from
+		(SELECT count(dv.id_dosis_vacunas) as suma
 		 from tb_dosis_vacunas dv inner join tb_vacunas va on dv.id_vacuna=va.id_vacuna
 		 where va.estado=1
 		group by dv.id_vacuna) as t';
@@ -65,16 +60,12 @@
 	foreach ($r['dosis'] as $v) {
 		$tmpActivo=0;
 		foreach ($r['vacuanasNino'] as $w) {
-			
+
 			if($v['id_dosis_vacunas'] == $w['id_dosis_vacunas']){
 				$r['dosis'][$ii]['vacunado'] = 1;
 			}
 		}
 		$ii++;
 	}
-
-	//var_dump($r);
-	//echo json_encode($r);
-
 	echo json_encode($r);
 ?>
