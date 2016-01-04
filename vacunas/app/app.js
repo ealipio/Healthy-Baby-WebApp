@@ -16,10 +16,10 @@ var app = angular.module('eissonApp', [
 
       $routeProvider.
         when('/', {
-          templateUrl: 'views/consultar.html',
+          templateUrl: 'views/vacunar-nino.html',
           caseInsensitiveMatch: true,
-          controller: 'ConsultarController',
-          activetab: 'consultar'
+          controller: 'VacunarNinoController',
+          activetab: 'vacunar'
         }).
         when('/vacunar-nino', {
           templateUrl: 'views/vacunar-nino.html',

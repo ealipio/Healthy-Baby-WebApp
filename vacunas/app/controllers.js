@@ -74,7 +74,7 @@
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:3, numero:1000999595};
-    $(".js-example-basic-multiple").select2();
+    //$(".js-example-basic-multiple").select2();
 
     $http.post ('api/getCentros.php')
             .success(function(data) {
@@ -136,7 +136,7 @@
         $http({method:'POST',url: 'api/crear_vacuna.php', data: $scope.nuevaVacuna.dosis, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
             //alert(response);
         });
-
+        $scope.buscarNino($scope.nino);
         $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
       }else{alert("Ingrese el centro de salud");}
     };
