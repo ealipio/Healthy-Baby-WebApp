@@ -32,6 +32,16 @@ window.map="";
       return valor;
     };
   })
+
+  .filter('sexoFilter', function(){
+    return function(input){
+      var sexo = "Masculino";
+      if(input == "F"){
+        sexo = "Femenino";
+      }
+      return sexo;
+    };
+  })
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
@@ -53,64 +63,32 @@ window.map="";
       */
 
     $scope.getVacunas=function() {
-
       $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
         $scope.vacunas = response;
         console.log(response);
       });
-       /*
-      $http.post ('api/getVacunas.php', { FecNac: $scope.nino_ws.FecNac, NuCnv: $scope.nino_ws.NuCnv })
-          .success(function(data) {
-                  $scope.vacunas = data;
-                  console.log(data);
-              })
-          .error(function(data) {
-                  console.log('Error: ' + data);
-          });*/
-    };
+    }
 
     $scope.buscarNino = function(nino){
-
       delete $scope.nino_error;
       delete $scope.nino_ws;
-      if(nino.numero){
-        //alert('Estamos consultando el webservice por favor espere');
-      } else {
-        alert('Por favor complete todos los campos.');
-      }
-      // consumir el webservice con esa info
-      //http://localhost/minsa/vacunas/api/webservice.php?nro_documento=10360934
-      /*$http({method:'POST',url: 'api/ws.php' { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-          console.log(response);
-          if(response.error){
-            $scope.nino_error = response;
-
-          } else{
-            //
-            alert("ola");
-            $scope.nino_ws = response;
-            $scope.getVacunas();
-            $scope.getCorreos();
-
-          }
-      });*/
- $http.post ('api/ws.php', { id : nino } )
-        .success(function(data) {
-            $scope.nino_ws = data;
+      $http.get('api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+          if(data.success){
+            $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
-            var year = $scope.nino_ws.FecNac.substr(0,4)
-            var month = $scope.nino_ws.FecNac.substr(4,2)
-            var day = $scope.nino_ws.FecNac.substr(6,2)
-            $scope.nino_ws.FecNac = year+"-"+month+"-"+day
+            var year = $scope.nino_ws.FecNac.substr(0,4);
+            var month = $scope.nino_ws.FecNac.substr(4,2);
+            var day = $scope.nino_ws.FecNac.substr(6,2);
+            $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
+
             $scope.getVacunas();
             $scope.getCorreos();
+          }
+          else{
+            alert(data.error);
+          }
 
-
-        })
-        .error(function(data) {
-          alert("error")
-                console.log('Error: ' + data);
-        });
+        }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
     };
 
     $scope.suscribirse = function(data){

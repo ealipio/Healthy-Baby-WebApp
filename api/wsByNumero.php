@@ -11,10 +11,10 @@
 		$fcn_param  = array('sNroCNV' => $numero_cnv);
 		$r = $client->obtenerCNV_OPS_NroCNV($fcn_param);
 		$data = $r->obtenerCNV_OPS_NroCNVResult;
-		if ( $data->CNV ) {
+		if ( isset($data->CNV) ) {
 			$response = array('success' => $data->CNV );
 		} else{
-			$response = array('error' => $numero_cnv . ' no se encuentra en la DB.' );
+			$response = array('error' => 'No se encontro el numero de documento ' . $numero_cnv . ' en la Base de Datos.' );
 		}
 	}
 	echo json_encode($response);

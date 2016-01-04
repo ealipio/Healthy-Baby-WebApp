@@ -108,9 +108,7 @@
       delete $scope.nino_error;
       delete $scope.nino_ws;
       $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
-
-//{"success":{"NuCnv":"1000999595","UbiDomMad":"250302","Sexo":"F","Peso":"2680","FecNac":"20151201","LugNac":"01","UbiNac":"250302","AtePor":"02","TipPar":"01","ConPar":"01","DurEmb":"39","Fin":"02"}}
-
+        if(data.success){
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
             var year = $scope.nino_ws.FecNac.substr(0,4);
@@ -120,6 +118,10 @@
             $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
 
             $scope.getVacunas();
+          }
+          else{
+            alert(data.error);
+          }
         }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
     };
 

@@ -3,28 +3,18 @@
     .gc td{border:1px solid #ddd;}
     .gc th{background:#333; color:#fff;}
 
-    
-
 </style>
 
 <h4>Consultar:</h4>
-  <div class="row">
-
-    <div class="col s4">
-      <label for="inputCreated">Fecha de Vacunación</label>
-           <input name="created" id="inputCreated"  ng-model="nino.fecha_nac" type="date" required>
-    </div>
-      
+  <div class="row">      
     
-    <div class="col s3 input-field">
+    <div class="col s5 input-field">
         <select class="" ng-model="nino.tipo" material-select watch>
             <option value="" disabled selected>Tipo de Documento</option>
-            <option value="1">DNI</option>
-            <option value="2">CUI</option>
-            <option value="3">CNV</option>
+            <option value="1">Número CNV</option>
         </select>
     </div>
-    <div class="col s3" input-field>
+    <div class="col s5" input-field>
         <input type="number" min=0 ng-model="nino.numero" />
         <label>Numero documento</label>
     </div>
@@ -43,22 +33,26 @@
                 <td>{{ nino_ws.tipo_documento  | documento }}</td>
                 <td>{{nino_ws.nro_documento}}</td>
             </tr>
-            <tr>
-                <td>Nombres</td>
+            <tr ng-show="nino_ws.nombres">
+                <td >Nombres</td>
                 <td>{{nino_ws.nombres}}</td>
             </tr>
-            <tr>
+            <tr ng-show="nino_ws.apellido_paterno">
                 <td>Apellidos</td>
                 <td>{{nino_ws.apellido_paterno}} {{nino_ws.apellido_materno}}</td>
             </tr>
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.FecNac.split(' ')[0] | date:'fullDate' }} </td>
+                <td> {{nino_ws.FecNac | date:'fullDate' }} </td>
             </tr>
-           <tr>
+            <tr>
+                <td>Sexo:</td>
+                <td> {{nino_ws.Sexo | sexoFilter}} </td>
+            </tr>
+            <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.FecNac.split(' ')[0] | amDifference : null : 'days' | negativo }} Días</span>
+                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo }} Días</span>
                 </td>
             </tr>
         </tbody>
