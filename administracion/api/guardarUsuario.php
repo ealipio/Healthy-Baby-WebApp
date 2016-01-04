@@ -11,6 +11,7 @@
 
 	  $rspta = json_decode(file_get_contents("php://input"));
 	  $dato= $rspta->usuario;
+	  $super = "MINSA";
 
 	  $clave = CLAVE;
 
@@ -23,7 +24,12 @@
 		$stmt->bindParam(':nombres',  $dato->nombres, PDO::PARAM_STR);
 		$stmt->bindParam(':apellido_paterno',  $dato->apellido_paterno, PDO::PARAM_STR);
 		$stmt->bindParam(':apellido_materno',  $dato->apellido_materno, PDO::PARAM_STR);
-		$stmt->bindParam(':centro_salud',  $dato->centro_salud, PDO::PARAM_STR);
+//condicional para verificar si es superadmin no almacene su centro de salud sino MINSA;
+		if($dato->perfiles[0]->id_perfil!=1){
+			$stmt->bindParam(':centro_salud',  $dato->centro_salud, PDO::PARAM_STR);}
+		else{
+			$stmt->bindParam(':centro_salud',  $super, PDO::PARAM_STR);	}
+
 		$stmt->bindParam(':llave',  $clave, PDO::PARAM_STR);
 		$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
 		$valor = $stmt->execute();

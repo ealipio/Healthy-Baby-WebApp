@@ -24,8 +24,6 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
       <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate only_text" required>
       <label for="apem">Apellido Materno</label>
 
-      {{us.apellido_materno}}
-
     </div>
   </div>
 
@@ -42,7 +40,7 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
     <div class="input-field col s4">
       <label >Seleccionar Perfiles</label><br/>
     <p ng-repeat="p in usuarios.perfiles">
-      <input type="checkbox" id="{{p.id_perfil}}"  ng-model="us.perfil[p.id_perfil]"/>
+      <input type="checkbox" id="{{p.id_perfil}}" ng-model="us.perfil[p.id_perfil]"/>
       <label for="{{p.id_perfil}}">
         {{p.nombre_perfil}}</label>
     </p>
@@ -80,14 +78,6 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
       }
     });
 
-    $("#1").click(function(){
-        if($("#1").is(':checked')){
-          alert("esta como super!!!");
-        }
-        else{
-          alert("ya no es super :(");
-        }
-    });
 
   });
 
