@@ -115,8 +115,6 @@
         }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
     };
 
-
-
     $scope.realizarRegistro = function(nene){
       console.log(nene);
       $http({method:'POST',url: 'api/realizar-registro.php', data: $.param({data:nene}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
