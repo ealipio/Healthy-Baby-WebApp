@@ -20,7 +20,7 @@ else{
     <link rel="stylesheet" href="/vendor/angular/angular-loading-bar/loading-bar.min.css">
     <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
     <link rel="stylesheet" href="css/style.css">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet"/>
+    <link href="/vendor/select2/dist/css/select2.min.css" rel="stylesheet"/>
 </head>
 <body ng-app="eissonApp">
     <main>
@@ -30,8 +30,8 @@ else{
                 <a id="logo-container" class="navbar-brand white-text" href="#/">
                     <img class="img-responsive center" src="../img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
-                
-                  <ul class="right hide-on-med-and-down" ng-controller='TabsController'>                
+
+                  <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
                     <!-- <li ng-class="{active: $route.current.activetab == 'consultar'}" ><a href="#/">Consultar</a></li> -->
                     <!-- <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas x Niño</a></li> -->
                     <li ng-class="{active: $route.current.activetab == 'vacunar'}" ><a href="#/vacunar-nino">Vacunar</a></li>
@@ -75,14 +75,14 @@ else{
     <script src="/vendor/angular/1.3.15/angular-route.min.js"></script>
 
     <script src='/vendor/angular/1.3.15/i18n/angular-locale_es-pe.js'></script>
-    <script src="https://cdn.jsdelivr.net/momentjs/2.10.6/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/angular.moment/1.0.0-beta.3/angular-moment.min.js"></script>
+    <script src="/vendor/moment.min.js"></script>
+    <script src="/vendor/angular/angular-moment.min.js"></script>
     <script src="/vendor/angular/angular-loading-bar/loading-bar.min.js"></script>
 
     <script src="/vendor/materialize/js/materialize.min.js"></script>
     <script src="/vendor/angular/angular-materialize/angular-materialize.js"></script>
     <script src="/vendor/angular/ui-select/dist/select.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+    <script src="/vendor/select2/dist/js/select2.min.js"></script>
     <!-- App -->
     <script src="app/app.js"></script>
     <script src="app/controllers.js"></script>
