@@ -13,7 +13,6 @@ var app = angular.module('eissonApp', [
     app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
       cfpLoadingBarProvider.includeSpinner   = true;
       cfpLoadingBarProvider.latencyThreshold = 1;
-
       $routeProvider.
 /*        when('/', {
           templateUrl: 'views/consultar.html',
