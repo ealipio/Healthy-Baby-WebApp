@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['id_perfil'][0]['id_perfil'])){  
+if(!isset($_SESSION['id_perfil'][0]['id_perfil'])){
      header('location:..');
      echo"no existe";
 }
@@ -19,9 +19,8 @@ else{
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.min.css">
-    <link rel="stylesheet" href="/vendor/angular/xeditable/css/xeditable.css" >
+    <link rel="stylesheet" href="/vendor/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/vendor/angular/angular-loading-bar/loading-bar.min.css">
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -67,18 +66,20 @@ else{
     </footer>
 
 
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/vendor/jquery-2.1.4.min.js"></script>
     <!-- angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-    <script src="/vendor/angular/xeditable/js/xeditable.min.js"></script>
+    <script src="/vendor/angular/1.3.15/angular.min.js"></script>
+    <script src="/vendor/angular/1.3.15/angular-animate.min.js"></script>
+    <script src="/vendor/angular/1.3.15/angular-resource.min.js"></script>
+    <script src="/vendor/angular/1.3.15/angular-route.min.js"></script>
+
+    <script src="/vendor/angular/angular-loading-bar/loading-bar.min.js"></script>
+    <script src="/vendor/materialize/js/materialize.min.js"></script>
+
     <script src="/vendor/angular/angular-materialize/angular-materialize.js"></script>
     <script src="/vendor/angular/ui-select/dist/select.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+    <script src="/vendor/select2/dist/js/select2.min.js"></script>
+
     <!-- App -->
     <script src="app/app.js"></script>
     <script src="app/controllers.js"></script>
