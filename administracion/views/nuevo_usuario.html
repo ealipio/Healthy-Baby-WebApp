@@ -7,7 +7,7 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
   <div class="row">
     <div class="input-field col s6">
       <input id="codigo" ng-model='us.username' type="text" class="validate" required>
-      <label for="codigo">Código Usuario</label>
+      <label for="codigo">Nombre Usuario</label>
     </div>
     <div class="input-field col s6">
       <input id="nombres" ng-model='us.nombres' type="text" class="validate only_text" required>
@@ -26,7 +26,12 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
 
     </div>
   </div>
-
+<div class="row">
+   <div class="input-field col s6">
+      <input id="email" ng-model='us.email' type="email" class="validate" required>
+      <label for="email">Correo Electronico</label>
+    </div>
+</div>
   <div class="row"  ng-hide="us.perfil[1]">
     <div class="input-field col s6">
       <select id="ccsalud" name="ccsalud" class="js-example-basic-multiple validate" ng-model='us.centro_salud' material-select watch>
@@ -34,7 +39,8 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
         <option ng-repeat="ce in Centros" value="{{ce.codigo}}">{{ce.nombre}}</option>
       </select>
     </div>
-  </div>
+
+    </div>
 
   <div class="row">
     <div class="input-field col s4">
