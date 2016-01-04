@@ -66,8 +66,9 @@
             var year = $scope.nino_ws.FecNac.substr(0,4);
             var month = $scope.nino_ws.FecNac.substr(4,2);
             var day = $scope.nino_ws.FecNac.substr(6,2);
-            $scope.nino_ws.FecNac = day + "-"+month+"-"+year;
-
+            $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
+            //$scope.nino_ws.FecNac = day + "-"+month+"-"+year;
+            console.log($scope.nino_ws);
             //$scope.getVacunas();
         }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
     };
@@ -87,6 +88,7 @@
 
 
     $scope.getVacunas=function() {
+      console.log($scope.nino_ws.FecNac);
       $http.post ('api/getVacunas.php', { FecNac: $scope.nino_ws.FecNac, NuCnv: $scope.nino_ws.NuCnv })
             .success(function(data) {
                     $scope.vacunas = data;
@@ -109,7 +111,8 @@
             var year = $scope.nino_ws.FecNac.substr(0,4);
             var month = $scope.nino_ws.FecNac.substr(4,2);
             var day = $scope.nino_ws.FecNac.substr(6,2);
-            $scope.nino_ws.FecNac = day + "-"+month+"-"+year;
+            //$scope.nino_ws.FecNac = day + "-"+month+"-"+year;
+            $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
             
             $scope.getVacunas();
         }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
