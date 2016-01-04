@@ -25,7 +25,7 @@ else{
 <body ng-app="eissonApp">
     <main>
         <header>
-            <nav class="cyan darken-2" role="navigation">
+            <nav class="cyan" role="navigation">
             <div class="nav-wrapper container">
                 <a id="logo-container" class="navbar-brand white-text" href="#/">
                     <img class="img-responsive center" src="../img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
