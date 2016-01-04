@@ -30,7 +30,7 @@
                 <td>{{ nino_ws.tipo_documento  | documento }}</td>
                 <td>{{nino_ws.nro_documento}}</td>
             </tr>
-
+            <!--
             <tr>
                 <td>Nombres</td>
                 <td>{{nino_ws.nombres}}</td>
@@ -41,10 +41,14 @@
                 <td>Apellidos</td>
                 <td>{{nino_ws.apellido_paterno}} {{nino_ws.apellido_materno}}</td>
             </tr>
-
+            -->
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.fecha_nac.split(' ')[0] }} </td>
+                <td> {{nino_ws.FecNac}} </td>
+            </tr>
+            <tr>
+                <td>Sexo:</td>
+                <td> {{nino_ws.Sexo | sexoFilter}} </td>
             </tr>
         </tbody>
     </table>
