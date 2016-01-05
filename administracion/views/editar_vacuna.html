@@ -53,12 +53,18 @@
           <tr>
               <th>Nombre dosis</th>
               <th>Fecha Aplicacion</th>
+              <th>Quitar</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat='p in dosis track by $index'>
             <td> {{p.nombre_dosis}} </td>
             <td> {{p.meses}} </td>
+            <td ng-click="deleteDosis($index)">
+                <a class="btn-floating red darken-3">
+                  <i class="mdi-action-delete"></i>
+                </a>
+            </td>
           </tr>
         </tbody>
       </table>

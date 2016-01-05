@@ -117,6 +117,9 @@ window.map="";
           });
     };
 
+     $scope.recargar=function() {
+    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
+    };
 
     }])
 
@@ -127,6 +130,7 @@ window.map="";
 
 
 .controller('CentrosController',['$scope', '$http', function($scope, $http){
+
   $scope.first=true;
       var markers =[];
     var infoWindow;
@@ -284,7 +288,12 @@ window.map="";
   .controller('AcercaController',['$scope', '$http', function($scope, $http){
     //
   }])
+  .controller('lostpasswordController',['$scope', '$http', function($scope, $http){
+     $scope.exito = function(){
+      $scope.envioExitoso=true;
 
+     };
+  }])
 
   .controller('LoginController',['$scope', '$http', function($scope, $http){
       $scope.login = {};
@@ -300,6 +309,9 @@ window.map="";
             }
             else if(response.perfiles[0].id_perfil==2){
                 location.href= 'vacunas/#/';
+            }
+            else if(response.perfiles[0].id_perfil==2){
+                location.href= 'vacunas/index.html';
             }
           //location.href= 'administracion/index.html';
         }
