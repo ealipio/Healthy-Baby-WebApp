@@ -108,13 +108,16 @@
             });
 
       }
+
     $scope.registro_usuario = function(us){
-        us.perfiles = [];
+        
         if(us.perfil[1]){
           if(us.perfil){
+            us.perfiles = [];
             $.each(us.perfil,function(i,v){
           
             var elemento = {"id_perfil": i};
+            console.log(elemento);
                 us.perfiles.push(elemento);
             })
           }
@@ -131,6 +134,7 @@
         else{
         if(us.centro_salud){
           if(us.perfil){
+            us.perfiles = [];
             $.each(us.perfil,function(i,v){
           
             var elemento = {"id_perfil": i};
@@ -158,9 +162,18 @@
         $scope.usuario.perfiles1.push(elemento);
         //$scope.pe.nombre_perfil = "";
       }
-
+$scope.hide=false;
       $scope.deletePerfil = function(i){ $scope.usuario.perfiles1.splice(i,1); }
-    
+     $scope.ejecutar = function(){ 
+      if($("#1").is(':checked')){
+      $scope.hide=true;
+    }
+    else{
+      $scope.hide=false;
+    }
+    }
+
+
     $scope.init();
   
   

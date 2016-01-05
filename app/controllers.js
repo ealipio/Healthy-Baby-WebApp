@@ -42,6 +42,35 @@ window.map="";
       return sexo;
     };
   })
+
+
+  .filter('filterFecha', function(){
+    return function(input){
+      if(input<12){
+        var retorno = input.toString()+" meses";
+      }
+      else{
+        var years = Math.floor(input/12);
+        var resto = input%12;
+        if(resto==0){
+          if(years==1){
+            var retorno = years.toString()+" año";}
+            else{
+          var retorno = years.toString()+" años";}
+        }
+        else{
+          if(years==1){
+            var retorno = years.toString()+" año y "+resto.toString()+" meses";}
+            else{
+          var retorno = years.toString()+" años  y "+resto.toString()+" meses";}
+        }
+      }
+   
+      return retorno;
+    };
+  })
+
+  
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
@@ -119,7 +148,9 @@ window.map="";
     };
 
      $scope.recargar=function() {
-    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
+      
+    //location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
+    window.location.reload(true);
     };
 
     }])
