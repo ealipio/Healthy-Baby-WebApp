@@ -1,38 +1,38 @@
-
-
 <div class="row">
-
 
 <h2>Nuevo Usuario:</h2></br></br>
 <form class="col s12" name='nuevoUsuarioForm' id='nuevoUsuarioForm'
 ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
-  
+
   <div class="row">
     <div class="input-field col s6">
       <input id="codigo" ng-model='us.username' type="text" class="validate" required>
-      <label for="codigo">Código Usuariosss</label>
+      <label for="codigo">Código Usuario</label>
     </div>
     <div class="input-field col s6">
-      <input id="nombres" ng-model='us.nombres' type="text" class="validate" required>
+      <input id="nombres" ng-model='us.nombres' type="text" class="validate only_text" required>
       <label for="nombres">Nombres</label>
     </div>
   </div>
 
   <div class="row">
     <div class="input-field col s6">
-      <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate" required>
+      <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate only_text" required>
       <label for="apep">Apellido Paterno</label>
     </div>
     <div class="input-field col s6">
-      <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate" required>
+      <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate only_text" required>
       <label for="apem">Apellido Materno</label>
+
     </div>
   </div>
 
-  <div class="row">
-    <div class="input-field col s8">
-      <input id="centrosalud" ng-model='us.centro_salud' type="text" class="validate">
-      <label for="centrosalud">Centro de Salud</label>
+  <div class="row"  ng-hide="us.perfil[1]">
+    <div class="input-field col s6">
+      <select id="ccsalud" name="ccsalud" class="js-example-basic-multiple validate" ng-model='us.centro_salud' material-select watch>
+        <option disabled selected>Seleccione el Centro de Salud</option>
+        <option ng-repeat="ce in Centros" value="{{ce.codigo}}">{{ce.nombre}}</option>
+      </select>
     </div>
   </div>
 
@@ -40,14 +40,12 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
     <div class="input-field col s4">
       <label >Seleccionar Perfiles</label><br/>
     <p ng-repeat="p in usuarios.perfiles">
-      <input type="checkbox" id="{{p.id_perfil}}"  ng-model="us.perfil[p.id_perfil]"/>
+      <input type="checkbox" id="{{p.id_perfil}}" ng-model="us.perfil[p.id_perfil]"/>
       <label for="{{p.id_perfil}}">
         {{p.nombre_perfil}}</label>
     </p>
-
     </div>
   </div>
-
   </br>
 
   <div class="row"> 
@@ -59,4 +57,28 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
 
 </form>
 </div>
-  
+  <script type="text/javascript">
+
+
+ $( document ).ready(function() {
+    $(".only_text").on('keydown', function(e) {
+      var val = $(this).val();
+      
+      if (val.match(/[^a-zA-Z\s]/g)) {
+         $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
+      }
+      
+    });
+
+    $(".only_text").on('keyup', function(e) {
+      var val = $(this).val();
+      
+      if (val.match(/[^a-zA-Z\s]/g)) {
+        $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
+      }
+    });
+
+
+  });
+
+</script>

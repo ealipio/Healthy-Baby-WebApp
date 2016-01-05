@@ -13,21 +13,13 @@ var app = angular.module('eissonApp', [
     app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
       cfpLoadingBarProvider.includeSpinner   = true;
       cfpLoadingBarProvider.latencyThreshold = 1;
-
       $routeProvider.
-
-        when('/vacunas', {
-          templateUrl: 'views/crear-vacuna.html',
-          caseInsensitiveMatch: true,
-          controller: 'VacunasController',
-          activetab: 'vacunas'
-        }).
-        when('/consultar', {
+/*        when('/', {
           templateUrl: 'views/consultar.html',
           caseInsensitiveMatch: true,
           controller: 'ConsultarController',
-          activetab: 'Consultar'
-        }).
+          activetab: 'consultar'
+        }).*/
         when('/vacunar-nino', {
           templateUrl: 'views/vacunar-nino.html',
           caseInsensitiveMatch: true,

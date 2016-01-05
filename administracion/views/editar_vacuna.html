@@ -38,7 +38,7 @@
       <label for="nombre_vacuna">Nombre Dosis</label>
     </div>
     <div class="input-field col s4">
-      <input id="estado" ng-model='ds.meses' type="text" class="validate">
+      <input id="estado" ng-model='ds.meses' type="number" min=0 class="validate">
       <label for="estado">Tiempo aplicación (meses)</label>
     </div>
     <div class="col-sm-offset-1 col-sm-3">
@@ -53,12 +53,18 @@
           <tr>
               <th>Nombre dosis</th>
               <th>Fecha Aplicacion</th>
+              <th>Quitar</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat='p in dosis track by $index'>
             <td> {{p.nombre_dosis}} </td>
             <td> {{p.meses}} </td>
+            <td ng-click="deleteDosis($index)">
+                <a class="btn-floating red darken-3">
+                  <i class="mdi-action-delete"></i>
+                </a>
+            </td>
           </tr>
         </tbody>
       </table>

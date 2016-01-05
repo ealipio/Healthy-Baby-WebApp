@@ -1,3 +1,5 @@
+
+window.map="";
 /**
  * List Controller
  * @version v0.2.2 - 2015-04-23 * @link http://csluni.org
@@ -16,13 +18,41 @@
     };
   })
 
+  .filter('documento', function(){
+    return function(input){
+      var documento = ["", "DNI", "CUI"];
+      return documento[input];
+    };
+  })
+
+  .filter('negativo', function(){
+  return function(id){
+    var valor= id*(-1);
+
+      return valor;
+    };
+  })
+
+  .filter('sexoFilter', function(){
+    return function(input){
+      var sexo = "Masculino";
+      if(input == "F"){
+        sexo = "Femenino";
+      }
+      return sexo;
+    };
+  })
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
-      $scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
+      $scope.nino = {tipo:3, numero:1000999595};
+      $scope.subs = {};
+      $scope.subs.correo="";
+      //$scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
 
       $route.current.activetab ? $scope.$route = $route : null;
+      /*
       $scope.consultar = function(nene){
         //console.log(nene);
         $http({method:'POST',url: 'api/consultar.php',data:$.param({data: nene}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
@@ -30,19 +60,65 @@
             //$scope.respuesta = response;
         });
       };
-    }])
+      */
 
-  .controller('CrearVacunaController',['$scope', '$route','$http', function($scope, $route, $http){
-    //console.log($route.current);
-    //saveVacuna
-    $scope.vacuna = {};
-      $scope.saveVacuna = function(vacuna){
-        console.log(vacuna);
-        $http({method:'POST',url: 'api/crear-vacuna.php',data:$.param({data: vacuna}), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-            console.log(response);
-        });
-      };
-  }])
+    $scope.getVacunas=function() {
+      $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+        $scope.vacunas = response;
+        console.log(response);
+      });
+    }
+
+    $scope.buscarNino = function(nino){
+      delete $scope.nino_error;
+      delete $scope.nino_ws;
+      $http.get('api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+          if(data.success){
+            $scope.nino_ws = data.success;
+            console.log($scope.nino_ws);
+            var year = $scope.nino_ws.FecNac.substr(0,4);
+            var month = $scope.nino_ws.FecNac.substr(4,2);
+            var day = $scope.nino_ws.FecNac.substr(6,2);
+            $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
+
+            $scope.getVacunas();
+            $scope.getCorreos();
+          }
+          else{
+            alert(data.error);
+          }
+
+        }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
+    };
+
+    $scope.suscribirse = function(data){
+        console.log(data.correo);
+        if(data.correo.length>0){
+          $http.post ('api/guardarSuscripcion.php', { id_nino: $scope.nino_ws.NuCnv, correo: data.correo })
+            .success(function(data) {
+                console.log(data);
+                $scope.correos.push({'email': data.email});
+              })
+            .error(function(data) {
+                    console.log('Error: ' + data);
+            });
+        }
+    };
+
+    $scope.getCorreos=function() {
+
+      $http.post ('api/getCorreos.php', { NuCnv: $scope.nino_ws.NuCnv })
+          .success(function(data) {
+                  $scope.correos = data;
+                  console.log(data);
+              })
+          .error(function(data) {
+                  console.log('Error: ' + data);
+          });
+    };
+
+
+    }])
 
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     //console.log($route.current);
@@ -50,145 +126,140 @@
   }])
 
 
-.controller('CentrosController',['$rootScope', '$scope', '$timeout', '$log', 'uiGmapGoogleMapApi', '$http',
-  function ($rootScope, $scope, $timeout, $log, GoogleMapApi, $http) {
-    $scope.init = function(){
+.controller('CentrosController',['$scope', '$http', function($scope, $http){
+  $scope.first=true;
+      var markers =[];
+    var infoWindow;
+    var user = "img/user.png";
+    var centroimg = "img/centros.png";
+    var geoLatitude ;
+    var geoLongitude;
+    $scope.dist_rela=9999999;
+    $scope.min=9999999;
+
+    $scope.handleLocationError = function(browserHasGeolocation, infoWindow, pos){
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+    }
+
+//function initMap() {
+    $scope.initMap = function(data){
+        var pos;
+
+      //var infoWindow = new google.maps.InfoWindow({map: map});
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+           geoLatitude = position.coords.latitude;
+           geoLongitude = position.coords.longitude
+
+             map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: geoLatitude, lng: geoLongitude},
+              zoom: 15
+            });
+           pos = {
+            lat: geoLatitude,
+            lng: geoLongitude
+          };
+          //infoWindow.setPosition(pos);
+          map.setCenter(pos);
+
+          var GeoMarker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                icon: user
+           });
+          $scope.cercano = {};
+
+
+          $.each(data , function( index, value ) {
+              $scope.printMarkers(map, value);
+              //console.log(parseFloat(value.latitud));
+              $scope.dist_rela=Math.sqrt(Math.pow((geoLatitude-value.latitud),2)+Math.pow((geoLongitude-value.longitud),2));
+
+              if($scope.dist_rela<$scope.min && $scope.first==true){
+
+                $scope.min = $scope.dist_rela;
+                $scope.cercano.nombre = value.nombre;
+                $scope.cercano.telefono = value.telefono;
+                $scope.cercano.horario = value.horario;
+                $scope.cercano.ubica2 = ", "+value.distrito+", "+value.provincia+", "+value.departamento;
+                $scope.cercano.tipo = value.tipo;
+                $scope.cercano.ubica = value.direccion;
+                $scope.cercano.resp = value.resp;
+              }
+          });
+
+        }, function() { $scope.handleLocationError(true, infoWindow, map.getCenter()); });
+      } else {
+        // Browser doesn't support Geolocation
+        $scope.handleLocationError(false, infoWindow, map.getCenter());
+
+      }
+    }
+
+     $scope.init = function(){
         $http.post ('api/getCentros.php')
         .success(function(data) {
-                $scope.data = data;
-               console.log($scope.data);
-               $scope.load();
-            })
+            $scope.data = data;
+            console.log($scope.data);
+            $scope.initMap(data);
+
+        })
         .error(function(data) {
                 console.log('Error: ' + data);
         });
     };
 
+    $scope.init();
 
-  var latituden;
-  var longitudn;
-  var imagen_user = '../minsa/img/user.png';
-  var imagen_posta = '../minsa/img/posta.png';
+    $scope.printMarkers = function(map, data){
+      var beachMarker;
+      beachMarker = new google.maps.Marker({
+           position: {lat: parseFloat(data.latitud), lng: parseFloat(data.longitud)},
+            map: map,
+            icon: centroimg,
+            animation: google.maps.Animation.DROP,
+            title: $scope.data.nombre
+      });
+      markers.push(beachMarker); // add marker to array
 
-  $scope.dist_rela=9999999;
-  $scope.min=9999999;
+      beachMarker.addListener('click', function() {
 
+        $scope.first=false;
 
-   $scope.load= function(){
-     //when the API is really ready and loaded play w/ the scope
-      GoogleMapApi.then(function (map) {
-          if (navigator.geolocation) {
+         if (infoWindow !== void 0) {
+              infoWindow.close();
+         }
 
-              navigator.geolocation.getCurrentPosition(function(position) {
+         infoWindow = new google.maps.InfoWindow({
+            content: "<div id='up'><div id='up_right'><table style='font-size: 0.95em;'><tbody><tr><td>"+data.tipo+"</td></tr><tr>"+
+            "<td><b>"+data.nombre+"</b></td></tr></table></div><div id='up_left'><img src='img/centros_big.png'/></div></div>"+"<hr>"+"<table style='font-size: 0.875em;'><tr><td><i class='fa fa-map-marker fa-1x'></i></td><td>"+data.direccion+", "+data.distrito+", "+data.provincia+", "+data.departamento+"</td>"+
+          "</tr><tr><td><i class='fa fa-phone fa-1.5x'></i></td><td>"+data.telefono+"</td></tr><tr><td><i class='fa fa-clock-o fa-1x'></i></td><td>"+data.horario+"</td>"+
+          "</tr><tr><td><i class='fa fa-user fa-1x'></i></td><td>"+data.resp+"</td></tr></tbody></table>",
+          maxHeight: 400,
+          maxWidth: 300
+         });
+                $scope.cercano.nombre = data.nombre;
+                $scope.cercano.telefono = data.telefono;
+                $scope.cercano.horario = data.horario;
+                $scope.cercano.ubica2 = ", "+data.distrito+", "+data.provincia+", "+data.departamento;
+                $scope.cercano.tipo = data.tipo;
+                $scope.cercano.ubica = data.direccion;
+                $scope.cercano.resp = data.resp;
 
-                latituden = position.coords.latitude;
-                longitudn = position.coords.longitude;
-               //console.log(latituden,longitudn);
-                $scope.printPosition();
-                $scope.printMarkers();
-              }, function() {
-                   latituden = -12.045865;
-                   longitudn = -77.030562;
-
-                  $scope.printPosition();
-                  $scope.printMarkers();
-                });
-               }
-
-          else{
-            latituden = -12.045865;
-            longitudn = -77.030562;
-
-            $scope.printPosition();
-            $scope.printMarkers();
+         if (infoWindow) {
+//           alert('entró');
+             infoWindow.close();
           }
-    });
-   };
-   $scope.init();
+           infoWindow.open(map, beachMarker);
+      });
 
-
-   $scope.printPosition= function(){
-       $scope.map = {
-
-      center: {
-        latitude: latituden,
-        longitude: longitudn
-      },
-      pan: true,
-      zoom: 15,
-      refresh: true,
-      events: {},
-      bounds: {}
-
-    };
-    $scope.mimapa=true;
-    //console.log($scope.map);
-        $scope.map.markers = [
-
-        {
-          id: "user",
-          location: {
-            latitude: latituden,
-            longitude: longitudn
-          },
-          options: {
-            title: 'Mi ubicacion',
-            icon: imagen_user,
-            animation: google.maps.Animation.DROP
-          },
-          showWindow: false
-        }];
+      $scope.dist_rela=Math.sqrt(Math.pow((geoLatitude-$scope.data.latitud),2)+Math.pow((geoLongitude-$scope.data.longitud),2));
    };
 
- $scope.printMarkers= function(){
-
-  for( var i=1;i<$scope.data.length+1;i++){
-
-    $scope.map.markers[i] = {
-          id: i-1,
-            location: {
-              latitude:  $scope.data[i-1].latitud,
-              longitude: $scope.data[i-1].longitud
-            },
-            options: {
-              title: $scope.data[i-1].tipo+" : "+$scope.data[i-1].nombre,
-              icon: imagen_posta,
-              animation: google.maps.Animation.DROP
-            },
-            showWindow: false
-    }
-
-      $scope.dist_rela=Math.sqrt(Math.pow((latituden-$scope.data[i-1].latitud),2)+Math.pow((longitudn-$scope.data[i-1].longitud),2));
-      if($scope.dist_rela<$scope.min){
-        $scope.min = $scope.dist_rela;
-
-        $scope.nombre = $scope.data[i-1]["nombre"];
-        $scope.telefono = $scope.data[i-1]["telefono"];
-        $scope.horario = $scope.data[i-1]["horario"];
-        $scope.ubica2 = ", "+$scope.data[i-1]["distrito"]+", "+$scope.data[i-1]["provincia"]+", "+$scope.data[i-1]["departamento"];
-        $scope.tipo = $scope.data[i-1]["tipo"];
-        $scope.ubica = $scope.data[i-1]["direccion"];
-        $scope.resp = $scope.data[i-1]["resp"];
-        //console.log($scope.min);
-      }
-  }
-
-      $scope.map.markerEvents = {
-        click: function (gMarker, eventName, model, latLngArgs) {
-          var id = model.idKey || model.id;
-          $("#cercano").empty();
-
-            $scope.nombre = $scope.data[id]["nombre"];
-            $scope.telefono = $scope.data[id]["telefono"];
-            $scope.horario = $scope.data[id]["horario"];
-            $scope.ubica2 = ", "+$scope.data[id]["distrito"]+", "+$scope.data[id]["provincia"]+", "+$scope.data[id]["departamento"];
-            $scope.tipo = $scope.data[id]["tipo"];
-            $scope.ubica = $scope.data[id]["direccion"];
-            $scope.resp = $scope.data[id]["resp"];
-        }
-      }
-  };
- }])
+  }])
 
   .controller('VacunasController',['$scope', '$http', '$route', function ($scope, $http, $route) {
       $scope.init = function(){
@@ -214,6 +285,7 @@
     //
   }])
 
+
   .controller('LoginController',['$scope', '$http', function($scope, $http){
       $scope.login = {};
     $scope.loginProcess = function(login){
@@ -224,7 +296,10 @@
           alert("Error, el usuario y contraseña ingresados no concuerdan");
         } else if(response.login == "ok"){
             if(response.perfiles[0].id_perfil==1){
-                location.href= 'administracion/index.html';
+                location.href= 'administracion/#/';
+            }
+            else if(response.perfiles[0].id_perfil==2){
+                location.href= 'vacunas/#/';
             }
             else if(response.perfiles[0].id_perfil==2){
                 location.href= 'vacunas/index.html';

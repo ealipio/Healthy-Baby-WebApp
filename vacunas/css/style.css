@@ -7,6 +7,14 @@
  */
 
 /* Footer Adhesivo  */
+header{
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+#container{
+  margin-top: 90px;
+}
  body {
     display: flex;
     min-height: 100vh;
@@ -26,6 +34,7 @@ nav .brand-logo {
 p {
   line-height: 2rem;
 }
+
 
 footer.page-footer {
   margin: 0;
@@ -92,4 +101,10 @@ color: #1e88e5;
   background-color: #283593;
   color: #fff !important;
   padding: 5px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
 }

@@ -3,13 +3,12 @@
     <div class="col s5 input-field">
         <select class="" ng-model="nino.tipo" material-select watch>
             <option value="" disabled selected>Tipo de Documento</option>
-            <option value="1">DNI</option>
-            <option value="2">CUI</option>
+            <option value="1">Número CNV</option>
         </select>
     </div>
     <div class="col s5" input-field>
         <input type="number" ng-model="nino.numero" />
-        <label>Numero</label>
+        <label>Numero documento</label>
     </div>
     <div class="col s2 input-field">
         <button class="btn" ng-click="buscarNino(nino)"><i class="mdi-action-search"></i></button>
@@ -23,27 +22,30 @@
                 <td>{{ nino_ws.tipo_documento  | documento }}</td>
                 <td>{{nino_ws.nro_documento}}</td>
             </tr>
-            <tr>
-                <td>Nombres</td>
+            <tr ng-show="nino_ws.nombres">
+                <td >Nombres</td>
                 <td>{{nino_ws.nombres}}</td>
             </tr>
-            <tr>
+            <tr ng-show="nino_ws.apellido_paterno">
                 <td>Apellidos</td>
                 <td>{{nino_ws.apellido_paterno}} {{nino_ws.apellido_materno}}</td>
             </tr>
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.fecha_nac.split(' ')[0] | date:'fullDate' }} </td>
+                <td> {{nino_ws.FecNac | date:'fullDate' }} </td>
+            </tr>
+            <tr>
+                <td>Sexo:</td>
+                <td> {{nino_ws.Sexo | sexoFilter}} </td>
             </tr>
             <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.fecha_nac.split(' ')[0] | amDifference : null : 'months' }} Meses</span>
+                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo }} Días</span>
                 </td>
             </tr>
         </tbody>
     </table>
-    <br/>
 
     <div class="row" style="display: none">
         <div class="col s12">
@@ -61,15 +63,12 @@
         </div>
         <div id="crear-vacuna" class="col s12 tab-body">
           <div ng-include src="'views/crear-vacuna.html'"></div>
-        </div> 
+        </div>
         <div id="info-adicional" class="col s12 tab-body">
           <div ng-include src="'views/info-adicional.html'"></div>
         </div>
     </div>
-
-    
 </div>
-
 <div class="card-panel center light-blue darken-3" ng-show="nino_error">
     <span class="flow-text white-text ng-binding">{{nino_error.error}}.</span>
 </div>

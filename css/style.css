@@ -7,6 +7,14 @@
  */
 
 /* Footer Adhesivo  */
+header{
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+#container{
+  margin-top: 90px;
+}
  body {
     display: flex;
     min-height: 100vh;
@@ -16,6 +24,10 @@
   main {
     flex: 1 0 auto;
   }
+
+  #acerca_text{
+  font-size: 125%;
+}
 /* Fin del footer Adhesivo  */
 
 nav ul a,
@@ -93,3 +105,9 @@ color: #1e88e5;
   color: #fff !important;
   padding: 5px;
 }
+
+input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+  }

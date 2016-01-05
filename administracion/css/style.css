@@ -7,6 +7,15 @@
  */
 
 /* Footer Adhesivo  */
+header{
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+#container{
+  margin-top: 90px;
+}
+
  body {
     display: flex;
     min-height: 100vh;
@@ -99,4 +108,9 @@ color: #1e88e5;
 }
 .ng-valid.ng-dirty{
   border-color: #78FA89;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
 }

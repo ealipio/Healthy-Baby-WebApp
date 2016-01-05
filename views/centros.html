@@ -1,75 +1,60 @@
- <style>
-      #map_canvas {width:100%;height: 600px; background-color: #CCC;}
+<!DOCTYPE html>
+<html>
+  <head>
+   <style>
+      #map {width:100%;height: 600px; background-color: #CCC;}
+      td {padding: 5px 3px ;}
+      #up_right{width: 77%; float:right;}
+      #up{width: 300px;height: 75px;}
+      #up_left{width: 23%; float:left; margin-top: 15px; }
 </style>
-<h4>Centros de Vacunaci&oacute;n:</h4>
-<div class="z-depth-3" style="padding: 5px;border-radius: 7px;">
-	<div id="map_canvas"  >
-
-    <ui-gmap-google-map id="map"
-                        center="map.center"
-                        pan="map.pan"
-                        zoom="map.zoom"
-                        draggable="true"
-                        refresh="map.refresh"
-                        options="map.options"
-                        events="map.events"
-                        bounds="map.bounds">
-        <ui-gmap-markers models="map.markers" coords="'location'" icon="'icon'" title="'title'" options="'options'" events="map.markerEvents">
-        </ui-gmap-markers>
-
-        <!--<ui-gmap-marker ng-repeat="m in map.markers" coords="m.location"-->
-                         <!--icon="m.icon" title="m.title" options="m.options" fit="true" idkey="m.id"-->
-                <!--events="map.markerEvents">-->
-        <!--</ui-gmap-marker>-->
-    </ui-gmap-google-map>
-
-<style type="text/css">
-.angular-google-map-container {
-    width: 100%;
-    height: 600px;
-}
-</style>
-</div>
-<div class="row">
-	<div id="vista_hospital" class="col s10 offset-s1">
+  </head>
+  <body>
+    <div id="map"></div>
+ 
+    <div class="row">
+  <div id="vista_hospital" class="col s10 offset-s1">
     </br>
     <p id="cercano">Mas Cercano:<p>
-		<table class="striped">
+    <table class="striped">
         <tbody>
           <tr>
             <td>Tipo : </td>
-            <td>{{tipo}}</td>
+            <td>{{cercano.tipo}}</td>
 
           </tr>
           <tr>
             <td>Nombre : </td>
-            <td>{{nombre}}</td>
+            <td>{{cercano.nombre}}</td>
 
           </tr>
             <tr>
             <td>Ubicacion</td>
-            <td>{{ubica}} {{ubica2}}</td>
+            <td>{{cercano.ubica}} {{cercano.ubica2}}</td>
 
           </tr>
             <tr>
             <td>Telefono : </td>
-            <td>{{telefono}}</td>
+            <td>{{cercano.telefono}}</td>
 
           </tr>
             <tr>
             <td>Horario : </td>
-            <td>{{horario}}</td>
+            <td>{{cercano.horario}}</td>
 
           </tr>
           <tr>
             <td>Responsable : </td>
-            <td>{{resp}}</td>
+            <td>{{cercano.resp}}</td>
 
           </tr>
         </tbody>
 
         </table>
 
-	</div>
+  </div>
 </div>
 </div>
+
+  </body>
+</html>

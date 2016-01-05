@@ -4,6 +4,7 @@
 	$db  = new EissonConnect();
 	$dbh = $db->enchufalo();
 	session_start();
+	
 	if(isset($_SESSION['id_usuario'])){
 		$data = json_decode(file_get_contents("php://input"));
 		$objDatos=$data->datos;
@@ -21,12 +22,13 @@
 		$stmt->bindParam(':observaciones',  $objDatos->observaciones, PDO::PARAM_STR);
 		$stmt->bindParam(':username',  $_SESSION['id_usuario'], PDO::PARAM_STR);
 
-		$stmt->execute();
+		$valor= $stmt->execute();
 
-		echo"Vacuna guardada correctamente.";
+		echo json_encode($valor);
 	}
 	else{
-		echo"Error al intentar guardar vacuna";
+		$valor= FALSE;
+		echo json_encode($valor);
 	}
 
 

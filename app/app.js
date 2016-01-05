@@ -7,6 +7,7 @@ var app = angular.module('eissonApp', [
   'ngAnimate',
   'angular-loading-bar',
   'ui.materialize',
+  'angularMoment',
   'Controllers',
   'uiGmapgoogle-maps']);
 
@@ -18,12 +19,6 @@ var app = angular.module('eissonApp', [
 
 
       $routeProvider.
-        when('/crear-vacuna', {
-          templateUrl: 'views/crear-vacuna.html',
-          caseInsensitiveMatch: true,
-          controller: 'CrearVacunaController',
-          activetab: 'crearVacuna'
-        }).
         when('/consultar', {
           templateUrl: 'views/consultar.html',
           caseInsensitiveMatch: true,
@@ -42,6 +37,7 @@ var app = angular.module('eissonApp', [
           controller: 'CentrosController',
           activetab: 'centros'
         }).
+
         when('/acerca', {
           templateUrl: 'views/acerca.html',
           caseInsensitiveMatch: true,

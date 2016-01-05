@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 table-responsive">
-		 <h2>Lista de Vacunas</h2></br></br>
+		 <h4>Lista de Vacunas</h4></br>
 
 <a href='#nueva_vacuna'><button type="button" class="cyan darken-2 waves-effect waves-light btn">Agregar Vacuna +</button></a></br>
 
 </br></br>
-    <table class="table table-bordered" id="searchObjResults">
+    <table class="table table-bordered bordered" id="searchObjResults">
     	<thead>
     		<tr>
     		    <th>Vacuna</th>
@@ -21,10 +21,10 @@
         	<tr ng-repeat="n in vacunas.vacunas">
             
                 <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
-                <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></td> 
+                <td ng-repeat="m in vacunas.dosis | filter : {id_vacuna:n.id_vacuna}:true" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></td> 
                 <td>{{n.estado | estadoFilter}} </td>
                 <td >{{n.observaciones}}</td>
-                <td class="col-lg-2"><a href="#editar_vacuna/{{n.id_vacuna}}">[editar]   </a></td>
+                <td ><a href="#editar_vacuna/{{n.id_vacuna}}"><i tittle="Editar" class="small mdi-content-create"></i></a></td>
               
             </tr>
         </tbody>

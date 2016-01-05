@@ -1,45 +1,57 @@
 <?php
-  require_once('../../api/config/mysql.php');
-  
-  $db  = new EissonConnect();
-  $dbh = $db->enchufalo();
-  $rspta = json_decode(file_get_contents("php://input"));
-  
-  $vacuna = $rspta->vacuna;
-  $dosis = $rspta->dosis;
+	require_once('../../api/config/mysql.php');
 
-
-	$q = 'INSERT INTO tb_vacunas (nombre_vacuna, observaciones, estado, created_at) 
-			values (:nombre_vacuna, :observaciones, :estado, CURRENT_TIMESTAMP)';
+	$db  = new EissonConnect();
+	$dbh = $db->enchufalo();
 	
-	$stmt = $dbh->prepare($q);
-	$stmt->bindParam(':nombre_vacuna',  $vacuna->nombre_vacuna, PDO::PARAM_STR);
-	$stmt->bindParam(':observaciones',  $vacuna->observaciones, PDO::PARAM_STR);
-	$stmt->bindParam(':estado',  $vacuna->estado, PDO::PARAM_INT);
-	$stmt->execute();
-	
-	$id_vacuna = $dbh->lastInsertId();
-	$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	session_start();
+ 	if(isset($_SESSION['id_usuario'])){
 
-	foreach ($dosis as $vdosis => $value) {
-		//var_dump($value->nombre_dosis);
+		$rspta = json_decode(file_get_contents("php://input"));
 
-		$q = 'INSERT INTO tb_dosis_vacunas (nombre_dosis, meses, id_vacuna, created_at) 
-			values (:nombre_dosis, :meses, :id_vacuna, CURRENT_TIMESTAMP)';
-	
+		$vacuna = $rspta->vacuna;
+		$dosis = $rspta->dosis;
+
+		//var_dump($vacuna);
+
+		$q = 'INSERT INTO tb_vacunas (nombre_vacuna, observaciones, estado, created_at, last_user) 
+				values (:nombre_vacuna, :observaciones, :estado, CURRENT_TIMESTAMP, :last_user)';
+
 		$stmt = $dbh->prepare($q);
-		$stmt->bindParam(':nombre_dosis',  $value->nombre_dosis, PDO::PARAM_STR);
-		$stmt->bindParam(':meses',  $value->meses, PDO::PARAM_INT);
-		$stmt->bindParam(':id_vacuna',  $id_vacuna, PDO::PARAM_INT);
-		$stmt->execute();
-		$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$stmt->bindParam(':nombre_vacuna',  $vacuna->nombre_vacuna, PDO::PARAM_STR);
+		$stmt->bindParam(':observaciones',  $vacuna->observaciones, PDO::PARAM_STR);
+		$stmt->bindParam(':estado',  $vacuna->estado, PDO::PARAM_INT);
+		$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
+		$valor1 = $stmt->execute();
+
+		$id_vacuna = $dbh->lastInsertId();
+
+
+
+		if($valor1){
+			$valor2=true;
+			foreach ($dosis as $vdosis => $value) {
+
+				$q = 'INSERT INTO tb_dosis_vacunas (nombre_dosis, meses, id_vacuna, created_at, last_user) 
+					values (:nombre_dosis, :meses, :id_vacuna, CURRENT_TIMESTAMP, :last_user)';
+			
+				$stmt = $dbh->prepare($q);
+				$stmt->bindParam(':nombre_dosis',  $value->nombre_dosis, PDO::PARAM_STR);
+				$stmt->bindParam(':meses',  $value->meses, PDO::PARAM_INT);
+				$stmt->bindParam(':id_vacuna',  $id_vacuna, PDO::PARAM_INT);
+				$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
+				$valor2 = $stmt->execute();
+			}
+			echo json_encode($valor2);
+		}
+		else{
+			echo json_encode($valor1);
+		}
 	}
-
-
-
-	$respuesta = array( 'estatus' => 'success','message' => 'Vacuna registrada Exitosamente', 'id_vacuna' => $id_vacuna, 'created_at' => date("Y-m-d H:i:s") );
-	//var_dump($r);
-	echo json_encode($respuesta);
+	else{
+		$valor= FALSE;
+		echo json_encode($valor);
+	}
 
 ?>
 
