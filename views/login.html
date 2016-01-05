@@ -5,7 +5,7 @@
       <div class="card ">
         <form name='loginForm' id='loginForm' ng-submit="loginForm.$valid && loginProcess(login)">
         <div class="card-content white-text">
-          <span class="card-title black-text">Login</span>
+          <span class="card-title black-text">Iniciar Sesión</span>
 
             <div input-field>
                 <input type="text" class="black-text" ng-model="login.usuario" class="validate" required>
@@ -14,11 +14,11 @@
 
             <div input-field>
                 <input type="password"  class="black-text" ng-model="login.password" required>
-                <label>Password</label>
+                <label>Contraseña</label>
             </div>
         </div>
         <div class="card-action">
-          <button type="submit" class="btn waves-effect waves-light right">Login</button>
+          <a href="#/lostpassword">olvide mi contraseña</a><button type="submit" class="btn waves-effect waves-light right">Entrar</button>
           <br>
           <br>
         </div>
