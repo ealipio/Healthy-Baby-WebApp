@@ -31,7 +31,7 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
     <div class="input-field col s6">
       <select id="ccsalud" name="ccsalud" class="js-example-basic-multiple validate" ng-model='us.centro_salud' material-select watch>
         <option disabled selected>Seleccione el Centro de Salud</option>
-        <option ng-repeat="ce in Centros" value="{{ce.codigo}}">{{ce.nombre}}</option>
+        <option ng-repeat="ce in Centros" value="{{ce.codigo}}">{{ce.codigo}} {{ce.nombre}}</option>
       </select>
     </div>
   </div>

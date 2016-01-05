@@ -151,10 +151,11 @@
       }else{alert("Ingrese el centro de salud");}
     };
       $scope.mostraradicional = function(){
-   $scope.adicional={};
-      $('ul.tabs').tabs('select_tab', 'info-adicional');
-      $scope.adicional.id_nino=$scope.nino_ws.NuCnv;
-
+        var d = new Date();
+        $scope.adicional={};
+        $('ul.tabs').tabs('select_tab', 'info-adicional');
+        $scope.adicional.id_nino=$scope.nino_ws.NuCnv;
+        $scope.adicional.fecha_medicion = d;
     };
       $scope.cancel = function(){
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
