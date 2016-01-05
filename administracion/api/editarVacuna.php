@@ -1,6 +1,5 @@
 <?php
 	  require_once('../../api/config/mysql.php');
-	  include_once dirname(__FILE__) . '../../api/config/config.php';
 	  
 	  $db  = new EissonConnect();
 	  $dbh = $db->enchufalo();
@@ -12,6 +11,7 @@
 		$rspta = json_decode(file_get_contents("php://input"));
 		$vacuna=$rspta->vacuna;
 		$dosis=$rspta->dosis;
+		$del_dosis=$rspta->del_dosis;
 
 		$q = 'UPDATE tb_vacunas
 			SET nombre_vacuna=:nombre_vacuna, observaciones=:observaciones, estado=:estado, last_user=:last_user
@@ -23,10 +23,9 @@
 		$stmt->bindParam(':observaciones',  $vacuna->observaciones, PDO::PARAM_STR);
 		$stmt->bindParam(':estado',  $vacuna->estado, PDO::PARAM_INT);
 		$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
-		$stmt->execute();
+		$valor = $stmt->execute();
 
 		foreach ($dosis as $v) {
-			var_dump($v);
 			if($v->nuevo == 1){
 				$q = 'INSERT INTO tb_dosis_vacunas (nombre_dosis, meses, id_vacuna, last_user) 
 				values (:nombre_dosis, :meses, :id_vacuna, :last_user)';
@@ -35,13 +34,29 @@
 				$stmt->bindParam(':meses',  $v->meses, PDO::PARAM_STR);
 				$stmt->bindParam(':id_vacuna',  $vacuna->id_vacuna, PDO::PARAM_INT);
 				$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
-				$stmt->execute();
+				$valor = $stmt->execute();
 			}
 			
 		}
 
+		foreach ($del_dosis as $w) {
+			$q = 'UPDATE tb_dosis_vacunas
+					SET last_user=:last_user
+					where id_dosis_vacunas=:id_dosis_vacunas';
+			$stmt = $dbh->prepare($q);
+			$stmt->bindParam(':id_dosis_vacunas',  $w->id_dosis_vacunas, PDO::PARAM_STR);
+			$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
+			$valor = $stmt->execute();
+
+			$q = 'DELETE FROM tb_dosis_vacunas 
+					WHERE id_dosis_vacunas=:id_dosis_vacunas';
+			$stmt = $dbh->prepare($q);
+			$stmt->bindParam(':id_dosis_vacunas',  $w->id_dosis_vacunas, PDO::PARAM_STR);
+			$valor = $stmt->execute();
+		}
+
 		//var_dump($r);
-		echo json_encode($r);
+		echo json_encode($valor);
 	}
 	else{
 		$valor= FALSE;

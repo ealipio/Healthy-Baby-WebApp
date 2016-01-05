@@ -284,13 +284,12 @@
         $scope.init = function(){
           var id = $routeParams.id;
           console.log(id);
-          
+          $scope.del_dosis=[];
+
           $http.post('api/getVacunas_by_id.php', {id_vacuna :id})
           .success(function(response) {
               $scope.va=response.vacunas;
               $scope.dosis=response.dosis;
-              console.log(response.vacunas);
-
            })
           .error(function(data) {
             console.log('Error: ' + data);
@@ -299,18 +298,28 @@
         }
 
         $scope.agregar_dosis = function(ds){
-          console.log(ds);
-              var elemento = {"nombre_dosis":ds.nombre_dosis,"meses":ds.meses,"nuevo":1};
-            $scope.dosis.push(elemento);
-            $scope.ds.nombre_dosis="";
-            $scope.ds.meses="";
+          if(ds){
+            if(ds.nombre_dosis && ds.meses){
+                var elemento = {"nombre_dosis":ds.nombre_dosis,"meses":ds.meses,"nuevo":1};
+                $scope.dosis.push(elemento);
+                $scope.ds.nombre_dosis="";
+                $scope.ds.meses="";
+                console.log($scope.dosis);
+              }
+            else{
+              alert('Favor de completar todos los campos de la dosis.');
+            }
           }
+          else{
+            alert('Favor de completar todos los campos de la dosis.');
+          }
+        }
 
         $scope.editar_vacuna = function(us,p){
           console.log(us,p);
-
+          console.log($scope.del_dosis);
           //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
-          $http.post('api/editarVacuna.php', {vacuna :us, dosis :p})
+          $http.post('api/editarVacuna.php', {vacuna: us, dosis: p, del_dosis: $scope.del_dosis})
             .success(function(response) {
               location.href=location.protocol+"//"+location.hostname+location.pathname+"#/vacunas";
              })
@@ -318,7 +327,12 @@
               console.log('Error: ' + data);
               alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
             });
-
+        }
+        $scope.deleteDosis = function(i){
+            var elemento = $scope.dosis[i];
+            elemento.nuevo=2;
+            $scope.del_dosis.push(elemento);
+            $scope.dosis.splice(i,1);
         }
       $scope.init();
    }])
