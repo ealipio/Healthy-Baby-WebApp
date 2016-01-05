@@ -56,6 +56,12 @@ var app = angular.module('eissonApp', [
           controller: 'lostpasswordController',
           activetab: 'login'
         }).
+        when('/changepassword/:id', {
+          templateUrl: 'views/change_password.html',
+          caseInsensitiveMatch: true,
+          controller: 'changePasswordController',
+          activetab: 'login'
+        }).
         otherwise({
           redirectTo: '/acerca'
         });
