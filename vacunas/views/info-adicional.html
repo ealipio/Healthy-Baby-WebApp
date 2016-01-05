@@ -4,24 +4,36 @@
 
     <div class="row">
         <div class="col s6" input-field>
-            <input type="number" step="any" min=0 ng-model="adicional.peso" required/>
-            <label>Peso (Kg)</label>
+            <input type="number" step="any" min=0 max=200 ng-model="adicional.peso" required/>
+            <label>Peso (Kg)(*)</label>
         </div>
         <div class="col s6" input-field>
-            <input type="number" step="any" min=0 ng-model="adicional.talla" required/>
-            <label>Talla (cm)</label>
+            <input type="number" step="any" min=0 max=220 ng-model="adicional.talla" required/>
+            <label>Talla (cm)(*)</label>
         </div>
     </div>
 
     <div class="row">
         <div class="col s6" input-field>
-            <input type="text" ng-model="adicional.nutrientes" />
+            <input type="number" step="any" min=25 max=60 ng-model="adicional.temperatura" required/>
+            <label>Temperatura (°C)(*)</label>
+        </div>
+        <div class="col s6" input-field>
+            <input type="number" step="any" min=0 max=30 ng-model="adicional.hemoglobina"/>
+            <label>Hemoglobina</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s6" input-field>
+            <select class="" ng-model="adicional.nutrientes" material-select watch>
+              <option value="1">Administrado</option>
+              <option value="0">No Administrado</option>
+            </select>
             <label>Nutrientes</label>
         </div>
         <div class="col s6">
             <label for="inputCreated">Fecha de toma de datos</label>
-
-        
                 <input name="created" id="inputCreated"  ng-model="adicional.fecha_medicion" type="date">
         </div>
     </div>

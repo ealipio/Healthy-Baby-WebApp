@@ -10,13 +10,15 @@
 		$objDatos=$data->datos;
 		
 
-		$q = 'INSERT INTO tb_info_adicional (id_nino, peso, talla, fecha_medicion, observaciones, username, nutrientes, created_at) 
-				values (:id_nino, :peso, :talla, :fecha_medicion, :observaciones, :username, :nutrientes, CURRENT_TIMESTAMP)';
+		$q = 'INSERT INTO tb_info_adicional (id_nino, peso, talla, temperatura, hemoglobina, fecha_medicion, observaciones, username, nutrientes, created_at) 
+				values (:id_nino, :peso, :talla, :temperatura, :hemoglobina, :fecha_medicion, :observaciones, :username, :nutrientes, CURRENT_TIMESTAMP)';
 		
 		$stmt = $dbh->prepare($q);
 		$stmt->bindParam(':id_nino',  $objDatos->id_nino, PDO::PARAM_STR);
 		$stmt->bindParam(':peso',  $objDatos->peso, PDO::PARAM_STR);
 		$stmt->bindParam(':talla',  $objDatos->talla, PDO::PARAM_STR);
+		$stmt->bindParam(':temperatura',  $objDatos->temperatura, PDO::PARAM_STR);
+		$stmt->bindParam(':hemoglobina',  $objDatos->hemoglobina, PDO::PARAM_STR);
 		$stmt->bindParam(':fecha_medicion',  $objDatos->fecha_medicion, PDO::PARAM_STR);
 		$stmt->bindParam(':nutrientes',  $objDatos->nutrientes, PDO::PARAM_STR);
 		$stmt->bindParam(':observaciones',  $objDatos->observaciones, PDO::PARAM_STR);
