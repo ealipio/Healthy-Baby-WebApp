@@ -23,6 +23,31 @@
       return estados[id];
     };
   })
+  .filter('filterFecha', function(){
+    return function(input){
+      if(input<12){
+        var retorno = input.toString()+" meses";
+      }
+      else{
+        var years = Math.floor(input/12);
+        var resto = input%12;
+        if(resto==0){
+          if(years==1){
+            var retorno = years.toString()+" año";}
+            else{
+          var retorno = years.toString()+" años";}
+        }
+        else{
+          if(years==1){
+            var retorno = years.toString()+" año y "+resto.toString()+" meses";}
+            else{
+          var retorno = years.toString()+" años  y "+resto.toString()+" meses";}
+        }
+      }
+   
+      return retorno;
+    };
+  })
 
 .filter('DosisVacunas', function(){
   return function(id){
@@ -32,6 +57,7 @@
       return id;
     };
   })
+
 
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
     console.log($route.current);
@@ -110,7 +136,7 @@
       }
 
     $scope.registro_usuario = function(us){
-        
+        console.log(us);
         if(us.perfil[1]){
           if(us.perfil){
             us.perfiles = [];
@@ -121,6 +147,21 @@
                 us.perfiles.push(elemento);
             })
           }
+
+          var listaNombres = us.nombres.split(/\d/);
+          $.each(listaNombres, function( index, value ) {
+            us.nombres=""+value;
+          });
+          var listaApepa = us.apellido_paterno.split(/\d/);
+          $.each(listaApepa, function( index, value ) {
+            us.apellido_paterno=""+value;
+          });
+          var listaApema = us.apellido_materno.split(/\d/);
+          $.each(listaApema, function( index, value ) {
+            us.apellido_materno=""+value;
+          });
+         
+      console.log(us);
           //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
           $http.post('api/guardarUsuario.php', {usuario :us})
             .success(function(response) {
@@ -141,6 +182,18 @@
                 us.perfiles.push(elemento);
             })
           }
+          var listaNombres = us.nombres.split(/\d/);
+          $.each(listaNombres, function( index, value ) {
+            us.nombres=""+value;
+          });
+          var listaApepa = us.apellido_paterno.split(/\d/);
+          $.each(listaApepa, function( index, value ) {
+            us.apellido_paterno=""+value;
+          });
+          var listaApema = us.apellido_materno.split(/\d/);
+          $.each(listaApema, function( index, value ) {
+            us.apellido_materno=""+value;
+          });
           //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
           $http.post('api/guardarUsuario.php', {usuario :us})
             .success(function(response) {
@@ -162,7 +215,7 @@
         $scope.usuario.perfiles1.push(elemento);
         //$scope.pe.nombre_perfil = "";
       }
-$scope.hide=false;
+    $scope.hide=false;
       $scope.deletePerfil = function(i){ $scope.usuario.perfiles1.splice(i,1); }
      $scope.ejecutar = function(){ 
       if($("#1").is(':checked')){
