@@ -7,6 +7,7 @@
  */
 
 /* Footer Adhesivo  */
+/*
 header{
   position: fixed;
   width: 100%;
@@ -15,6 +16,7 @@ header{
 #container{
   margin-top: 90px;
 }
+ */
  body {
     display: flex;
     min-height: 100vh;
@@ -106,8 +108,8 @@ color: #1e88e5;
   padding: 5px;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-  input[type=number]::-webkit-outer-spin-button { 
-      -webkit-appearance: none; 
-      margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
   }

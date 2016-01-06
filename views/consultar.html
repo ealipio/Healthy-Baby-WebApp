@@ -1,13 +1,13 @@
 <style>
-    
+
     .gc td{border:1px solid #ddd;}
     .gc th{background:#333; color:#fff;}
 
 </style>
 
 <h4>Consultar:</h4>
-  <div class="row">      
-    
+  <div class="row">
+
     <div class="col s5 input-field">
         <select class="" ng-model="nino.tipo" material-select watch>
             <option value="" disabled selected>Tipo de Documento</option>
@@ -30,18 +30,6 @@
 <h5>Datos del Menor:</h5>
     <table class="highlight bordered">
         <tbody>
-            <tr>
-                <td>{{ nino_ws.tipo_documento  | documento }}</td>
-                <td>{{nino_ws.nro_documento}}</td>
-            </tr>
-            <tr ng-show="nino_ws.nombres">
-                <td >Nombres</td>
-                <td>{{nino_ws.nombres}}</td>
-            </tr>
-            <tr ng-show="nino_ws.apellido_paterno">
-                <td>Apellidos</td>
-                <td>{{nino_ws.apellido_paterno}} {{nino_ws.apellido_materno}}</td>
-            </tr>
             <tr>
                 <td>Nacimiento:</td>
                 <td> {{nino_ws.FecNac | date:'fullDate' }} </td>
@@ -72,7 +60,7 @@
             <div ng-include src="'views/tabla-vacunacion.html'"></div>
         </div>
     </div>
- 
+
 </div>
 
 <div class="row col s6" ng-show='nino_ws'>
@@ -91,7 +79,7 @@
     </form>
 </br>
     <div class="row col s6" ng-show='correos'>
-        <h6>Emails suscritos:</h6>   
+        <h6>Emails suscritos:</h6>
         <table class="table table-bordered gc">
             <thead>
                 <tr>
