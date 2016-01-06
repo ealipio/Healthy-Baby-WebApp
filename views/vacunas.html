@@ -16,7 +16,7 @@
             	<tr ng-repeat="n in vacunas.vacunas" ng-show="n.estado">
                 
                     <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
-                    <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}:true" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses}} meses</span></td> 
+                    <td ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}:true" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses | filterFecha}} </span></td> 
                     <td class="col s5">{{n.observaciones}}</td>
                   
                 </tr>

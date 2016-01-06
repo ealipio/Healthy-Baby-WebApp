@@ -23,6 +23,31 @@
       return estados[id];
     };
   })
+  .filter('filterFecha', function(){
+    return function(input){
+      if(input<12){
+        var retorno = input.toString()+" meses";
+      }
+      else{
+        var years = Math.floor(input/12);
+        var resto = input%12;
+        if(resto==0){
+          if(years==1){
+            var retorno = years.toString()+" año";}
+            else{
+          var retorno = years.toString()+" años";}
+        }
+        else{
+          if(years==1){
+            var retorno = years.toString()+" año y "+resto.toString()+" meses";}
+            else{
+          var retorno = years.toString()+" años  y "+resto.toString()+" meses";}
+        }
+      }
+   
+      return retorno;
+    };
+  })
 
 .filter('DosisVacunas', function(){
   return function(id){
