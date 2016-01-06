@@ -56,10 +56,10 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
   </div>
   </br>
 
-  <div class="row"> 
+  <div class="row">
     <div class="col-sm-offset-1 col-sm-3">
       <button type='submit' class="btn btn-primary" >Guardar</button>
-      <a href="#ususarios"><button type="cancel" class="btn btn-primary">Cancelar</button></a>
+      <a href="#ususarios"><button type="cancel" class="btn btn-primary red">Cancelar</button></a>
     </div>
   </div>
 
@@ -71,16 +71,16 @@ ng-submit='nuevoUsuarioForm.$valid && registro_usuario(us)'>
  $( document ).ready(function() {
     $(".only_text").on('keydown', function(e) {
       var val = $(this).val();
-      
+
       if (val.match(/[^a-zA-Z\s]/g)) {
          $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
       }
-      
+
     });
 
     $(".only_text").on('keyup', function(e) {
       var val = $(this).val();
-      
+
       if (val.match(/[^a-zA-Z\s]/g)) {
         $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
       }
