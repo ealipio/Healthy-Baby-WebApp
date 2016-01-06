@@ -136,7 +136,8 @@
       }
 
     $scope.registro_usuario = function(us){
-        console.log(us);
+      console.log(us);
+      if(us.perfil){
         if(us.perfil[1]){
           if(us.perfil){
             us.perfiles = [];
@@ -203,8 +204,12 @@
               console.log('Error: ' + data);
               Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
-        } else{Materialize.toast('Ingrese el Centro de Salud', 3000);}}
+        } else{
+          Materialize.toast('Ingrese el Centro de Salud', 3000);}}
+      }else{
+        Materialize.toast('Debe seleccionar al menos un perfil para el usuario', 3000);
       }
+    }
 
       $scope.agregar_perfil = function(pf){
       console.log(pf);

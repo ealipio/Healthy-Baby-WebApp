@@ -332,7 +332,10 @@ window.map="";
   .controller('changePasswordController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
      $scope.changepass={};
      $scope.changepass.usuario = $routeParams.id;
-     
+    
+      
+
+
       $scope.ChangePassword = function(login){
          $http({method:'POST',url: 'api/changePass.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
             if(response){
