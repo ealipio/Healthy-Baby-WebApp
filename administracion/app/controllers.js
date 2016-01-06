@@ -128,7 +128,7 @@
              })
             .error(function(data) {
               console.log('Error: ' + data);
-              alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+              Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
         }
         else{
@@ -148,9 +148,9 @@
              })
             .error(function(data) {
               console.log('Error: ' + data);
-              alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+              Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
-        } else{alert("Ingrese el Centro de Salud");}}
+        } else{Materialize.toast('Ingrese el Centro de Salud', 3000);}}
       }
 
       $scope.agregar_perfil = function(pf){
@@ -194,7 +194,7 @@ $scope.hide=false;
            })
           .error(function(data) {
             console.log('Error: ' + data);
-            alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+            Materialize.toast('Se encontró un error al intentar editar el nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
           });
         }
         $scope.editar_usuario = function(us,p){
@@ -207,7 +207,7 @@ $scope.hide=false;
              })
             .error(function(data) {
               console.log('Error: ' + data);
-              alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+              Materialize.toast('Se encontró un error al intentar editar el nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
 
         }
@@ -267,7 +267,7 @@ $scope.hide=false;
            })
           .error(function(data) {
             console.log('Error: ' + data);
-            alert("Se encontró un error al intentar crear una nueva vacuna. Favor contactarse con el administrador del sistema.");
+            Materialize.toast('Se encontró un error al intentar crear una nueva vacuna. Favor contactarse con el administrador del sistema.', 3000);
           });
       }
 
@@ -281,11 +281,11 @@ $scope.hide=false;
             $scope.ds.meses="";
           }
           else{
-            alert('Favor de completar todos los campos de la dosis.');
+            Materialize.toast('Favor de completar todos los campos de la dosis.', 3000);
           }
         }
         else{
-          alert('Favor de completar todos los campos de la dosis.');
+          Materialize.toast('Favor de completar todos los campos de la dosis.', 3000);
         }
       }
 
@@ -306,7 +306,7 @@ $scope.hide=false;
            })
           .error(function(data) {
             console.log('Error: ' + data);
-            alert("Se encontró un error al intentar buscar la vacuna. Favor contactarse con el administrador del sistema.");
+            Materialize.toast('Se encontró un error al intentar buscar la vacuna.', 3000);
           });
         }
 
@@ -320,11 +320,11 @@ $scope.hide=false;
                 console.log($scope.dosis);
               }
             else{
-              alert('Favor de completar todos los campos de la dosis.');
+              Materialize.toast('Favor de completar todos los campos de la dosis.', 3000);
             }
           }
           else{
-            alert('Favor de completar todos los campos de la dosis.');
+            Materialize.toast('Favor de completar todos los campos de la dosis.', 3000);
           }
         }
 
@@ -338,7 +338,7 @@ $scope.hide=false;
              })
             .error(function(data) {
               console.log('Error: ' + data);
-              alert("Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.");
+              Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
         }
         $scope.deleteDosis = function(i){

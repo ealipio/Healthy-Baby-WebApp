@@ -29,11 +29,10 @@ else{
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 
-
 </head>
 <body ng-app="eissonApp">
     <main>
-        <header>
+        <header class="navbar-fixed">
             <ul id="menuUsuario" class="dropdown-content">
               <li><a href="#!">Cambiar Contraseña</a></li>
               <li class="divider"></li>
@@ -42,11 +41,9 @@ else{
 
             <nav class="cyan darken-2" role="navigation">
             <div class="nav-wrapper container">
-                <a id="logo-container" class="navbar-brand white-text hide-on-med-and-down" href="#/">
-                    <img class="img-responsive center" src="../img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
+                <a href="#/" class="brand-logo white-text">Minsa</a>
+                <a id="logo-container" class="hide-on-med-and-down navbar-brand white-text" href="#/"><img class="img-responsive center" src="img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
-
-                
 
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
                     <li ng-class="{active: $route.current.activetab == 'usuarios'}" ><a href="#/">Usuarios</a></li>
@@ -60,19 +57,18 @@ else{
                     </li>
                   </ul>
 
-                  <ul class="side-nav" id="mobile-menu" ng-controller='TabsController'>
+                  <ul id="nav-mobile" class="side-nav" ng-controller='TabsController'>
                     <li ng-class="{active: $route.current.activetab == 'usuarios'}" ><a href="#/">Usuarios</a></li>
                     <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
                     <li><a href="../vacunas/#/">Módulo de Vacunación</a></li>
                     <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController"><a href="../#/" ng-click="salir()">Salir</a></li>
                   </ul>
-                    <a href="#"
-                        data-activates="mobile-menu"
-                        data-sidenave="left"
-                        data-closeonclick="true"
-                        class="button-collapse top-nav white-text">
-                        <i class="material-icons">menu</i>
-                    </a>
+                
+                    <a href="#" data-activates="nav-mobile"
+                  class="button-collapse top-nav white-text"
+                  data-sidenav="left"
+                  data-closeonclick="true">
+                  <i class="mdi-navigation-menu"></i></a>
             </div>
             </nav>
 
