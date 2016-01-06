@@ -129,13 +129,5 @@ else{
     <!-- App -->
     <script src="app/app.js"></script>
     <script src="app/controllers.js"></script>
-    <script type="text/javascript">
-
-        $( document ).ready(function(){
-
-            $(".button-collapse").sideNav();
-            $(".dropdown-button").dropdown();
-        });
-    </script>
 </body>
 </html>

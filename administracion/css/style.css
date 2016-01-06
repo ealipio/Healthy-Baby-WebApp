@@ -7,14 +7,6 @@
  */
 
 /* Footer Adhesivo  */
-header{
-  position: fixed;
-  width: 100%;
-  z-index: 2;
-}
-#container{
-  margin-top: 90px;
-}
 
  body {
     display: flex;
