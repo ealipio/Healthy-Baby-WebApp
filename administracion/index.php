@@ -10,6 +10,7 @@ else{
         header('location:..');
     }
 }
+//var_dump($_SESSION);
 //echo $_SESSION['id_perfil'][0]['id_perfil'];
 ?>
 <!DOCTYPE html>
@@ -25,23 +26,56 @@ else{
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+
+
 </head>
 <body ng-app="eissonApp">
     <main>
         <header>
+            <ul id="menuUsuario" class="dropdown-content">
+              <li><a href="#!">Cambiar Contraseña</a></li>
+              <li class="divider"></li>
+              <li><a href="../#/" ng-click="salir()">Salir</a></li>
+            </ul>
+
             <nav class="cyan darken-2" role="navigation">
             <div class="nav-wrapper container">
-                <a id="logo-container" class="navbar-brand white-text" href="#/">
+                <a id="logo-container" class="navbar-brand white-text hide-on-med-and-down" href="#/">
                     <img class="img-responsive center" src="../img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
+
+                
+
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
+                    <li ng-class="{active: $route.current.activetab == 'usuarios'}" ><a href="#/">Usuarios</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
+                    <li><a href="../vacunas/#/">Módulo de Vacunación</a></li>
+                    <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController">
+                            <a class="dropdown-button" href="#!" data-activates="menuUsuario">
+                                <i class="material-icons left">perm_identity</i> <?php echo $_SESSION['nombres']." ".$_SESSION['ape_pat'];?>
+                                <i class="material-icons right">arrow_drop_down</i>
+                            </a>
+                    </li>
+                  </ul>
+
+                  <ul class="side-nav" id="mobile-menu" ng-controller='TabsController'>
                     <li ng-class="{active: $route.current.activetab == 'usuarios'}" ><a href="#/">Usuarios</a></li>
                     <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
                     <li><a href="../vacunas/#/">Módulo de Vacunación</a></li>
                     <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController"><a href="../#/" ng-click="salir()">Salir</a></li>
                   </ul>
+                    <a href="#"
+                        data-activates="mobile-menu"
+                        data-sidenave="left"
+                        data-closeonclick="true"
+                        class="button-collapse top-nav white-text">
+                        <i class="material-icons">menu</i>
+                    </a>
             </div>
             </nav>
+
         </header>
 
         <div class="container" id="container">
@@ -72,6 +106,10 @@ else{
     <script src="/vendor/angular/1.3.15/angular-animate.min.js"></script>
     <script src="/vendor/angular/1.3.15/angular-resource.min.js"></script>
     <script src="/vendor/angular/1.3.15/angular-route.min.js"></script>
+    <script src="/vendor/lodash.underscore.js"></script>
+    <script src="http://cdn.rawgit.com/nmccready/angular-simple-logger/0.0.1/dist/index.js"></script>
+    <script src="https://rawgit.com/angular-ui/angular-google-maps/2.1.3/dist/angular-google-maps.min.js" ></script>
+
 
     <script src="/vendor/angular/angular-loading-bar/loading-bar.min.js"></script>
     <script src="/vendor/materialize/js/materialize.min.js"></script>
@@ -80,8 +118,24 @@ else{
     <script src="/vendor/angular/ui-select/dist/select.js"></script>
     <script src="/vendor/select2/dist/js/select2.min.js"></script>
 
+    <script src="/vendor/moment.min.js"></script>
+    <script src="/vendor/angular/angular-moment.min.js"></script>
+    <script src='/vendor/angular/1.3.15/i18n/angular-locale_es-pe.js'></script>
+
+    <!-- angular -->
+    
+
+
     <!-- App -->
     <script src="app/app.js"></script>
     <script src="app/controllers.js"></script>
+    <script type="text/javascript">
+
+        $( document ).ready(function(){
+
+            $(".button-collapse").sideNav();
+            $(".dropdown-button").dropdown();
+        });
+    </script>
 </body>
 </html>

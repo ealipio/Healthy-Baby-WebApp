@@ -14,7 +14,7 @@ $rpta['login']=0;
 $db       = new EissonConnect();
 $dbh      = $db->enchufalo();
 
-$q        = 'SELECT username FROM tb_usuarios WHERE username = :username AND password = AES_ENCRYPT(:password, :llave) and activo=1';
+$q        = 'SELECT username, nombres, apellido_paterno FROM tb_usuarios WHERE username = :username AND password = AES_ENCRYPT(:password, :llave) and activo=1';
 $stmt     = $dbh->prepare($q);
 $stmt->bindParam(':username', $usuario,PDO::PARAM_STR);
 $stmt->bindParam(':password', $password,PDO::PARAM_STR);
@@ -28,6 +28,8 @@ $r = $stmt->fetch(PDO::FETCH_ASSOC);
 if ( $r ) {
 	
 	$_SESSION['id_usuario'] = $r['username'];
+	$_SESSION['nombres'] = $r['nombres'];
+	$_SESSION['ape_pat'] = $r['apellido_paterno'];
 	
 
 	$q = 'SELECT tbhp.id_perfil, tp.nombre_perfil

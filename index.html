@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/vendor/angular/angular-loading-bar/loading-bar.min.css">
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
     <link rel="stylesheet" href="css/style.css">
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body ng-app="eissonApp">
     <main>
@@ -20,6 +22,7 @@
                     <img class="img-responsive center" src="img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
                     <li ng-class="{active: $route.current.activetab == 'acerca'}" ><a href="#/acerca">Acerca de</a></li>
                     <li ng-class="{active: $route.current.activetab == 'consultar'}" ><a href="#/consultar">Consultar</a></li>
@@ -27,7 +30,7 @@
                     <li ng-class="{active: $route.current.activetab == 'centros'}" ><a href="#/centros">Centros</a></li>
                     <li ng-class="{active: $route.current.activetab == 'login'}" ><a href="#/login">Iniciar Sesión</a></li>
                   </ul>
-                  <ul class="side-nav" id="mobile-demo">
+                  <ul class="side-nav" id="mobile-demo" ng-controller='TabsController'>
                       <li ng-class="{active: $route.current.activetab == 'acerca'}" ><a href="#/acerca">Acerca de</a></li>
                     <li ng-class="{active: $route.current.activetab == 'consultar'}" ><a href="#/consultar">Consultar</a></li>
                     <li ng-class="{active: $route.current.activetab == 'vacunas'}" ><a href="#/vacunas">Vacunas</a></li>
@@ -81,18 +84,17 @@
     <script src='/vendor/angular/1.3.15/i18n/angular-locale_es-pe.js'></script>
 
 
-
-
-
     <!-- App -->
-       <script src="app/controllers.js"></script>
+    <script src="app/controllers.js"></script>
     <script src="app/app.js"></script>
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    $( document ).ready(function(){
+        $( document ).ready(function(){
 
-        $(".button-collapse").sideNav();
-    });
-</script>
+            $(".button-collapse").sideNav({
+                data-closeonclick="false";
+            });
+        });
+    </script>
 </body>
 </html>
