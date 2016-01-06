@@ -117,7 +117,9 @@ window.map="";
             alert(data.error);
           }
 
-        }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
+        }).error(function(data) { 
+          Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
+        });
     };
 
     $scope.suscribirse = function(data){
@@ -334,11 +336,11 @@ window.map="";
       $scope.ChangePassword = function(login){
          $http({method:'POST',url: 'api/changePass.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
             if(response){
-              alert('contraseña modificada exitosamente');
-              location.href= '#/';
+              location.href= '#login';
+              Materialize.toast('Contraseña modificada exitosamente', 3000);
             }
             else{
-              alert('Ingrese los datos correctos');
+              Materialize.toast('Error, Ingrese los datos correctos', 3000);
             }
             
          });
@@ -352,7 +354,7 @@ window.map="";
       $http({method:'POST',url: 'api/login.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
         console.log('response', response);
         if(response.login == 0){
-          alert("Error, el usuario y contraseña ingresados no concuerdan");
+          Materialize.toast('Error, el usuario y contraseña ingresados no concuerdan', 3000);
         } else if(response.login == "ok"){
           if(login.usuario==login.password){
             location.href= '#/changepassword/'+ login.usuario;

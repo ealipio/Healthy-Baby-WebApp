@@ -94,7 +94,7 @@
             //$scope.nino_ws.FecNac = day + "-"+month+"-"+year;
             console.log($scope.nino_ws);
             //$scope.getVacunas();
-        }).error(function(data) { alert("Lo lamento, ocurrio un problema consultando el webservice.")});
+        }).error(function(data) { Materialize.toast('Error, ocurrio un problema consultando el webservice.', 3000);});
     };
   }])
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
@@ -118,7 +118,7 @@
             var day = $scope.nino_ws.FecNac.substr(6,2);
             $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
             $scope.getVacunas();
-          } else { alert(data.error); }
+          } else { Materialize.toast(data.error); }
         });
     };
 
@@ -142,7 +142,7 @@
         });
         $scope.buscarNino($scope.nino);
         $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
-      }else{alert("Ingrese el centro de salud");}
+      }else{Materialize.toast('Error, Ingrese el centro de salud.', 3000);}
     };
       $scope.mostraradicional = function(){
         var d = new Date();
