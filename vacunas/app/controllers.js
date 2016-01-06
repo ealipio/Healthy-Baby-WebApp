@@ -31,7 +31,31 @@
       return documento[input];
     };
   })
-
+ .filter('filterFecha', function(){
+    return function(input){
+      if(input<12){
+        var retorno = input.toString()+" meses";
+      }
+      else{
+        var years = Math.floor(input/12);
+        var resto = input%12;
+        if(resto==0){
+          if(years==1){
+            var retorno = years.toString()+" año";}
+            else{
+          var retorno = years.toString()+" años";}
+        }
+        else{
+          if(years==1){
+            var retorno = years.toString()+" año y "+resto.toString()+" meses";}
+            else{
+          var retorno = years.toString()+" años  y "+resto.toString()+" meses";}
+        }
+      }
+   
+      return retorno;
+    };
+  })
   .filter('sexoFilter', function(){
     return function(input){
       var sexo = "Masculino";
@@ -151,10 +175,11 @@
       }else{alert("Ingrese el centro de salud");}
     };
       $scope.mostraradicional = function(){
-   $scope.adicional={};
-      $('ul.tabs').tabs('select_tab', 'info-adicional');
-      $scope.adicional.id_nino=$scope.nino_ws.NuCnv;
-
+        var d = new Date();
+        $scope.adicional={};
+        $('ul.tabs').tabs('select_tab', 'info-adicional');
+        $scope.adicional.id_nino=$scope.nino_ws.NuCnv;
+        $scope.adicional.fecha_medicion = d;
     };
       $scope.cancel = function(){
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');

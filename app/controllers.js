@@ -42,6 +42,35 @@ window.map="";
       return sexo;
     };
   })
+
+
+  .filter('filterFecha', function(){
+    return function(input){
+      if(input<12){
+        var retorno = input.toString()+" meses";
+      }
+      else{
+        var years = Math.floor(input/12);
+        var resto = input%12;
+        if(resto==0){
+          if(years==1){
+            var retorno = years.toString()+" año";}
+            else{
+          var retorno = years.toString()+" años";}
+        }
+        else{
+          if(years==1){
+            var retorno = years.toString()+" año y "+resto.toString()+" meses";}
+            else{
+          var retorno = years.toString()+" años  y "+resto.toString()+" meses";}
+        }
+      }
+   
+      return retorno;
+    };
+  })
+
+  
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
@@ -95,12 +124,13 @@ window.map="";
         console.log(data.correo);
         if(data.correo.length>0){
           $http.post ('api/guardarSuscripcion.php', { id_nino: $scope.nino_ws.NuCnv, correo: data.correo })
-            .success(function(data) {
-                console.log(data);
-                $scope.correos.push({'email': data.email});
+            .success(function(response) {
+                console.log(response);
+                $scope.correos.push({'email': data.correo});
+                $scope.subs.correo="";
               })
             .error(function(data) {
-                    console.log('Error: ' + data);
+                    console.log('Error: ' + response);
             });
         }
     };
@@ -118,7 +148,9 @@ window.map="";
     };
 
      $scope.recargar=function() {
-    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
+      
+    //location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
+    window.location.reload(true);
     };
 
     }])
@@ -295,6 +327,24 @@ window.map="";
      };
   }])
 
+  .controller('changePasswordController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
+     $scope.changepass={};
+     $scope.changepass.usuario = $routeParams.id;
+     
+      $scope.ChangePassword = function(login){
+         $http({method:'POST',url: 'api/changePass.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+            if(response){
+              alert('contraseña modificada exitosamente');
+              location.href= '#/';
+            }
+            else{
+              alert('Ingrese los datos correctos');
+            }
+            
+         });
+      };
+  }])
+
   .controller('LoginController',['$scope', '$http', function($scope, $http){
       $scope.login = {};
     $scope.loginProcess = function(login){
@@ -304,6 +354,9 @@ window.map="";
         if(response.login == 0){
           alert("Error, el usuario y contraseña ingresados no concuerdan");
         } else if(response.login == "ok"){
+          if(login.usuario==login.password){
+            location.href= '#/changepassword/'+ login.usuario;
+          }else{
             if(response.perfiles[0].id_perfil==1){
                 location.href= 'administracion/#/';
             }
@@ -313,6 +366,7 @@ window.map="";
             else if(response.perfiles[0].id_perfil==2){
                 location.href= 'vacunas/index.html';
             }
+          }
           //location.href= 'administracion/index.html';
         }
       });

@@ -15,8 +15,8 @@
 
 	  $clave = CLAVE;
 
-		$q = 'INSERT INTO tb_usuarios (`username`,`password`,`nombres`,`apellido_paterno`,`apellido_materno`,`centro_salud`, `activo`, `created_at`, `last_user`) 
-				values (:username, AES_ENCRYPT(:password,:llave) , :nombres, :apellido_paterno, :apellido_materno, :centro_salud, 1, CURRENT_TIMESTAMP, :last_user)';
+		$q = 'INSERT INTO tb_usuarios (`username`,`password`,`nombres`,`apellido_paterno`,`apellido_materno`,`centro_salud`, `activo`, `created_at`, `last_user`,`email`) 
+				values (:username, AES_ENCRYPT(:password,:llave) , :nombres, :apellido_paterno, :apellido_materno, :centro_salud, 1, CURRENT_TIMESTAMP, :last_user, :email)';
 		
 		$stmt = $dbh->prepare($q);
 		$stmt->bindParam(':username',  $dato->username, PDO::PARAM_STR);
@@ -32,6 +32,7 @@
 
 		$stmt->bindParam(':llave',  $clave, PDO::PARAM_STR);
 		$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
+		$stmt->bindParam(':email', $dato->email, PDO::PARAM_STR);
 		$valor = $stmt->execute();
 		
 		if($valor){

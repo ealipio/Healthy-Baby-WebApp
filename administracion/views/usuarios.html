@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 table-responsive">
-		 <h4>Lista de Usuarios</h4></br>
+		 <h4 >Lista de Usuarios</h4></br>
 
 <a href='#nuevo_usuario'><button type="button" class="cyan darken-2 waves-effect waves-light btn">Agregar Usuario +</button></a></br>
 
@@ -9,7 +9,7 @@
         <table class="table table-bordered bordered" id="searchObjResults">
 			<thead>
 				<tr>
-				    <th>Código Usuario</th>
+				    <th>Nombre Usuario</th>
 				    <th>Nombres</th>
 				    <th>Apellidos</th>
                     <th>Centro Salud</th> 
@@ -27,8 +27,7 @@
                     <td data-ng-show="n.apellido_paterno">{{n.apellido_paterno}} {{n.apellido_materno}}</td>
                     <td data-ng-show="n.centro_salud">{{n.centro_salud}}</td>   
                     <td data-ng-show="n.nombres">
-                            <p ng-repeat="pe in n.perfil" style="margin-top:0px;margin-bottom:0px"> {{pe.nombre_perfil}}</p>
-                    </td>
+                        <p ng-repeat="pe in n.perfil" style="margin-top:0px;margin-bottom:0px"> {{pe.nombre_perfil}}</p></td>
                     <td class="col-lg-2"><a href="#editar_usuario/{{n.username}}"><i tittle="Editar" class="small mdi-content-create"></i></a><a href="#usuarios" ng-click="delUsuario(n.username, $index)"><i tittle="Eliminar" class="small mdi-action-delete"></i></a></td>
                   
                 </tr>

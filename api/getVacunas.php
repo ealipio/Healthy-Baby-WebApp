@@ -37,6 +37,7 @@
 
 	$r['dosis'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+	
 	// metiendo informacion en blanco sobre dosis para parsear columnas
 	foreach ($r['vacunas'] as $v) {
 

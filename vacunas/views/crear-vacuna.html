@@ -22,16 +22,16 @@
       <div class="col s6">
       <label for="inputCreated">Fecha de Vacunación</label>
            <input name="created" id="inputCreated"  ng-model="nuevaVacuna.dosis.fecha_vacunacion" type="date" required>
-        </div>
-      
-          <div class="input-field col s6">
+        </div></div>
+
+      <div class="row">
+        <div class="col s6">
             <select class="js-example-basic-multiple" ng-model="nuevaVacuna.dosis.centro_salud" material-select watch>
               <option disabled selected>Seleccione el Centro de Salud</option>
               <option ng-repeat="ce in Centros" value="{{ce.codigo}}">{{ce.nombre}}</option>
             </select>
-        </div>
+        </div></div>
 
-      </div>
 
       <div class="row">
         <div class="col s6" input-field>
@@ -53,3 +53,8 @@
 <script type="text/javascript">
   $(".js-example-basic-multiple").select2();
 </script>
+<style type="text/css">
+  .js-example-basic-multiple{
+    width: 250px;
+  }
+</style>
