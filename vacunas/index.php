@@ -20,23 +20,16 @@ else{
     <link rel="stylesheet" href="/vendor/angular/angular-loading-bar/loading-bar.min.css">
     <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/vendor/select2/dist/css/select2.min.css" rel="stylesheet"/>
-    <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 </head>
 <body ng-app="eissonApp">
     <main>
         <header class="navbar-fixed">
-            <ul id="menuUsuario" class="dropdown-content">
-              <li><a href="#!">Cambiar Contraseña</a></li>
-              <li class="divider"></li>
-              <li><a href="../#/" ng-click="salir()">Salir</a></li>
-            </ul>
-
             <nav class="cyan" role="navigation">
             <div class="nav-wrapper container">
                 <a href="#/" class="brand-logo white-text">Minsa</a>
-                <a id="logo-container" class="hide-on-med-and-down navbar-brand white-text" href="#/"><img class="img-responsive center" src="../img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
+                <a id="logo-container" class="hide-on-med-and-down navbar-brand white-text" href="#/">
+                    <img class="img-responsive center" src="../img/logo.png" style="top: 5px;position: relative;" alt="MINSA" height="80%">
                 </a>
 
                   <ul class="right hide-on-med-and-down" ng-controller='TabsController'>
@@ -46,13 +39,7 @@ else{
                   if($_SESSION['id_perfil'][0]['id_perfil']==1){
                   echo "<li><a href='../administracion'>Módulo de Administración</a></li>" ;
                     }?>
-
-                    <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController">
-                            <a class="dropdown-button" href="#!" data-activates="menuUsuario">
-                                <i class="material-icons left">perm_identity</i> <?php echo $_SESSION['nombres']." ".$_SESSION['ape_pat'];?>
-                                <i class="material-icons right">arrow_drop_down</i>
-                            </a>
-                    </li>
+                    <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController"><a href="../#/" ng-click="salir()">Salir</a></li>
                   </ul>
 
                   <ul id="nav-mobile" class="side-nav" ng-controller='TabsController'>
@@ -65,11 +52,11 @@ else{
                     <li ng-class="{active: $route.current.activetab == 'salir'}" ng-controller="logoutController"><a href="../#/" ng-click="salir()">Salir</a></li>
                   </ul>
 
-                    <a href="#" data-activates="nav-mobile"
-                      class="button-collapse top-nav white-text"
-                      data-sidenav="left"
-                      data-closeonclick="true">
-                      <i class="mdi-navigation-menu"></i></a>
+                  <a href="#" data-activates="nav-mobile"
+                  class="button-collapse top-nav white-text"
+                  data-sidenav="left"
+                  data-closeonclick="true">
+                  <i class="mdi-navigation-menu"></i></a>
 
             </div>
             </nav>
