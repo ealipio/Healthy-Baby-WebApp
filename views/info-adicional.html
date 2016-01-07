@@ -1,0 +1,25 @@
+<h4>Información Adicional</h4>
+    <table class="table table-bordered bordered centered">
+        <thead>
+            <tr>
+                <th>Peso</th>
+                <th>Talla</th>
+                <th>nutrientes</th>
+                <th>Temperatura</th>
+                <th>observaciones</th>
+                <th>Fecha de Medicion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="n in InfoAdicional">
+                <td >{{n.peso | filterNoData}}</td>
+                <td >{{n.talla | filterNoData}}</td>
+                <td >{{n.nutrientes | filterNutrientes | filterNoData}}</td>
+                <td >{{n.temperatura | filterNoData}}</td>
+                <td >{{n.observaciones  | filterNoData}}</td>
+                <td >{{n.fecha_medicion  | filterNoData}}</td>
+            </tr>
+        </tbody>
+    </table>
+    </br>
+<button class="btn" ng-click='tablaVacunacion()'>Mostrar información adicional</button> 

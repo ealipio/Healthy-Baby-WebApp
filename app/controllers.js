@@ -42,7 +42,29 @@ window.map="";
       return sexo;
     };
   })
-
+  .filter('filterNoData', function(){
+    return function(input){
+      if(input == null){
+        var retorno = "No data";
+      }
+      else{
+        var retorno = input;
+      }
+      return retorno;
+    };
+  })
+ .filter('filterNutrientes', function(){
+    return function(input){
+      if(input==0){
+        var retorno = "No administrado";
+      }
+      else if(input==1){
+        var retorno = "Administrado";
+      }
+      
+      return retorno;
+    };
+  })
 
   .filter('filterFecha', function(){
     return function(input){
@@ -72,6 +94,7 @@ window.map="";
 
   
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
+    $scope.finalizar=true;
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
@@ -99,9 +122,14 @@ window.map="";
     }
 
     $scope.buscarNino = function(nino){
+      $scope.ninoActual=nino["numero"];
+      $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
       delete $scope.nino_error;
       delete $scope.nino_ws;
       $http.get('api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+        //$http.get('http://esdeporvida.com/projects/minsa/api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+          //$http({method:'GET',url: 'http://esdeporvida.com/projects/minsa/api/wsByNumero.php?numero='+ nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(data) {
+          console.log(data);
           if(data.success){
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
@@ -119,7 +147,9 @@ window.map="";
 
         }).error(function(data) { 
           Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
+          $scope.finalizar=false;
         });
+
     };
 
     $scope.suscribirse = function(data){
@@ -154,6 +184,29 @@ window.map="";
     //location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
     window.location.reload(true);
     };
+
+     $scope.tablaVacunacion=function() {
+   $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+     $('html,body').animate({
+                scrollTop: $("#vistaInfo").offset().top
+                }, 1000);
+    };
+    
+    $scope.infoAdicional=function() {
+     $('ul.tabs').tabs('select_tab', 'info-adicional');
+       $('html,body').animate({
+                scrollTop: $("#vistaInfo").offset().top
+                }, 1000);
+     $http.post ('api/getInfoAdicional.php', { NuCnv: $scope.ninoActual })
+          .success(function(data) {
+                  $scope.InfoAdicional = data;
+                  console.log(data);
+              })
+          .error(function(data) {
+                  console.log('Error: ' + data);
+          });
+    };
+
 
     }])
 
@@ -332,7 +385,10 @@ window.map="";
   .controller('changePasswordController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
      $scope.changepass={};
      $scope.changepass.usuario = $routeParams.id;
-     
+    
+      
+
+
       $scope.ChangePassword = function(login){
          $http({method:'POST',url: 'api/changePass.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
             if(response){

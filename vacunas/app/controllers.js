@@ -31,6 +31,7 @@
       return documento[input];
     };
   })
+  
  .filter('filterFecha', function(){
     return function(input){
       if(input<12){
@@ -128,10 +129,12 @@
     };
 
     $scope.crear_vacuna = function(dosis, vacuna){
+      var d = new Date();
       $scope.nuevaVacuna ={};
       $('ul.tabs').tabs('select_tab', 'crear-vacuna');
       $scope.nuevaVacuna.dosis = dosis;
       $scope.nuevaVacuna.vacuna = vacuna;
+      $scope.nuevaVacuna.dosis.fecha_vacunacion=d;
       $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.NuCnv;
     };
 

@@ -9,6 +9,7 @@ var app = angular.module('eissonApp', [
   'ui.materialize',
   'angularMoment',
   'Controllers',
+  'ui.validate',
   'uiGmapgoogle-maps']);
 
 

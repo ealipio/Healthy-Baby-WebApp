@@ -20,7 +20,8 @@
 			</thead>
 
             <tbody>
-            	<tr ng-repeat="n in usuarios.usuarios">
+            	
+                <tr ng-repeat="n in usuarios_pag">
                 
                     <td data-ng-show="n.username">{{n.username}}</td>
                     <td data-ng-show="n.nombres">{{n.nombres}}</td>
@@ -32,9 +33,21 @@
                   
                 </tr>
             </tbody>
-               </table>
+       </table>
+
+       <div>
+           <pagination
+                    page="1"
+                    page-size="elementos"
+                    total="usuarios.usuarios.length"
+                    show-prev-next="true"
+                    dots="...."
+                    hide-if-empty="false"
+                    adjacent="2"
+                    scroll-top="false"
+                    pagination-action="changePage(page)" />
+       </div>
   
- 
     </div>        
     </div>
     <style type="text/css">td   { text-align: center; } th  { text-align: center; }</style>

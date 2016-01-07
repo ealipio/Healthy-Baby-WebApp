@@ -72,6 +72,7 @@
       
       $scope.init = function(){
         document.title = "Usuarios";
+        $scope.elementos = 10;
         //console.log($route.current.activetab);
         $route.current.activetab ? $scope.$route = $route : null
 
@@ -79,12 +80,13 @@
             .success(function(data) {
                     $scope.usuarios = data;
                     console.log(data);
+                    $scope.usuarios_pag = $scope.usuarios.usuarios.slice(0,$scope.elementos);
                 })
             .error(function(data) {
                     console.log('Error: ' + data);
             });
-
       }
+
       $scope.delUsuario = function( codigo, index ) {
         if ( confirm("¿Está seguro que desea eliminar la usurio seleccionado?") ) {
             $scope.usuarios.usuarios.splice(index,1);
@@ -97,9 +99,15 @@
                 alert("no succes");
               });
         }
-
       }
-      
+
+      $scope.changePage = function( page ) {
+          var ini = (page-1) * $scope.elementos;
+          var fin = page*$scope.elementos;
+          $scope.usuarios_pag = $scope.usuarios.usuarios.slice(ini,fin);
+          console.log($scope.usuarios_pag);
+      }
+     
 
       $scope.init();
     }])
@@ -136,7 +144,8 @@
       }
 
     $scope.registro_usuario = function(us){
-        console.log(us);
+      console.log(us);
+      if(us.perfil){
         if(us.perfil[1]){
           if(us.perfil){
             us.perfiles = [];
@@ -203,8 +212,12 @@
               console.log('Error: ' + data);
               Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
-        } else{Materialize.toast('Ingrese el Centro de Salud', 3000);}}
+        } else{
+          Materialize.toast('Ingrese el Centro de Salud', 3000);}}
+      }else{
+        Materialize.toast('Debe seleccionar al menos un perfil para el usuario', 3000);
       }
+    }
 
       $scope.agregar_perfil = function(pf){
       console.log(pf);
@@ -275,6 +288,8 @@
   .controller('VacunasController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.init = function(){
         document.title = "Vacunas";
+        $scope.elementos=5;
+
         //console.log($route.current.activetab);
         $route.current.activetab ? $scope.$route = $route : null
 
@@ -282,6 +297,7 @@
             .success(function(data) {
                     $scope.vacunas = data;
                     console.log(data);
+                    $scope.vacunas_pag = $scope.vacunas.vacunas.slice(0,$scope.elementos);
                 })
             .error(function(data) {
                     console.log('Error: ' + data);
@@ -300,6 +316,13 @@
                 alert("no succes");
               });
         }
+      }
+
+      $scope.changePage = function( page ) {
+          var ini = (page-1) * $scope.elementos;
+          var fin = page*$scope.elementos;
+          $scope.vacunas_pag = $scope.vacunas.vacunas.slice(ini,fin);
+          console.log($scope.vacunas_pag);
       }
 
       $scope.init();

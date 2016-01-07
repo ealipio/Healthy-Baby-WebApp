@@ -26,7 +26,7 @@
 
 
 
-<div class="row" ng-show='nino_ws'>
+<div class="row" ng-show='nino_ws' id="vistaInfo">
 <h5>Datos del Menor:</h5>
     <table class="highlight bordered">
         <tbody>
@@ -47,10 +47,11 @@
         </tbody>
     </table>
 
-    <div class="row" style="display: none">
+    <div class="row" style="display: none" >
         <div class="col s12">
             <ul class="tabs" tabs>
                 <li class="tab col s6"><a href="#tabla-vacunacion">Categoria</a></li>
+                <li class="tab col s6"><a href="#info-adicional">adicional</a></li>
             </ul>
         </div>
     </div>
@@ -58,6 +59,9 @@
     <div class="row">
         <div id="tabla-vacunacion" class="col s12 tab-body">
             <div ng-include src="'views/tabla-vacunacion.html'"></div>
+        </div>
+        <div id="info-adicional" class="col s12 tab-body">
+            <div ng-include src="'views/info-adicional.html'"></div>
         </div>
     </div>
 
@@ -98,4 +102,8 @@
 
 <div class="card-panel center light-blue darken-3" ng-show="nino_error">
     <span class="flow-text white-text ng-binding">{{nino_error.error}}.</span>
+</div>
+<div class="row col s6" ng-hide="finalizar">
+        <button class="btn" ng-click="recargar()">Finalizar Consulta</button>
+
 </div>
