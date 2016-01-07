@@ -10,14 +10,19 @@
         <tbody>
             <tr ng-repeat="n in vacunas.vacunas">
                 <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
-                <td tooltipped data-tooltip="Click para registrar una vacuna" ng-click="m.vacunado=='0' && crear_vacuna(m, n)" ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}:true" class="col s2"><a href="">
-                <table><td ng-class="{'green white-text':m.vacunado=='1', 'blue white-text':(m.estimado=='1' && m.vacunado=='0'), 'red white-text':(m.estimado=='2' && m.vacunado=='0')}">
+                <td tooltipped
+                data-tooltip="Click para registrar una vacuna"
+                ng-click="m.vacunado=='0' && crear_vacuna(m, n)"
+                ng-repeat="m in vacunas.dosis | filter:{id_vacuna:n.id_vacuna}:true"
+                class="col s2">
+                <a href="">
+                <table>
+                    <td ng-class="{'green white-text':m.vacunado=='1', 'blue white-text':(m.estimado=='1' && m.vacunado=='0'), 'red white-text':(m.estimado=='2' && m.vacunado=='0')}">
                     <span  ng-show="m.nombre_dosis">
                         {{m.nombre_dosis}} <br> {{m.meses | filterFecha}} <br> ({{m.fecha_estimada | date:'shortDate'}})
                     </span>
                     </td>
                </table>
-
                 </a></td>
                 <td class="col s6">{{n.observaciones}}</td>
             </tr>
@@ -42,8 +47,6 @@
         </div>
     </div>
 
-
     <div class="enviar">
         <a class="btn" ng-click='mostraradicional()'>Registrar Datos Adicionales</a>
-        <!-- <button class="btn" ng-click='realizarRegistro(nino_ws)'>Registrar Info Adicional</button> -->
     </div>

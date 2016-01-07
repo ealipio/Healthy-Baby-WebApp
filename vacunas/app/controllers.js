@@ -119,7 +119,7 @@
             var day = $scope.nino_ws.FecNac.substr(6,2);
             $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
             $scope.getVacunas();
-          } else { Materialize.toast(data.error); }
+          } else { Materialize.toast(data.error, 4000); }
         });
     };
 
