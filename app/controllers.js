@@ -126,29 +126,51 @@ window.map="";
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
       delete $scope.nino_error;
       delete $scope.nino_ws;
-      $http.get('api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
-        //$http.get('http://esdeporvida.com/projects/minsa/api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
-          //$http({method:'GET',url: 'http://esdeporvida.com/projects/minsa/api/wsByNumero.php?numero='+ nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(data) {
-          console.log(data);
-          if(data.success){
-            $scope.nino_ws = data.success;
-            console.log($scope.nino_ws);
-            var year = $scope.nino_ws.FecNac.substr(0,4);
-            var month = $scope.nino_ws.FecNac.substr(4,2);
-            var day = $scope.nino_ws.FecNac.substr(6,2);
-            $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
 
-            $scope.getVacunas();
-            $scope.getCorreos();
-          }
+      console.log(nino["tipo"]);
+      if(nino["tipo"]==1){
+        $http.get('api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+          //$http.get('http://esdeporvida.com/projects/minsa/api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+            //$http({method:'GET',url: 'http://esdeporvida.com/projects/minsa/api/wsByNumero.php?numero='+ nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(data) {
+            console.log(data);
+            if(data.success){
+              $scope.nino_ws = data.success;
+              console.log($scope.nino_ws);
+              var year = $scope.nino_ws.FecNac.substr(0,4);
+              var month = $scope.nino_ws.FecNac.substr(4,2);
+              var day = $scope.nino_ws.FecNac.substr(6,2);
+              $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
+
+              $scope.getVacunas();
+              $scope.getCorreos();
+            }
+            else{
+              alert(data.error);
+            }
+
+          }).error(function(data) {
+            Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
+            $scope.finalizar=false;
+        });}
           else{
-            alert(data.error);
-          }
+                $http.post ('api/getNinoByDni.php', { id_nino: nino["numero"] })
+            .success(function(response) {
+                   $scope.nino_ws = response;
+              console.log($scope.nino_ws);
+              var year = $scope.nino_ws.FecNac.substr(0,4);
+              var month = $scope.nino_ws.FecNac.substr(4,2);
+              var day = $scope.nino_ws.FecNac.substr(6,2);
+              $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
 
-        }).error(function(data) { 
-          Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
-          $scope.finalizar=false;
-        });
+              $scope.getVacunas();
+              $scope.getCorreos();
+               
+              })
+            .error(function(data) {
+                    console.log('Error: ' + response);
+            });
+
+          }
 
     };
 
@@ -214,7 +236,20 @@ window.map="";
     //console.log($route.current);
      $scope.$route = $route;
   }])
-
+  .controller('registrarController',['$scope','$http', function($scope, $http){
+    //console.log($route.current);
+    $scope.registrarNino = function(us){
+      console.log(us);
+         $http.post ('api/guardarNino.php', { us: us })
+          .success(function(data) {
+                  $scope.guardarNino = data;
+                  console.log(data);
+              })
+          .error(function(data) {
+                  console.log('Error: ' + data);
+          });
+     }
+  }])
 
 .controller('CentrosController',['$scope', '$http', function($scope, $http){
 

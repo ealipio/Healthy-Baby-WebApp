@@ -1,0 +1,118 @@
+<div class="row">
+
+<h4>Registrar Datos del Niño:</h4>
+<form class="col s12" name='nuevoninoForm' id='nuevoninoForm'
+ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
+
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="codigo" ng-model='us.nro_documento' type="text" class="validate" required>
+      <label for="codigo">Numero de DNI</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="nombres" ng-model='us.nombres' type="text" class="validate only_text" required>
+      <label for="nombres">Nombres</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate only_text" required>
+      <label for="apep">Apellido Paterno</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate only_text" required>
+      <label for="apem">Apellido Materno</label>
+
+    </div>
+  </div>
+<div class="row">
+   <div class="input-field col s6">
+   		<label for="fecha">Fecha de Nacimiento</label>
+      <input id="fecha" ng-model='us.fecha_nac' type="date" class="validate" required>
+      
+    </div>
+</div>
+    <div class="row">
+    <div class="input-field col s6">
+      <input id="apep" ng-model='us.peso' type="text" class="validate" required>
+      <label for="apep">Peso al Nacer</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="apem"  ng-model='us.talla' type="text" class="validate" required>
+      <label for="apem">Talla al Nacer</label>
+
+    </div>
+  </div>
+
+    <div class="row">
+    <div class="input-field col s6">
+      <input id="apep" ng-model='us.dni_madre' type="text" class="validate" required>
+      <label for="apep">DNI de la Madre</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="apem"  ng-model='us.nombre_madre' type="text" class="validate only_text" required>
+      <label for="apem">Nombre de la Madre</label>
+
+    </div>
+  </div>
+
+   <div class="row">
+    <div class="input-field col s6">
+      <input id="apep" ng-model='us.dni_padre' type="text" class="validate" required>
+      <label for="apep">DNI de la Padre</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="apem"  ng-model='us.nombre_padre' type="text" class="validate only_text" required>
+      <label for="apem">Nombre de la Padre</label>
+
+    </div>
+  </div>
+ <div class="row">
+    <div class="input-field col s6">
+      <input id="apep" ng-model='us.direccion' type="text" class="validate " required>
+      <label for="apep">Dirección del Niño</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="apem"  ng-model='us.telefono' type="text" class="validate " required>
+      <label for="apem">Telefono de Referencia</label>
+
+    </div>
+  </div>
+
+ 
+  </br>
+
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-3">
+      <button type='submit' class="btn btn-primary" >Guardar</button>
+    </div>
+  </div>
+
+</form>
+</div>
+  <script type="text/javascript">
+
+
+ $( document ).ready(function() {
+    $(".only_text").on('keydown', function(e) {
+      var val = $(this).val();
+
+      if (val.match(/[^a-zA-Z\s]/g)) {
+         $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
+      }
+
+    });
+
+    $(".only_text").on('keyup', function(e) {
+      var val = $(this).val();
+
+      if (val.match(/[^a-zA-Z\s]/g)) {
+        $(this).val(val.replace(/[^a-zA-Z\s]/g, ''));
+      }
+    });
+
+
+  });
+
+</script>

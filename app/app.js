@@ -45,6 +45,12 @@ var app = angular.module('eissonApp', [
           controller: 'AcercaController',
           activetab: 'acerca'
         }).
+         when('/registrar', {
+          templateUrl: 'views/registrar.html',
+          caseInsensitiveMatch: true,
+          controller: 'registrarController',
+          activetab: 'registrar'
+        }).
         when('/login', {
           templateUrl: 'views/login.html',
           caseInsensitiveMatch: true,

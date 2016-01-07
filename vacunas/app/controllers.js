@@ -31,6 +31,29 @@
       return documento[input];
     };
   })
+    .filter('filterNoData', function(){
+    return function(input){
+      if(input == null){
+        var retorno = "No data";
+      }
+      else{
+        var retorno = input;
+      }
+      return retorno;
+    };
+  })
+ .filter('filterNutrientes', function(){
+    return function(input){
+      if(input==0){
+        var retorno = "No administrado";
+      }
+      else if(input==1){
+        var retorno = "Administrado";
+      }
+      
+      return retorno;
+    };
+  })
   
  .filter('filterFecha', function(){
     return function(input){
@@ -108,6 +131,7 @@
     };
 
     $scope.buscarNino = function(nino){
+      $scope.ninoActual=nino["numero"];
       delete $scope.nino_error;
       delete $scope.nino_ws;
       $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
@@ -157,6 +181,29 @@
       $scope.cancel = function(){
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
     };
+ $scope.verInfoAdicional = function(){
+      $('ul.tabs').tabs('select_tab', 'ver-info-adicional');
+       $('html,body').animate({
+                scrollTop: $("#vistaInfo").offset().top
+                }, 1000);
+    $http.post ('../api/getInfoAdicional.php', { NuCnv: $scope.ninoActual })
+          .success(function(data) {
+                  $scope.InfoAdicional = data;
+                  console.log(data);
+              })
+          .error(function(data) {
+                  console.log('Error: ' + data);
+          });
+
+    };
+      $scope.tablaVacunacion=function() {
+
+   $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+     $('html,body').animate({
+                scrollTop: $("#vistaInfo").offset().top
+                }, 1000);
+    };
+
       $scope.saveadicional = function(adicional) {
        $http.post('api/addAdicional.php', { datos:adicional } ).success(function(data) { $('ul.tabs').tabs('select_tab', 'tabla-vacunacion'); });
      };
