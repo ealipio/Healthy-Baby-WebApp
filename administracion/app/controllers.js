@@ -350,7 +350,7 @@
       $scope.agregar_dosis = function(ds){
       console.log(ds);
         if(ds){
-          if(ds.nombre_dosis && ds.meses){
+          if(ds.nombre_dosis){
             var elemento = {"nombre_dosis":ds.nombre_dosis,"meses":ds.meses};
             $scope.vacunas.dosis.push(elemento);
             $scope.ds.nombre_dosis="";

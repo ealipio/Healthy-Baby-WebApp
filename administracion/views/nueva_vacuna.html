@@ -31,7 +31,7 @@
       </br><h6>Agregar nueva dosis:</h6></br></br>
     </div>
   </div>
-
+<ng-form name="formDosis" >
   <div class="row">
     <div class="input-field col s4">
       <input id="nombre_vacuna" ng-model='ds.nombre_dosis' type="text" class="validate">
@@ -42,10 +42,10 @@
       <label for="estado">Tiempo aplicación (meses)</label>
     </div>
     <div class="col-sm-offset-1 col-sm-3">
-      <button type='button' ng-click="agregar_dosis(ds)" class="btn btn-primary">Agregar Dosis</button>
+      <button type='button' ng-click="formDosis.$valid && agregar_dosis(ds)" class="btn btn-primary">Agregar Dosis</button>
     </div>
   </div>
-
+</ng-form>
 
   <div class="row">
 
