@@ -17,21 +17,23 @@
           <label><b>Dosis</b> </br>{{nuevaVacuna.dosis.nombre_dosis}}</br>{{nuevaVacuna.dosis.meses}} meses</label>
       </div>
     </div>
+
 </br></br></br>
-    <div class="row">
-      <div class="col s6">
-      <label for="inputCreated">Fecha de Vacunación</label>
-           <input name="created" id="inputCreated"  ng-model="nuevaVacuna.dosis.fecha_vacunacion" type="date" required>
-        </div></div>
 
       <div class="row">
         <div class="col s6">
-            <select class="js-example-basic-multiple" ng-model="nuevaVacuna.dosis.centro_salud" material-select watch>
-              <option disabled selected>Seleccione el Centro de Salud</option>
-              <option ng-repeat="ce in Centros" value="{{ce.codigo}}">{{ce.nombre}}</option>
-            </select>
-        </div></div>
-
+            <label for="inputCreated">Fecha de Vacunación</label>
+             <input name="created" id="inputCreated"  ng-model="nuevaVacuna.dosis.fecha_vacunacion" type="date" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s10">
+              <select style="width:75%;" name="centrosalud" id="centrosalud" class="js-example-basic-multiple" ng-model="nuevaVacuna.dosis.centro_salud" material-select watch>
+                <option disabled selected>Seleccione el Centro de Salud</option>
+                <option ng-repeat="ce in Centros" value="{{ce.codigo}}">{{ce.codigo}} {{ce.nombre}}</option>
+              </select>
+        </div>   
+      </div>
 
       <div class="row">
         <div class="col s6" input-field>

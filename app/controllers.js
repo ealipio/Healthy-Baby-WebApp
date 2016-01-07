@@ -127,6 +127,9 @@ window.map="";
       delete $scope.nino_error;
       delete $scope.nino_ws;
       $http.get('api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+        //$http.get('http://esdeporvida.com/projects/minsa/api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+          //$http({method:'GET',url: 'http://esdeporvida.com/projects/minsa/api/wsByNumero.php?numero='+ nino.numero, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(data) {
+          console.log(data);
           if(data.success){
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);

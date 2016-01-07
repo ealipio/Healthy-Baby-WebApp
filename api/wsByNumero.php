@@ -20,6 +20,7 @@
 		} catch (Exception $e) {
 			$response = array('error' => 'Lo lamento, No se pudo conectar al WebService, intentelo mas tarde.' );
 		}
+
 	}
 	echo json_encode($response);
 ?>
