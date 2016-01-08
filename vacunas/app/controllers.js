@@ -156,10 +156,13 @@
       var d = new Date();
       $scope.nuevaVacuna ={};
       $('ul.tabs').tabs('select_tab', 'crear-vacuna');
+
+      
       $scope.nuevaVacuna.dosis = dosis;
       $scope.nuevaVacuna.vacuna = vacuna;
       $scope.nuevaVacuna.dosis.fecha_vacunacion=d;
       $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.NuCnv;
+      $scope.getCentroUsuario();
     };
 
     $scope.saveVacuna = function(){
@@ -181,6 +184,18 @@
       $scope.cancel = function(){
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
     };
+
+   $scope.getCentroUsuario = function(){
+      $http.post ('api/getCentroUsuario.php')
+          .success(function(data) {
+                  $scope.nuevaVacuna.dosis.centro_salud = data[0]["centro_salud"];
+                  console.log(data[0]["centro_salud"]);
+              })
+          .error(function(data) {
+                  console.log('Error: ' + data);
+          });
+    };
+
  $scope.verInfoAdicional = function(){
       $('ul.tabs').tabs('select_tab', 'ver-info-adicional');
        $('html,body').animate({
