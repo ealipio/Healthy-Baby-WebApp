@@ -6,7 +6,7 @@ if(!isset($_SESSION['id_perfil'][0]['id_perfil'])){
      echo"no existe";
 }
 else{
-    if($_SESSION['id_perfil'][0]['id_perfil']==2){
+    if($_SESSION['id_perfil'][0]['id_perfil']>=3){
         header('location:..');
     }
 }
