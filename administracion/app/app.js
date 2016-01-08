@@ -44,6 +44,11 @@ var app = angular.module('eissonApp', [
           caseInsensitiveMatch: true,
           controller: 'NuevaVacunaController',
           activetab: 'vacunas'
+        }). when('/nueva_contrasena', {
+          templateUrl: 'views/nueva_contrasena.html',
+          caseInsensitiveMatch: true,
+          controller: 'nueva_contrasenaController'
+          
         }).
         when('/editar_vacuna/:id', {
           templateUrl: 'views/editar_vacuna.html',

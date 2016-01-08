@@ -418,6 +418,11 @@
   .controller('AdminController',['$scope', '$http', function($scope, $http){
     //
   }])
+  .controller('nueva_contrasenaController',['$scope', '$http', function($scope, $http){
+    alert("cambio de contraseña");
+    //
+  }])
+  
   .controller('logoutController',['$scope', '$route','$http', function($scope, $route, $http){
 
     $scope.salir = function(){
