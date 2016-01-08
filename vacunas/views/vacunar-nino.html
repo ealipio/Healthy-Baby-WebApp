@@ -16,7 +16,7 @@
   </div>
 
 <div class="row" ng-show='nino_ws'>
-    <table class="highlight bordered">
+    <table class="highlight bordered" id="vistaInfo">
         <tbody>
             <tr>
                 <td>{{ nino_ws.tipo_documento  | documento }}</td>
@@ -53,6 +53,7 @@
                 <li class="tab col s6"><a href="#tabla-vacunacion">Categoria</a></li>
                 <li class="tab col s6"><a href="#crear-vacuna">Versiones</a></li>
                 <li class="tab col s6"><a href="#info-adicional">info-adicional</a></li>
+                <li class="tab col s6"><a href="#ver-info-adicional">ver-info-adicional</a></li>
             </ul>
         </div>
     </div>
@@ -66,6 +67,9 @@
         </div>
         <div id="info-adicional" class="col s12 tab-body">
           <div ng-include src="'views/info-adicional.html'"></div>
+        </div>
+         <div id="ver-info-adicional" class="col s12 tab-body">
+          <div ng-include src="'views/ver-info-adicional.html'"></div>
         </div>
     </div>
 </div>

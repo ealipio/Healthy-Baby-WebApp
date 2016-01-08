@@ -149,28 +149,20 @@
         if(us.perfil[1]){
           if(us.perfil){
             us.perfiles = [];
-            $.each(us.perfil,function(i,v){
-          
-            var elemento = {"id_perfil": i};
-            console.log(elemento);
+            $.each(us.perfil,function(i,v){          
+                var elemento = {"id_perfil": i};
+                console.log(elemento);
                 us.perfiles.push(elemento);
             })
           }
 
           var listaNombres = us.nombres.split(/\d/);
-          $.each(listaNombres, function( index, value ) {
-            us.nombres=""+value;
-          });
+          $.each(listaNombres, function( index, value ) {us.nombres=""+value;});
           var listaApepa = us.apellido_paterno.split(/\d/);
-          $.each(listaApepa, function( index, value ) {
-            us.apellido_paterno=""+value;
-          });
+          $.each(listaApepa, function( index, value ) {us.apellido_paterno=""+value;});
           var listaApema = us.apellido_materno.split(/\d/);
-          $.each(listaApema, function( index, value ) {
-            us.apellido_materno=""+value;
-          });
+          $.each(listaApema, function( index, value ) {us.apellido_materno=""+value;});
          
-      console.log(us);
           //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
           $http.post('api/guardarUsuario.php', {usuario :us})
             .success(function(response) {
@@ -182,61 +174,55 @@
             });
         }
         else{
-        if(us.centro_salud){
-          if(us.perfil){
-            us.perfiles = [];
-            $.each(us.perfil,function(i,v){
-          
-            var elemento = {"id_perfil": i};
+          if(us.centro_salud){
+            if(us.perfil){
+              us.perfiles = [];
+              $.each(us.perfil,function(i,v){
+                var elemento = {"id_perfil": i};
                 us.perfiles.push(elemento);
-            })
-          }
-          var listaNombres = us.nombres.split(/\d/);
-          $.each(listaNombres, function( index, value ) {
-            us.nombres=""+value;
-          });
-          var listaApepa = us.apellido_paterno.split(/\d/);
-          $.each(listaApepa, function( index, value ) {
-            us.apellido_paterno=""+value;
-          });
-          var listaApema = us.apellido_materno.split(/\d/);
-          $.each(listaApema, function( index, value ) {
-            us.apellido_materno=""+value;
-          });
+              })
+            }
+            var listaNombres = us.nombres.split(/\d/);
+            $.each(listaNombres, function( index, value ) {us.nombres=""+value;});
+            var listaApepa = us.apellido_paterno.split(/\d/);
+            $.each(listaApepa, function( index, value ) {us.apellido_paterno=""+value;});
+            var listaApema = us.apellido_materno.split(/\d/);
+            $.each(listaApema, function( index, value ) {us.apellido_materno=""+value;});
+
           //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
-          $http.post('api/guardarUsuario.php', {usuario :us})
-            .success(function(response) {
-              location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
-             })
-            .error(function(data) {
-              console.log('Error: ' + data);
-              Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
-            });
-        } else{
-          Materialize.toast('Ingrese el Centro de Salud', 3000);}}
-      }else{
-        Materialize.toast('Debe seleccionar al menos un perfil para el usuario', 3000);
-      }
+            $http.post('api/guardarUsuario.php', {usuario :us})
+              .success(function(response) {
+                  location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+               })
+              .error(function(data) {
+                console.log('Error: ' + data);
+                Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
+              });
+            }else{
+                Materialize.toast('Ingrese el Centro de Salud', 3000);}
+            }
+        }else{
+            Materialize.toast('Debe seleccionar al menos un perfil para el usuario', 3000);
+        }
     }
 
       $scope.agregar_perfil = function(pf){
-      console.log(pf);
-      //console.log($scope.tmp.perfiles);
-      //, "id_perfil": ds.id_perfil
+          console.log(pf);
           var elemento = {"nombre_perfil": pf.perfil.nombre_perfil, "id_perfil": pf.perfil.id_perfil};
           console.log(elemento);
-        $scope.usuario.perfiles1.push(elemento);
-        //$scope.pe.nombre_perfil = "";
+          $scope.usuario.perfiles1.push(elemento);
       }
-    $scope.hide=false;
-      $scope.deletePerfil = function(i){ $scope.usuario.perfiles1.splice(i,1); }
-     $scope.ejecutar = function(){ 
-      if($("#1").is(':checked')){
-      $scope.hide=true;
-    }
-    else{
+    
       $scope.hide=false;
-    }
+      $scope.deletePerfil = function(i){ $scope.usuario.perfiles1.splice(i,1); }
+      $scope.ejecutar = function(){ 
+      
+      if($("#1").is(':checked')){
+        $scope.hide=true;
+      }
+      else{
+        $scope.hide=false;
+      }
     }
 
 
