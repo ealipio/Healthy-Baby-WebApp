@@ -52,7 +52,7 @@
 		}
 
 		if($tiempo == $dosis[$ii]['meses']){
-			array_push( $tmpvacunas, $v);
+			array_push( $tmpvacunas, $dosis[$ii]);
 		}
 		else{
 			if($ii>0){
@@ -60,12 +60,12 @@
 				//echo json_encode($vacunas);
 				$tmpvacunas = array();
 			}
-			array_push( $tmpvacunas, $v);
+			array_push( $tmpvacunas, $dosis[$ii]);
 		}
 		$tiempo = $dosis[$ii]['meses'];
 		$ii++;
 	}
 	array_push( $vacunas, array('m_'.$tiempo => $tmpvacunas ));
-
+	
 	echo json_encode($vacunas);
 ?>
