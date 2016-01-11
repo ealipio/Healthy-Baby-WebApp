@@ -26,6 +26,11 @@ var app = angular.module('eissonApp', [
           controller: 'VacunarNinoController',
           activetab: 'vacunar'
           }).
+        when('/nueva_contrasena', {
+          templateUrl: 'views/nueva_contrasena.html',
+          caseInsensitiveMatch: true,
+          controller: 'nueva_contrasenaController'
+        }).
         when('/adicional/:id', {
           templateUrl: 'views/info-adicional.html',
           caseInsensitiveMatch: true,

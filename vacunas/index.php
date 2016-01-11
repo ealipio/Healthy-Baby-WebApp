@@ -28,7 +28,7 @@ else{
     <main>
         <header class="navbar-fixed">
             <ul id="menuUsuario" class="dropdown-content">
-              <li><a href="#!">Cambiar Contraseña</a></li>
+              <li><a href="#/nueva_contrasena">Cambiar Contraseña</a></li>
               <li class="divider"></li>
               <li><a href="../#/" ng-click="salir()">Salir</a></li>
             </ul>

@@ -98,6 +98,45 @@
   .controller('VacunasController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     //
   }])
+    .controller('nueva_contrasenaController',['$scope', '$http', function($scope, $http){
+    
+     $scope.update = function(user){
+      
+      if(user.nuevaContra==user.nuevaContra2){
+        if(user.nuevaContra==user.contraActual){
+           Materialize.toast('La nueva contraseña deve ser diferente', 3000);
+      }
+      else{
+         $http.post('api/nuevaContra.php', {datos :user})
+          .success(function(data) {
+              $scope.cambioContra=data;
+              console.log(data);
+              if(data == " ok"){
+                Materialize.toast('Contraseña actualizada exitosamente', 3000);
+                location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+              }
+                else if(data == " bad"){
+                  Materialize.toast('Contraseña actual erronea', 3000);}
+                  else {
+                    Materialize.toast('Error en el servidor, intentelo mas tarde', 3000);
+                    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+                  }
+           })
+            .error(function(data) {
+              console.log('Error: ' + data);
+            });
+      }
+    }
+      else{
+        Materialize.toast('Las contraseñas no concuerdan', 3000);
+      }
+
+         
+    };
+
+    
+    
+  }])
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $route.current.activetab ? $scope.$route = $route : null
 
@@ -140,6 +179,7 @@
       //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
 
       //consultar desde esdeporvida 
+      if(nino["tipo"]==1){
       $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
         if(data.success) {
             $scope.nino_ws = data.success;
@@ -150,7 +190,27 @@
             $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
             $scope.getVacunas();
           } else { Materialize.toast(data.error, 4000); }
-        });
+        });}
+       else{
+                $http.post ('api/getNinoByDni.php', { id_nino: nino["numero"] })
+            .success(function(data) {
+                   $scope.nino_ws = data[0];
+              console.log(data);
+              $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
+              $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
+              
+              var year = $scope.nino_ws.fecha_nac.substr(0,4);
+              var month = $scope.nino_ws.fecha_nac.substr(5,2);
+              var day = $scope.nino_ws.fecha_nac.substr(8,2);
+              $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
+
+              $scope.getVacunas();
+              })
+            .error(function(data) {
+                    console.log('Error: ' + response);
+            });
+
+          }
     };
 
     $scope.realizarRegistro = function(nene){
