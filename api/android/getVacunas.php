@@ -18,20 +18,22 @@
 	$stmt = $dbh->prepare($q);
 	$stmt->execute();
 	$r['vacunas'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	/*
-	$q = 'SELECT * from tb_dosis_vacunas';
-	$stmt = $dbh->prepare($q);
-	$stmt->execute();
-	$r['dosis'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	$ii = 0;
+
 	foreach ($r['vacunas'] as $v) {
+		$q = 'SELECT * from tb_dosis_vacunas
+				where id_vacuna=:id_vacuna';
+		$stmt = $dbh->prepare($q);
+		$stmt->bindParam(':id_vacuna',  $v['id_vacuna'], PDO::PARAM_STR);
+		$stmt->execute();
+		$dosis = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		$falta=  $total['total'] - $v['nro_dosis'];
-		$arr = array('id_vacuna' => $v['id_vacuna'], 'nombre_dosis'=>'');
+		//var_dump($dosis);
+		array_push($r['vacunas'][$ii],  $dosis);
 
-		for($i=0; $i < $falta; $i++){
-			array_push($r['dosis'], $arr);
-		}
+		$ii++;
 	}
-	**/
+	//var_dump($r);
 	echo json_encode($r);
 ?>
