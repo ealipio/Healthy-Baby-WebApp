@@ -242,26 +242,27 @@
         });}
        else if (nino["tipo"]==2){
                 $http.post ('api/getNinoByDni.php', { id_nino: nino["numero"] })
-            .success(function(data) {
-                   $scope.nino_ws = data[0];
-              console.log(data);
-              $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
-              $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
-              
-              var year = $scope.nino_ws.fecha_nac.substr(0,4);
-              var month = $scope.nino_ws.fecha_nac.substr(5,2);
-              var day = $scope.nino_ws.fecha_nac.substr(8,2);
-              $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
-              $scope.nino_ws2=$scope.nino_ws;
-              $scope.getVacunas();
-              })
-            .error(function(data) {
-                    console.log('Error: ' + response);
-            });
+                .success(function(data) {
+                  $scope.nino_ws = data[0];
+                  console.log(data);
+                  $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
+                  $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
+                  
+                  var year = $scope.nino_ws.fecha_nac.substr(0,4);
+                  var month = $scope.nino_ws.fecha_nac.substr(5,2);
+                  var day = $scope.nino_ws.fecha_nac.substr(8,2);
+                  $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
+                  $scope.nino_ws2=$scope.nino_ws;
+                  $scope.getVacunas();
+                  })
+                  .error(function(data) {
+                          console.log('Error: ' + response);
+                  });
 
           }
           else{
-               $http.get('../api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
+               //$http.get('../api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
+               $http.get('../api/wsByDniMadre_2.php?numero='+ nino.numero ).success(function(data) { 
             //console.log(data);
            if(data.success){
               $scope.nino_ws = data.success;

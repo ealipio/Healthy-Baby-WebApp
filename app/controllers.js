@@ -257,7 +257,7 @@ window.map="";
           else if (nino["tipo"]==2){
                 $http.post ('api/getNinoByDni.php', { id_nino: nino["numero"] })
             .success(function(data) {
-                   $scope.nino_ws = data[0];
+              $scope.nino_ws = data[0];
               console.log($scope.nino_ws);
               $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
               $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
@@ -277,7 +277,8 @@ window.map="";
           $scope.finalizar=false;
           }
           else{
-               $http.get('api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
+               //$http.get('api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
+              $http.get('api/wsByDniMadre_2.php?numero='+ nino.numero ).success(function(data) {
             //console.log(data);
            if(data.success){
               $scope.nino_ws = data.success;
