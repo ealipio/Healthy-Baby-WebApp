@@ -7,6 +7,7 @@
 
 	$id_nino = $dato->NuCnv;
 
+
 	$q = 'SELECT * from tb_info_adicional
 			WHERE id_nino =:id_nino';
 	
