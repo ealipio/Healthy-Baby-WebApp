@@ -34,7 +34,7 @@ var app = angular.module('eissonApp', [
           activetab: 'usuarios'
         }).
         when('/vacunas', {
-          templateUrl: 'views/vacunas.html',
+          templateUrl: 'views/vacunas.php',
           caseInsensitiveMatch: true,
           controller: 'VacunasController',
           activetab: 'vacunas'
