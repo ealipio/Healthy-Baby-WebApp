@@ -8,6 +8,7 @@ var app = angular.module('eissonApp', [
   'angular-loading-bar',
   'ui.materialize',
   'angularMoment',
+  'ui.validate',
   'Controllers']);
 
     app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
