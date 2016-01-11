@@ -105,10 +105,12 @@
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;
       delete $scope.nino_ws;
-      $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
 
-//{"success":{"NuCnv":"1000999595","UbiDomMad":"250302","Sexo":"F","Peso":"2680","FecNac":"20151201","LugNac":"01","UbiNac":"250302","AtePor":"02","TipPar":"01","ConPar":"01","DurEmb":"39","Fin":"02"}}
+        //consultar desde WS minsa
+        //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
 
+        //consultar desde esdeporvida 
+        $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
             var year = $scope.nino_ws.FecNac.substr(0,4);
@@ -134,7 +136,11 @@
       $scope.ninoActual=nino["numero"];
       delete $scope.nino_error;
       delete $scope.nino_ws;
-      $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+      //consultar desde WS minsa
+      //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+
+      //consultar desde esdeporvida 
+      $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
         if(data.success) {
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
