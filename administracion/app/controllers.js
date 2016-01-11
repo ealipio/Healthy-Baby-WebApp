@@ -361,7 +361,7 @@
     
      $scope.update = function(user){
       
-      if(user.nuevaContra==user.nuevaContra2){
+      
         if(user.nuevaContra==user.contraActual){
            Materialize.toast('La nueva contraseña deve ser diferente', 3000);
       }
@@ -385,11 +385,7 @@
               console.log('Error: ' + data);
             });
       }
-    }
-      else{
-        Materialize.toast('Las contraseñas no concuerdan', 3000);
-      }
-
+  
          
     };
 

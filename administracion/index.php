@@ -117,7 +117,7 @@ else{
     <script src="/vendor/moment.min.js"></script>
     <script src="/vendor/angular/angular-moment.min.js"></script>
     <script src='/vendor/angular/1.3.15/i18n/angular-locale_es-pe.js'></script>
-
+    <script src="/vendor/angular/ui-validate/validate.min.js"></script>
     <!-- angular -->
     
 
