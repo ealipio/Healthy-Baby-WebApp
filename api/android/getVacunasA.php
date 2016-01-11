@@ -16,7 +16,7 @@
 			DATE_ADD(:fecha_nacimiento, INTERVAL meses MONTH) as fecha_estimada, 0 as  vacunado, IF(datediff(now(), DATE_ADD(:fecha_nacimiento1, INTERVAL meses MONTH))<0,1,2) as estimado
 			FROM tb_dosis_vacunas ds
 			INNER JOIN tb_vacunas va on ds.id_vacuna=va.id_vacuna
-			WHERE va.estado=1
+			WHERE va.estado=1 and va.activo = 1
 			order by meses';
 
 	$stmt = $dbh->prepare($q);

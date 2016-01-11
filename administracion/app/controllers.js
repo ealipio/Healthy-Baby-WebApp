@@ -88,7 +88,7 @@
       }
 
       $scope.delUsuario = function( codigo, index ) {
-        if ( confirm("¿Está seguro que desea eliminar la usurio seleccionado?") ) {
+        if ( confirm("¿Está seguro que desea eliminar el usuario seleccionado?") ) {
             $scope.usuarios.usuarios.splice(index,1);
             $http.post('api/delUsuario.php', { id: codigo } )
               .success(function(data) {
@@ -290,12 +290,14 @@
             });
 
       }
+
       $scope.delVacuna = function( codigo, index ) {
         if ( confirm("¿Está seguro que desea eliminar la vacuna seleccionada?") ) {
-            $scope.usuarios.usuarios.splice(index,1);
             $http.post('api/delVacuna.php', { id: codigo } )
               .success(function(data) {
                 console.log(data);
+                //$scope.vacunas_pag.splice(index,1);
+                $scope.init();
               })
               .error(function(data) {
                 console.log('Error: ' + data);
@@ -303,6 +305,7 @@
               });
         }
       }
+
 
       $scope.changePage = function( page ) {
           var ini = (page-1) * $scope.elementos;

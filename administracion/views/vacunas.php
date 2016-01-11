@@ -41,7 +41,11 @@ session_start();
                 
                 <?php
                     if($_SESSION['id_perfil'][0]['id_perfil']== 1){
-                    echo "<td ><a href='#editar_vacuna/{{n.id_vacuna}}'><i tittle='Editar' class='small mdi-content-create'></i></a></td>";
+                    ?>
+
+                    <td ><a href="#editar_vacuna/{{n.id_vacuna}}"><i tittle="Editar" class='small mdi-content-create'></i></a><a href="#vacunas" ng-click="delVacuna(n.id_vacuna, $index)"><i tittle='Eliminar' class="small mdi-action-delete"></i></a>
+                        </td>
+                <?php
                     }
                 ?>
 

@@ -19,7 +19,7 @@
 	$q = 'SELECT max(suma) as total from
 		(SELECT count(dv.id_dosis_vacunas) as suma
 		 from tb_dosis_vacunas dv inner join tb_vacunas va on dv.id_vacuna=va.id_vacuna
-		 where va.estado=1
+		 where va.estado=1 and va.activo = 1
 		group by dv.id_vacuna) as t';
 	$stmt = $dbh->prepare($q);
 	$stmt->execute();
@@ -30,7 +30,7 @@
 	$q = 'SELECT va.id_vacuna, va.nombre_vacuna, va.observaciones,va.estado, count(ds.id_dosis_vacunas) as nro_dosis
 		FROM tb_vacunas va
 		LEFT JOIN tb_dosis_vacunas ds on (va.id_vacuna=ds.id_vacuna)
-		WHERE va.estado=1
+		WHERE va.estado=1 and va.activo = 1
 		group by va.id_vacuna';
 	$stmt = $dbh->prepare($q);
 	$stmt->execute();

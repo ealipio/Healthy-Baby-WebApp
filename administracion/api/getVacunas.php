@@ -12,6 +12,7 @@
 	$q = 'SELECT va.id_vacuna, va.nombre_vacuna, va.observaciones,va.estado, count(ds.id_dosis_vacunas) as nro_dosis
 		FROM tb_vacunas va
 		LEFT JOIN tb_dosis_vacunas ds on (va.id_vacuna=ds.id_vacuna)
+		WHERE va.activo=1
 		group by va.id_vacuna';
 	$stmt = $dbh->prepare($q);
 	$stmt->execute();
