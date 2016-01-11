@@ -7,6 +7,7 @@ var app = angular.module('eissonApp', [
   'ngAnimate',
   'angular-loading-bar',
   'ui.materialize',
+  'ui.validate',
   'Controllers']);
 
     app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
@@ -34,7 +35,7 @@ var app = angular.module('eissonApp', [
           activetab: 'usuarios'
         }).
         when('/vacunas', {
-          templateUrl: 'views/vacunas.html',
+          templateUrl: 'views/vacunas.php',
           caseInsensitiveMatch: true,
           controller: 'VacunasController',
           activetab: 'vacunas'
@@ -44,6 +45,11 @@ var app = angular.module('eissonApp', [
           caseInsensitiveMatch: true,
           controller: 'NuevaVacunaController',
           activetab: 'vacunas'
+        }). 
+        when('/nueva_contrasena', {
+          templateUrl: 'views/nueva_contrasena.html',
+          caseInsensitiveMatch: true,
+          controller: 'nueva_contrasenaController'
         }).
         when('/editar_vacuna/:id', {
           templateUrl: 'views/editar_vacuna.html',

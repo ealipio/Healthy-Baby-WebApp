@@ -14,24 +14,26 @@
 	$q = 'SELECT va.id_vacuna, va.nombre_vacuna, va.observaciones,va.estado, count(ds.id_dosis_vacunas) as nro_dosis
 		FROM tb_vacunas va
 		LEFT JOIN tb_dosis_vacunas ds on (va.id_vacuna=ds.id_vacuna)
-		WHERE va.estado=1 group by va.id_vacuna';
+		WHERE va.estado=1 and va.activo = 1 group by va.id_vacuna';
 	$stmt = $dbh->prepare($q);
 	$stmt->execute();
 	$r['vacunas'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	/*
-	$q = 'SELECT * from tb_dosis_vacunas';
-	$stmt = $dbh->prepare($q);
-	$stmt->execute();
-	$r['dosis'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	$ii = 0;
+
 	foreach ($r['vacunas'] as $v) {
+		$q = 'SELECT * from tb_dosis_vacunas
+				where id_vacuna=:id_vacuna';
+		$stmt = $dbh->prepare($q);
+		$stmt->bindParam(':id_vacuna',  $v['id_vacuna'], PDO::PARAM_STR);
+		$stmt->execute();
+		$dosis = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		$falta=  $total['total'] - $v['nro_dosis'];
-		$arr = array('id_vacuna' => $v['id_vacuna'], 'nombre_dosis'=>'');
+		//var_dump($dosis);
+		array_push($r['vacunas'][$ii],  $dosis);
 
-		for($i=0; $i < $falta; $i++){
-			array_push($r['dosis'], $arr);
-		}
+		$ii++;
 	}
-	**/
+	//var_dump($r);
 	echo json_encode($r);
 ?>

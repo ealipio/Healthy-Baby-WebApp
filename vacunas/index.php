@@ -28,7 +28,7 @@ else{
     <main>
         <header class="navbar-fixed">
             <ul id="menuUsuario" class="dropdown-content">
-              <li><a href="#!">Cambiar Contraseña</a></li>
+              <li><a href="#/nueva_contrasena">Cambiar Contraseña</a></li>
               <li class="divider"></li>
               <li><a href="../#/" ng-click="salir()">Salir</a></li>
             </ul>
@@ -112,6 +112,7 @@ else{
     <script src="/vendor/angular/angular-materialize/angular-materialize.js"></script>
     <script src="/vendor/angular/ui-select/dist/select.js"></script>
     <script src="/vendor/select2/dist/js/select2.min.js"></script>
+        <script src="/vendor/angular/ui-validate/validate.min.js"></script>
     <!-- App -->
     <script src="app/app.js"></script>
     <script src="app/controllers.js"></script>

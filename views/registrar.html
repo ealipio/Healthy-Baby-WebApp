@@ -1,87 +1,96 @@
 <div class="row">
 
 <h4>Registrar Datos del Niño:</h4>
-<form class="col s12" name='nuevoninoForm' id='nuevoninoForm'
+<form class="col s10" name='nuevoninoForm' id='nuevoninoForm'
 ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
 
   <div class="row">
     <div class="input-field col s6">
-      <input id="codigo" ng-model='us.nro_documento' type="text" class="validate" required>
-      <label for="codigo">Numero de DNI</label>
+      <input id="codigo" ng-model='us.nro_documento' type="number" step="any"  class="validate" required>
+      <label for="codigo">Numero de DNI(*)</label>
     </div>
     <div class="input-field col s6">
       <input id="nombres" ng-model='us.nombres' type="text" class="validate only_text" required>
-      <label for="nombres">Nombres</label>
+      <label for="nombres">Nombres(*)</label>
     </div>
   </div>
 
   <div class="row">
     <div class="input-field col s6">
       <input id="apep" ng-model='us.apellido_paterno' type="text" class="validate only_text" required>
-      <label for="apep">Apellido Paterno</label>
+      <label for="apep">Apellido Paterno(*)</label>
     </div>
     <div class="input-field col s6">
       <input id="apem"  ng-model='us.apellido_materno' type="text" class="validate only_text" required>
-      <label for="apem">Apellido Materno</label>
+      <label for="apem">Apellido Materno(*)</label>
 
     </div>
   </div>
+
 <div class="row">
-   <div class="input-field col s6">
-   		<label for="fecha">Fecha de Nacimiento</label>
-      <input id="fecha" ng-model='us.fecha_nac' type="date" class="validate" required>
-      
+   <div class="input-field col s6 ">
+   		<label for="fecha" >Fecha de Nacimiento(*)</label>
     </div>
 </div>
-    <div class="row">
+<div class="row">
     <div class="input-field col s6">
-      <input id="apep" ng-model='us.peso' type="text" class="validate" required>
-      <label for="apep">Peso al Nacer</label>
+        <input id="fecha" ng-model='us.fecha_nac' type="date" class="validate" required>
     </div>
-    <div class="input-field col s6">
-      <input id="apem"  ng-model='us.talla' type="text" class="validate" required>
-      <label for="apem">Talla al Nacer</label>
+    <div class="input-field col s3">
+      <input id="peso" ng-model='us.peso' type="number" min=1000 max=5000 step="any" class="validate" required>
+      <label for="peso">Peso al Nacer (grs)(*)</label>
+    </div>
+
+     <div class="input-field col s3">
+      <input id="talla"  ng-model='us.talla' type="number" min=0 max=100 step="any" class="validate" required>
+      <label for="talla">Talla al Nacer (cms)(*)</label>
 
     </div>
-  </div>
+</div>
 
-    <div class="row">
-    <div class="input-field col s6">
-      <input id="apep" ng-model='us.dni_madre' type="text" class="validate" required>
-      <label for="apep">DNI de la Madre</label>
+<div class="row">
+    <div class="input-field col s4">
+      <input id="dnimama" ng-model='us.dni_madre' min="0" type="number" class="validate">
+      <label for="dnimama">DNI de la Madre</label>
     </div>
-    <div class="input-field col s6">
-      <input id="apem"  ng-model='us.nombre_madre' type="text" class="validate only_text" required>
-      <label for="apem">Nombre de la Madre</label>
+    <div class="input-field col s8">
+      <input id="nombremama"  ng-model='us.nombre_madre' type="text" class="validate only_text">
+      <label for="nombremama">Nombre de la Madre</label>
 
     </div>
   </div>
 
    <div class="row">
-    <div class="input-field col s6">
-      <input id="apep" ng-model='us.dni_padre' type="text" class="validate" required>
-      <label for="apep">DNI de la Padre</label>
+    <div class="input-field col s4">
+      <input id="dnipapa" ng-model='us.dni_padre' type="number" min="0" class="validate" >
+      <label for="dnipapa">DNI de la Padre</label>
     </div>
-    <div class="input-field col s6">
-      <input id="apem"  ng-model='us.nombre_padre' type="text" class="validate only_text" required>
-      <label for="apem">Nombre de la Padre</label>
+    <div class="input-field col s8">
+      <input id="nombrepapa"  ng-model='us.nombre_padre' type="text" class="validate only_text">
+      <label for="nombrepapa">Nombre de la Padre</label>
 
     </div>
   </div>
  <div class="row">
-    <div class="input-field col s6">
-      <input id="apep" ng-model='us.direccion' type="text" class="validate " required>
-      <label for="apep">Dirección del Niño</label>
-    </div>
-    <div class="input-field col s6">
-      <input id="apem"  ng-model='us.telefono' type="text" class="validate " required>
-      <label for="apem">Telefono de Referencia</label>
+    <div class="input-field col s4">
+      <input id="telefono"  ng-model='us.telefono' type="number" min="0" class="validate ">
+      <label for="telefono">Telefono de Referencia</label>
 
+    </div>
+    <div class="input-field col s8">
+      <input id="dir" ng-model='us.direccion' type="text" class="validate">
+      <label for="dir">Dirección del Niño</label>
     </div>
   </div>
-
+  
+ <div class="row">
+    <div class="input-field col s4">
+       <label for="dir">(*) Datos Obligatorios</label>
+    </div>
+  </div>
  
   </br>
+   </br>
 
   <div class="row">
     <div class="col-sm-offset-1 col-sm-3">

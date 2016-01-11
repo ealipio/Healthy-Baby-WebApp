@@ -98,6 +98,42 @@
   .controller('VacunasController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     //
   }])
+    .controller('nueva_contrasenaController',['$scope', '$http', function($scope, $http){
+    
+     $scope.update = function(user){
+      
+      
+        if(user.nuevaContra==user.contraActual){
+           Materialize.toast('La nueva contraseña deve ser diferente', 3000);
+      }
+      else{
+         $http.post('api/nuevaContra.php', {datos :user})
+          .success(function(data) {
+              $scope.cambioContra=data;
+              console.log(data);
+              if(data == " ok"){
+                Materialize.toast('Contraseña actualizada exitosamente', 3000);
+                location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+              }
+                else if(data == " bad"){
+                  Materialize.toast('Contraseña actual erronea', 3000);}
+                  else {
+                    Materialize.toast('Error en el servidor, intentelo mas tarde', 3000);
+                    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+                  }
+           })
+            .error(function(data) {
+              console.log('Error: ' + data);
+            });
+      }
+    
+ 
+         
+    };
+
+    
+    
+  }])
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $route.current.activetab ? $scope.$route = $route : null
 
@@ -105,10 +141,12 @@
     $scope.buscarNino = function(nino){
       delete $scope.nino_error;
       delete $scope.nino_ws;
-      $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
 
-//{"success":{"NuCnv":"1000999595","UbiDomMad":"250302","Sexo":"F","Peso":"2680","FecNac":"20151201","LugNac":"01","UbiNac":"250302","AtePor":"02","TipPar":"01","ConPar":"01","DurEmb":"39","Fin":"02"}}
+        //consultar desde WS minsa
+        //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
 
+        //consultar desde esdeporvida 
+        $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
             var year = $scope.nino_ws.FecNac.substr(0,4);
@@ -134,7 +172,12 @@
       $scope.ninoActual=nino["numero"];
       delete $scope.nino_error;
       delete $scope.nino_ws;
-      $http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+      //consultar desde WS minsa
+      //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
+
+      //consultar desde esdeporvida 
+      if(nino["tipo"]==1){
+      $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
         if(data.success) {
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
@@ -144,7 +187,27 @@
             $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
             $scope.getVacunas();
           } else { Materialize.toast(data.error, 4000); }
-        });
+        });}
+       else{
+                $http.post ('api/getNinoByDni.php', { id_nino: nino["numero"] })
+            .success(function(data) {
+                   $scope.nino_ws = data[0];
+              console.log(data);
+              $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
+              $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
+              
+              var year = $scope.nino_ws.fecha_nac.substr(0,4);
+              var month = $scope.nino_ws.fecha_nac.substr(5,2);
+              var day = $scope.nino_ws.fecha_nac.substr(8,2);
+              $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
+
+              $scope.getVacunas();
+              })
+            .error(function(data) {
+                    console.log('Error: ' + response);
+            });
+
+          }
     };
 
     $scope.realizarRegistro = function(nene){
@@ -156,10 +219,13 @@
       var d = new Date();
       $scope.nuevaVacuna ={};
       $('ul.tabs').tabs('select_tab', 'crear-vacuna');
+
+      
       $scope.nuevaVacuna.dosis = dosis;
       $scope.nuevaVacuna.vacuna = vacuna;
       $scope.nuevaVacuna.dosis.fecha_vacunacion=d;
       $scope.nuevaVacuna.dosis.id_nino=$scope.nino_ws.NuCnv;
+      $scope.getCentroUsuario();
     };
 
     $scope.saveVacuna = function(){
@@ -181,6 +247,18 @@
       $scope.cancel = function(){
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
     };
+
+   $scope.getCentroUsuario = function(){
+      $http.post ('api/getCentroUsuario.php')
+          .success(function(data) {
+                  $scope.nuevaVacuna.dosis.centro_salud = data[0]["centro_salud"];
+                  console.log(data[0]["centro_salud"]);
+              })
+          .error(function(data) {
+                  console.log('Error: ' + data);
+          });
+    };
+
  $scope.verInfoAdicional = function(){
       $('ul.tabs').tabs('select_tab', 'ver-info-adicional');
        $('html,body').animate({

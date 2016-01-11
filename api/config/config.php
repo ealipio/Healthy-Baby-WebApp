@@ -21,7 +21,7 @@ define('DB_NAME', 'esdeporv_vacuna');
 # MySQL Credentials :
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_HOST', 'localhost');
+define('DB_HOST', '192.168.20.74');
 define('DB_NAME', 'esdeporv_vacuna');
 define('CLAVE', 'minsa');
 

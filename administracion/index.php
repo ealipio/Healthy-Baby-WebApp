@@ -34,7 +34,7 @@ else{
     <main>
         <header class="navbar-fixed">
             <ul id="menuUsuario" class="dropdown-content">
-              <li><a href="#!">Cambiar Contraseña</a></li>
+              <li><a href="#/nueva_contrasena">Cambiar Contraseña</a></li>
               <li class="divider"></li>
               <li><a href="../#/" ng-click="salir()">Salir</a></li>
             </ul>
@@ -117,7 +117,7 @@ else{
     <script src="/vendor/moment.min.js"></script>
     <script src="/vendor/angular/angular-moment.min.js"></script>
     <script src='/vendor/angular/1.3.15/i18n/angular-locale_es-pe.js'></script>
-
+    <script src="/vendor/angular/ui-validate/validate.min.js"></script>
     <!-- angular -->
     
 

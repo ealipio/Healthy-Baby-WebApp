@@ -29,7 +29,7 @@
 			$stmt->execute();
 			$r['usuarios'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-			$q = 'SELECT id_perfil, nombre_perfil from tb_perfiles where id_perfil >1';
+			$q = 'SELECT id_perfil, nombre_perfil from tb_perfiles where id_perfil >1 and id_perfil <4';
 			$stmt = $dbh->prepare($q);
 			$stmt->execute();
 			$r['perfiles'] = $stmt->fetchAll(PDO::FETCH_ASSOC);

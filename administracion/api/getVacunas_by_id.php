@@ -9,7 +9,7 @@
 
 	$q = 'SELECT id_vacuna, nombre_vacuna, observaciones, estado
 		FROM tb_vacunas
-		WHERE id_vacuna=:id_vacuna';
+		WHERE id_vacuna=:id_vacuna and activo=1';
 	
 	$stmt = $dbh->prepare($q);
 	$stmt->bindParam(':id_vacuna',  $dato->id_vacuna, PDO::PARAM_STR);

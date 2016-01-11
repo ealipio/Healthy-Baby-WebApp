@@ -158,12 +158,15 @@ window.map="";
         }
           else{
                 $http.post ('api/getNinoByDni.php', { id_nino: nino["numero"] })
-            .success(function(response) {
-                   $scope.nino_ws = response;
+            .success(function(data) {
+                   $scope.nino_ws = data[0];
               console.log($scope.nino_ws);
-              var year = $scope.nino_ws.FecNac.substr(0,4);
-              var month = $scope.nino_ws.FecNac.substr(4,2);
-              var day = $scope.nino_ws.FecNac.substr(6,2);
+              $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
+              $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
+              
+              var year = $scope.nino_ws.fecha_nac.substr(0,4);
+              var month = $scope.nino_ws.fecha_nac.substr(5,2);
+              var day = $scope.nino_ws.fecha_nac.substr(8,2);
               $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
 
               $scope.getVacunas();
@@ -248,6 +251,14 @@ window.map="";
           .success(function(data) {
                   $scope.guardarNino = data;
                   console.log(data);
+                  if(data==" ya existe"){
+                    Materialize.toast('Ese niño ya se encuentra registrado compruebelo en Consultar', 3000);
+                    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
+                  }
+                  else{
+                   Materialize.toast('Registro de Niño Exitoso.', 3000);
+                   location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
+                   }
               })
           .error(function(data) {
                   console.log('Error: ' + data);
@@ -318,8 +329,31 @@ window.map="";
                 $scope.cercano.tipo = value.tipo;
                 $scope.cercano.ubica = value.direccion;
                 $scope.cercano.resp = value.resp;
+                $scope.cercano.latitud = value.latitud;
+                $scope.cercano.longitud = value.longitud;
               }
           });
+
+
+
+        $scope.first=false;
+
+          infoWindow = new google.maps.InfoWindow({
+            content: "<div id='up'><div id='up_right'><table style='font-size: 0.95em;'><tbody><tr><td>"+$scope.cercano.tipo+"</td></tr><tr>"+
+            "<td><b>"+$scope.cercano.nombre+"</b></td></tr></table></div><div id='up_left'><img src='img/centros_big.png'/></div></div>"+"<hr>"+"<table style='font-size: 0.875em;'><tr><td><i class='fa fa-map-marker fa-1x'></i></td><td>"+$scope.cercano.ubica+", "+$scope.cercano.ubica2+"</td>"+
+          "</tr><tr><td><i class='fa fa-phone fa-1.5x'></i></td><td>"+$scope.cercano.telefono+"</td></tr><tr><td><i class='fa fa-clock-o fa-1x'></i></td><td>"+$scope.cercano.horario+"</td>"+
+          "</tr><tr><td><i class='fa fa-user fa-1x'></i></td><td>"+$scope.cercano.resp+"</td></tr></tbody></table><p>Centro Mas Cercano</p>",
+          maxHeight: 400,
+          maxWidth: 300
+         });
+
+var beachMarker2 = new google.maps.Marker({
+    position: {lat: parseFloat($scope.cercano.latitud), lng: parseFloat($scope.cercano.longitud)},
+    map: map,
+    icon: centroimg
+    
+  });
+infoWindow.open(map, beachMarker2);
 
         }, function() { $scope.handleLocationError(true, infoWindow, map.getCenter()); });
       } else {
@@ -371,13 +405,7 @@ window.map="";
           maxHeight: 400,
           maxWidth: 300
          });
-                $scope.cercano.nombre = data.nombre;
-                $scope.cercano.telefono = data.telefono;
-                $scope.cercano.horario = data.horario;
-                $scope.cercano.ubica2 = ", "+data.distrito+", "+data.provincia+", "+data.departamento;
-                $scope.cercano.tipo = data.tipo;
-                $scope.cercano.ubica = data.direccion;
-                $scope.cercano.resp = data.resp;
+                
 
          if (infoWindow) {
 //           alert('entró');

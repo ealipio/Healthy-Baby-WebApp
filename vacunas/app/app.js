@@ -8,6 +8,7 @@ var app = angular.module('eissonApp', [
   'angular-loading-bar',
   'ui.materialize',
   'angularMoment',
+  'ui.validate',
   'Controllers']);
 
     app.config(['$routeProvider', 'cfpLoadingBarProvider',function($routeProvider, cfpLoadingBarProvider){
@@ -26,6 +27,11 @@ var app = angular.module('eissonApp', [
           controller: 'VacunarNinoController',
           activetab: 'vacunar'
           }).
+        when('/nueva_contrasena', {
+          templateUrl: 'views/nueva_contrasena.html',
+          caseInsensitiveMatch: true,
+          controller: 'nueva_contrasenaController'
+        }).
         when('/adicional/:id', {
           templateUrl: 'views/info-adicional.html',
           caseInsensitiveMatch: true,

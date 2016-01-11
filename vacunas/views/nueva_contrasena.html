@@ -1,0 +1,33 @@
+
+<h4>Cambio de Contraseña</h4>
+<div class="row">
+
+<div ng-controller="nueva_contrasenaController">
+  <form  name="newchangeform" id="newchangeform" class="simple-form" ng-submit="!newchangeform.nuevaContra2.$error.validator && newchangeform.$valid && update(user)">
+
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="codigo" ng-model='user.contraActual' type="password" class="validate" required>
+      <label for="codigo">Contraseña Actual</label>
+    </div></div>
+    <div class="row">
+    <div class="input-field col s6">
+      <input id="nombres" ng-model='user.nuevaContra' name="user.nuevaContra" type="password" class="validate only_text" required>
+      <label for="nombres">Nueva Contraseña</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="nombres" ng-model='nuevaContra2' type="password" name="nuevaContra2" class="validate only_text"
+                        ui-validate="'$value==user.nuevaContra'"
+                         ui-validate-watch="'user.nuevaContra'" required>
+      <label for="nombres">Repetir Nueva Contraseña</label>
+    </div>
+  </div>
+
+  
+    <input class="btn" type="submit" value="Guardar" />
+  </form>
+  <div class="msg-block" ng-show="newchangeform.$error">
+              <span class="msg-error red-text" ng-show="!!newchangeform.nuevaContra2.$error.validator">
+                Las contraseñas no concuerdan.
+              </span>
+            </div>
