@@ -3,12 +3,11 @@
 	$db        = new EissonConnect();
 	$dbh       = $db->enchufalo();
 	//---------------------------------------------------------
-	/*$dato      = $_POST['data'];
-	$fecha_nac = $dato['FecNac'];
-	$id_nino   = $dato['NuCnv'];
-*/
-	$fecha_nac = "2015-01-15";
-	$id_nino   = "1000999595";
+	$data      = $_POST['data'];
+	$fecha_nac = $data['FecNac'];
+	$id_nino   = $data['NuCnv'];
+	//$fecha_nac = "2015-01-15";
+	//$id_nino   = "1000999595";
 	//---------------------------------------------------------
 
 	// Trayendo todas las dosis de las vacunas y calculando fecha estimada de vacunación de acuerdo a fecha de nacimiento
