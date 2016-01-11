@@ -1,4 +1,4 @@
-/**
+ /**
  * List Controller
  * @version v0.2.2 - 2015-04-23 * @link http://csluni.org
  * @author Eisson Alipio <eisson.alipio@gmail.com>
@@ -354,7 +354,45 @@
       $scope.deleteDosis = function(i){ $scope.vacunas.dosis.splice(i,1); }
       
   }])
+  .controller('nueva_contrasenaController',['$scope', '$http', function($scope, $http){
+    
+     $scope.update = function(user){
+      
+      if(user.nuevaContra==user.nuevaContra2){
+        if(user.nuevaContra==user.contraActual){
+           Materialize.toast('La nueva contraseña deve ser diferente', 3000);
+      }
+      else{
+         $http.post('api/nuevaContra.php', {datos :user})
+          .success(function(data) {
+              $scope.cambioContra=data;
+              console.log(data);
+              if(data == " ok"){
+                Materialize.toast('Contraseña actualizada exitosamente', 3000);
+                location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+              }
+                else if(data == " bad"){
+                  Materialize.toast('Contraseña actual erronea', 3000);}
+                  else {
+                    Materialize.toast('Error en el servidor, intentelo mas tarde', 3000);
+                    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+                  }
+           })
+            .error(function(data) {
+              console.log('Error: ' + data);
+            });
+      }
+    }
+      else{
+        Materialize.toast('Las contraseñas no concuerdan', 3000);
+      }
 
+         
+    };
+
+    
+    
+  }])
   .controller('EditarVacunaController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
         $scope.init = function(){
           var id = $routeParams.id;
@@ -418,10 +456,7 @@
   .controller('AdminController',['$scope', '$http', function($scope, $http){
     //
   }])
-  .controller('nueva_contrasenaController',['$scope', '$http', function($scope, $http){
-    alert("cambio de contraseña");
-    //
-  }])
+
   
   .controller('logoutController',['$scope', '$route','$http', function($scope, $route, $http){
 

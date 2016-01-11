@@ -1,1 +1,26 @@
-nueva pe
+
+<h4>Cambio de Contraseña</h4>
+<div class="row">
+
+<div ng-controller="nueva_contrasenaController">
+  <form novalidate class="simple-form">
+
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="codigo" ng-model='user.contraActual' type="password" class="validate" required>
+      <label for="codigo">Contraseña Actual</label>
+    </div></div>
+    <div class="row">
+    <div class="input-field col s6">
+      <input id="nombres" ng-model='user.nuevaContra' type="password" class="validate only_text" required>
+      <label for="nombres">Nueva Contraseña</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="nombres" ng-model='user.nuevaContra2' type="password" class="validate only_text" required>
+      <label for="nombres">Repetir Nueva Contraseña</label>
+    </div>
+  </div>
+   
+  
+    <input class="btn" type="submit" ng-click="update(user)" value="Save" />
+  </form>

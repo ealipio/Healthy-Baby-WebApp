@@ -6,7 +6,7 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
 
   <div class="row">
     <div class="input-field col s6">
-      <input id="codigo" ng-model='us.nro_documento' type="text" class="validate" required>
+      <input id="codigo" ng-model='us.nro_documento' type="number" step="any"  class="validate" required>
       <label for="codigo">Numero de DNI</label>
     </div>
     <div class="input-field col s6">
@@ -27,19 +27,21 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
     </div>
   </div>
 <div class="row">
-   <div class="input-field col s6">
-   		<label for="fecha">Fecha de Nacimiento</label>
+   <div class="input-field col s6 ">
+   		<label for="fecha" >Fecha de Nacimiento</label>
+      </div></div>
+      <div class="row"><div class="input-field col s6">
       <input id="fecha" ng-model='us.fecha_nac' type="date" class="validate" required>
       
     </div>
 </div>
     <div class="row">
     <div class="input-field col s6">
-      <input id="apep" ng-model='us.peso' type="text" class="validate" required>
+      <input id="apep" ng-model='us.peso' type="number" step="any" class="validate" required>
       <label for="apep">Peso al Nacer</label>
     </div>
     <div class="input-field col s6">
-      <input id="apem"  ng-model='us.talla' type="text" class="validate" required>
+      <input id="apem"  ng-model='us.talla' type="number" step="any" class="validate" required>
       <label for="apem">Talla al Nacer</label>
 
     </div>
@@ -47,7 +49,7 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
 
     <div class="row">
     <div class="input-field col s6">
-      <input id="apep" ng-model='us.dni_madre' type="text" class="validate" required>
+      <input id="apep" ng-model='us.dni_madre' type="number" step="any" class="validate" required>
       <label for="apep">DNI de la Madre</label>
     </div>
     <div class="input-field col s6">
@@ -59,7 +61,7 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
 
    <div class="row">
     <div class="input-field col s6">
-      <input id="apep" ng-model='us.dni_padre' type="text" class="validate" required>
+      <input id="apep" ng-model='us.dni_padre' type="number" step="any" class="validate" required>
       <label for="apep">DNI de la Padre</label>
     </div>
     <div class="input-field col s6">
@@ -74,7 +76,7 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
       <label for="apep">Dirección del Niño</label>
     </div>
     <div class="input-field col s6">
-      <input id="apem"  ng-model='us.telefono' type="text" class="validate " required>
+      <input id="apem"  ng-model='us.telefono' type="number" step="any" class="validate " required>
       <label for="apem">Telefono de Referencia</label>
 
     </div>
