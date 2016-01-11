@@ -143,6 +143,7 @@
     
     
   }])
+/*
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $route.current.activetab ? $scope.$route = $route : null
 
@@ -168,18 +169,20 @@
         }).error(function(data) { Materialize.toast('Error, ocurrio un problema consultando el webservice.', 3000);});
     };
   }])
+*/
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
-    $scope.nino = {tipo:3, numero:1000999595};
+    //$scope.nino = {tipo:3, numero:1000999595};
     $http.post ('api/getCentros.php').success(function(data) { $scope.Centros = data; });
+    
     $scope.getVacunas=function() {
       $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws2}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
         $scope.vacunas = response;
         console.log($scope.vacunas);
       });
     };
- $scope.VerNino = function(index){
+    $scope.VerNino = function(index){
       //$(".table-hover")[index].css("background":"yellow");
-$scope.showNinos=true;
+        $scope.showNinos=true;
           $scope.nino=$scope.nino_ws[index];
           console.log($scope.nino);
           $http.get('../api/ws1.php?numero='+ $scope.nino.NuCnv ).success(function(data) {
