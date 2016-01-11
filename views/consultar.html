@@ -25,12 +25,18 @@
   </div>
 
 
-
-
 <div class="row" ng-show='nino_ws' id="vistaInfo">
 <h5>Datos del Menor:</h5>
     <table class="highlight bordered">
         <tbody>
+            <tr ng-show="nino_ws.nombres">
+                <td>Nombres:</td>
+                <td> {{nino_ws.nombres}} </td>
+            </tr>
+            <tr ng-show="nino_ws.apellido_paterno">
+                <td>Apellidos:</td>
+                <td> {{nino_ws.apellido_paterno}} {{nino_ws.apellido_materno}} </td>
+            </tr>
             <tr>
                 <td>Nacimiento:</td>
                 <td> {{nino_ws.FecNac | date:'fullDate' }} </td>
