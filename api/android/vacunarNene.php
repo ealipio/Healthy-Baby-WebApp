@@ -7,8 +7,6 @@
 	$nino_ws = $_POST['nino_ws'];
 	$usuario = $_POST['usuario'];
 
-	$usuario =$_SESSION['id_usuario'];
-
 	$q = 'INSERT INTO tb_vacunas_x_ninos
 	(id_nino, id_vacuna, id_dosis_vacunas, username, fecha_vacunacion, centro_salud, created_at)
 	VALUES (:id_nino, :id_vacuna, :id_dosis_vacunas, :username, :fecha_vacunacion, :centro_salud, CURRENT_TIMESTAMP)';

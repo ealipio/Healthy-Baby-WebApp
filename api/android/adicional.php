@@ -11,11 +11,11 @@
 
 	$stmt = $dbh->prepare($q);
 	$stmt->bindParam(':id_nino',  $nino_ws['NuCnv'], PDO::PARAM_STR);
-	$stmt->bindParam(':peso',  $nino_ws['Peso'], PDO::PARAM_STR);
+	$stmt->bindParam(':peso',  $nino_ws['peso'], PDO::PARAM_STR);
 	$stmt->bindParam(':talla',  $nino_ws['talla'], PDO::PARAM_STR);
 	$stmt->bindParam(':temperatura',  $nino_ws['temperatura'], PDO::PARAM_STR);
 	$stmt->bindParam(':hemoglobina',  $nino_ws['hemoglobina'], PDO::PARAM_STR);
-	$stmt->bindParam(':fecha_medicion',  $nino_ws['fecha_medicion'], PDO::PARAM_STR);
+	$stmt->bindParam(':fecha_medicion',  $nino_ws['fecha_medicion_'], PDO::PARAM_STR);
 	$stmt->bindParam(':nutrientes',  $nino_ws['nutrientes'], PDO::PARAM_STR);
 	$stmt->bindParam(':username',  $usuario['username'], PDO::PARAM_STR);
 	$valor= $stmt->execute();
