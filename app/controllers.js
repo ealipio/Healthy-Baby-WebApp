@@ -65,6 +65,63 @@ window.map="";
       return retorno;
     };
   })
+  .filter('juntoAslash', function(){
+    return function(input){
+      if(input){
+          var year = input.substr(0,4);
+          var meses = input.substr(4,2);
+          var dias = input.substr(6,2);
+          var retorno= dias+"/"+meses+"/"+year;
+            return retorno;}
+      else{return 0;}
+    };
+  })
+  .filter('edadOrdenada', function(){
+    return function(input){
+   if(input){
+       var year = (input/365).toFixed();
+       var meses = ((input%365).toFixed()/30).toFixed();
+       var dias= ((input%365).toFixed()%30);
+       if(year==0){
+          if(meses==0){
+            var retorno = dias+"dias";
+               }
+               else if(meses==1){
+            var retorno = meses+" mes y "+dias+" dias";
+               }
+               else{
+                var retorno = meses+" meses y "+dias+" dias";
+               }
+        }
+        else if(year==1){
+                if(meses==0){
+            var retorno = year+" año y "+ dias+" dias";
+               }
+               else if(meses==1){
+            var retorno = year+" año, "+meses+" mes y "+dias+" dias";
+               }
+               else{
+                var retorno = year+" año, "+meses+" meses y "+dias+" dias";
+               }
+       }
+       else{
+             if(meses==0){
+            var retorno = year+" años y "+ dias+" dias";
+               }
+               else if(meses==1){
+            var retorno = year+" años, "+meses+" mes y "+dias+" dias";
+               }
+               else{
+                var retorno = year+" años, "+meses+" meses y "+dias+" dias";
+               }
+       }
+          return retorno;
+    }
+
+      else {return 0;}
+    };
+  })
+
 
   .filter('filterFecha', function(){
     return function(input){
@@ -94,11 +151,12 @@ window.map="";
 
   
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
+    $scope.showNino_ws=true;
     $scope.finalizar=true;
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
-      $scope.nino = {tipo:3, numero:1000999595};
+      //$scope.nino = {tipo:3, numero:1000999595};
       $scope.subs = {};
       $scope.subs.correo="";
       //$scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
@@ -115,19 +173,59 @@ window.map="";
       */
 
     $scope.getVacunas=function() {
-      $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+      $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws2}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
         $scope.vacunas = response;
         console.log(response);
+        $scope.showNinos=true;
       });
     }
 
+    $scope.VerNino = function(index){
+      //$(".table-hover")[index].css("background":"yellow");
+
+      $scope.showNinos=true;
+          $scope.nino=$scope.nino_ws[index];
+          console.log($scope.nino);
+          $http.get('api/ws1.php?numero='+ $scope.nino.NuCnv ).success(function(data) {
+            console.log(data);
+           if(data.success){
+                $scope.nino_esp = data.success;
+                console.log($scope.nino_esp);
+                var year = $scope.nino_esp.FecNac.substr(0,4);
+                var month = $scope.nino_esp.FecNac.substr(4,2);
+                var day = $scope.nino_esp.FecNac.substr(6,2);
+               $scope.nino_esp.FecNac = year+"-"+month+"-"+day;
+               console.log($scope.nino_esp.FecNac);
+               $scope.nino_ws.FecNac=$scope.nino_esp.FecNac;
+               $scope.nino_ws.Sexo=$scope.nino_esp.Sexo;
+                $scope.nino_ws.NuCnv= $scope.nino_esp.NuCnv;
+                 $scope.nino_ws2=$scope.nino_esp;
+                 $scope.showNino_ws=false;
+                $scope.getVacunas();
+                $scope.getCorreos();
+                $scope.ninoActual=$scope.nino_ws2["NuCnv"];
+            }
+            else{
+              alert(data.error);
+            }
+
+          }).error(function(data) {
+            Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
+            $scope.finalizar=false;
+        });
+
+    };
+
+
     $scope.buscarNino = function(nino){
+      $scope.showNinos=true;
+      $scope.showNino_ws=true;
       $scope.ninoActual=nino["numero"];
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
       delete $scope.nino_error;
       delete $scope.nino_ws;
 
-      console.log(nino["tipo"]);
+     // console.log(nino["tipo"]);
       if(nino["tipo"]==1){
 
         //consultar desde WS minsa
@@ -143,7 +241,7 @@ window.map="";
               var month = $scope.nino_ws.FecNac.substr(4,2);
               var day = $scope.nino_ws.FecNac.substr(6,2);
               $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
-
+              $scope.nino_ws2=$scope.nino_ws;
               $scope.getVacunas();
               $scope.getCorreos();
             }
@@ -156,10 +254,10 @@ window.map="";
             $scope.finalizar=false;
         });
         }
-          else{
+          else if (nino["tipo"]==2){
                 $http.post ('api/getNinoByDni.php', { id_nino: nino["numero"] })
             .success(function(data) {
-                   $scope.nino_ws = data[0];
+              $scope.nino_ws = data[0];
               console.log($scope.nino_ws);
               $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
               $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
@@ -168,7 +266,7 @@ window.map="";
               var month = $scope.nino_ws.fecha_nac.substr(5,2);
               var day = $scope.nino_ws.fecha_nac.substr(8,2);
               $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
-
+              $scope.nino_ws2=$scope.nino_ws;
               $scope.getVacunas();
               $scope.getCorreos();
                
@@ -176,7 +274,28 @@ window.map="";
             .error(function(data) {
                     console.log('Error: ' + response);
             });
+          $scope.finalizar=false;
+          }
+          else{
+               //$http.get('api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
+              $http.get('api/wsByDniMadre_2.php?numero='+ nino.numero ).success(function(data) {
+            //console.log(data);
+           if(data.success){
+              $scope.nino_ws = data.success;
+              console.log($scope.nino_ws);
+              $scope.showNinos=false;
+              $scope.showNino_ws=false;
+              //$.each($scope.nino_ws , function( index, value ) {
 
+            }
+            else{
+              alert(data.error);
+            }
+
+          }).error(function(data) {
+            Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
+            $scope.finalizar=false;
+        });
           }
 
     };

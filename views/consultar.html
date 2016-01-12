@@ -2,6 +2,9 @@
 
     .gc td{border:1px solid #ddd;}
     .gc th{background:#333; color:#fff;}
+    .table-hover:hover{
+            background-color: #c4c8c5;
+    }
 
 </style>
 
@@ -13,6 +16,7 @@
             <option value="" disabled selected>Tipo de Documento</option>
             <option value="1">Número CNV</option>
             <option value="2">Número DNI</option>
+            <option value="3">Número DNI de la Madre</option>
         </select>
     </div>
     <div class="col s5" input-field>
@@ -24,8 +28,30 @@
     </div>
   </div>
 
+<div class="row col s6" ng-hide='showNino_ws'>
+    
+<table class="table table-bordered gc centered ">
+    <thead><tr>
+        <th>Numero de CNV</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Sexo</th>
+        <th>Peso (gr)</th>
+        <th>Talla (cm)</th>
+    </tr></thead>
+    <tbody>
+        <tr ng-repeat="nw in nino_ws" ng-click="VerNino($index)"  style="cursor: hand;" class="table-hover">
+            <td><a ng-click="VerNino($index)">{{nw.NuCnv}}</a></td>
+        <td>{{nw.FecNac | juntoAslash}}</td>
+        <td>{{nw.Sexo}}</td>
+        <td>{{nw.Peso}}</td>
+        <td>{{nw.Talla}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
 
-<div class="row" ng-show='nino_ws' id="vistaInfo">
+
+<div class="row"  id="vistaInfo" ng-show='nino_ws && showNinos '>
 <h5>Datos del Menor:</h5>
     <table class="highlight bordered">
         <tbody>
@@ -48,7 +74,7 @@
             <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo }} Días</span>
+                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo | edadOrdenada }} </span>
                 </td>
             </tr>
         </tbody>
@@ -74,7 +100,9 @@
 
 </div>
 
-<div class="row col s6" ng-show='nino_ws'>
+
+
+<div class="row col s6" ng-show='nino_ws && showNinos ' >
    <form class="col s12" name='subsForm' id='subsForm'>
 
         <h5>Subscribirse:</h5>

@@ -5,6 +5,7 @@
             <option value="" disabled selected>Tipo de Documento</option>
             <option value="1">Número CNV</option>
             <option value="2">Número DNI</option>
+            <option value="3">Número DNI de la Madre</option>
         </select>
     </div>
     <div class="col m5" input-field>
@@ -15,8 +16,29 @@
         <button class="btn" style="width:100%;" ng-click="buscarNino(nino)"><i class="mdi-action-search"></i></button>
     </div>
   </div>
+<div class="row col s6" ng-show='showNino_ws'>
+    
+<table class="table table-bordered bordered centered ">
+    <thead><tr>
+        <th>Numero de CNV</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Sexo</th>
+        <th>Peso (gr)</th>
+        <th>Talla (cm)</th>
+    </tr></thead>
+    <tbody>
+        <tr ng-repeat="nw in nino_ws" ng-click="VerNino($index)"  style="cursor: hand;" class="table-hover">
+            <td><a ng-click="VerNino($index)">{{nw.NuCnv}}</a></td>
+        <td>{{nw.FecNac | juntoAslash}}</td>
+        <td>{{nw.Sexo}}</td>
+        <td>{{nw.Peso}}</td>
+        <td>{{nw.Talla}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
 
-<div class="row" ng-show='nino_ws'>
+<div class="row" ng-show='nino_ws && showNinos'>
     <table class="highlight bordered" id="vistaInfo">
         <tbody>
             <tr>
