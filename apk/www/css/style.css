@@ -1,0 +1,51 @@
+/* Empty. Add your own CSS if you like */
+.bar.bar-dark, .menu-left, .item-complex .item-content, .item-radio .item-content{
+	background-color:#008db1;
+	color: #fff;
+}
+
+#Eisson .scroll-content{
+	background-color: #ebebeb;
+}
+/*
+#Eisson .scroll-content {
+  display: table !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+#Eisson .scroll {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+} */
+
+.button.button-positive {
+    border-color: #0E7B97;
+    background-color: #008db1;
+    color: #fff;
+}
+
+.center{
+  text-align: center;
+}
+  .green{
+    background-color: #4CAF50 !important;
+  }
+  .blue{
+    background-color: #2196F3 !important;
+  }
+  .red{
+    background-color: #F44336 !important;
+  }
+  .white-text{
+    color: #FFF;
+  }
+
+  textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"]{
+    background-color: #F7F7F7;
+    padding-left: 15px;
+  }
+
+.item-text-wrap{
+  padding: 0;
+}

@@ -1,0 +1,47 @@
+<ion-view view-title="Adicional">
+  <ion-content padding="true" has-header="true">
+    <form ng-submit="vacunarNene()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">peso(gr)</span>
+          <input type="number" step="any" ng-model="nino_ws.peso">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Talla (cm)</span>
+          <input type="number" step="any" ng-model="nino_ws.talla">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Temperatura(c)</span>
+          <input type="text" ng-model="nino_ws.temperatura">
+        </label>
+
+
+        <label class="item item-input">
+          <span class="input-label">Nutrientes</span>
+          <!-- <input type="text" ng-model="nino_ws.nutrientes"> -->
+          <select ng-model="nino_ws.nutrientes">
+            <option value="1">Administrado</option>
+            <option value="0">No Administrado</option>
+          </select>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Hemoglobina</span>
+          <input type="text" ng-model="nino_ws.hemoglobina">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Fecha de Medicion</span>
+          <input type="date" ng-model="nino_ws.fecha_medicion">
+        </label>
+
+        <label class="item">
+          	<button class="button button-block button-positive" type="submit">Guardar</button>
+        </label>
+
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

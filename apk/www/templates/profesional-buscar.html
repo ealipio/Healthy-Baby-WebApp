@@ -1,0 +1,15 @@
+<ion-view view-title="Vacunar">
+  <ion-content has-header="true" >
+    <form ng-submit="buscarNeneByCNV()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">N&uacute;mero CNV:</span>
+          <input type="text" ng-model="neneData.numero" />
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive icon-left ion-search" type="submit">Buscar</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

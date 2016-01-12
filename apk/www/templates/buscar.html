@@ -1,0 +1,20 @@
+<ion-view view-title="Buscar">
+  <ion-content has-header="true" padding="true" class="padding">
+
+    <div class="row row-center">
+      <div class="col">Por favor ingrese el numero de documento:</div>
+    </div>
+    <form ng-submit="buscarNeneByCNV()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">N&uacute;mero CNV:</span>
+          <input type="text" ng-model="neneData.numero" />
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive icon-left ion-search" type="submit">Buscar</button>
+        </label>
+      </div>
+    </form>
+
+  </ion-content>
+</ion-view>

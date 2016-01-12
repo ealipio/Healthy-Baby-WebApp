@@ -1,0 +1,32 @@
+<ion-view view-title="Vacunando">
+  <ion-content padding="true" has-header="true">
+    <form ng-submit="vacunarNene()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Vacuna</span>
+          <input type="text" ng-disabled="item.nombre_vacuna" ng-model="item.nombre_vacuna">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Dosis</span>
+          <input type="text" ng-disabled="item.nombre_dosis" ng-model="item.nombre_dosis">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Fecha Vacunacion</span>
+          <input type="date" ng-model="item.fecha_vacunacion">
+        </label>
+<!--
+        <label class="item item-input">
+          <span class="input-label">Centro de Salud</span>
+          <input type="text" ng-model="usuario.centro_salud">
+        </label>
+ -->
+        <label class="item">
+          	<button class="button button-block button-positive" type="submit">Guardar</button>
+        </label>
+
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,42 @@
+<style>
+	.col{border: 1px solid #ddd}
+</style>
+<ion-view view-title="Vacunar">
+  <ion-content padding="true" has-header="true">
+<div class="button-bar bar-light">
+  <span ng-click="adicional()" class="button button-calm">Informacion Adicional</span>
+</div>
+
+<div class="row">
+    <div class="center col">Vacuna</div>
+    <div class="center col">Debe ponerse</div>
+    <div class="center col">Puesta</div>
+</div>
+
+
+   <div class="card" ng-repeat="vacuna in vacunas">
+        <div class="item item-divider">
+          {{vacuna.meses}} Meses
+        </div>
+        <div class="item item-text-wrap">
+          <div class="row" ng-repeat="item in vacuna.contenido">
+            <div class="col">{{item.nombre_vacuna}}</div>
+            <div class="col">
+              <button class="button button-small button-full" ng-disabled='true'> {{item.fecha_estimada}} </button>
+            </div>
+            <div class="col">
+              <button class="button button-small button-full icon-left ion-android-done-all"
+              ng-show='item.vacunado != "0"'
+              ng-disabled='item.vacunado != "0"'> {{ item.fecha_vacunacion }}</button>
+
+              <button class="button button-positive button-small button-full icon-left ion-ios-medkit-outline"
+              ng-click='vacunarloYa(item)'
+              ng-hide='item.vacunado != "0"'> Vacunar</button>
+            </div>
+          </div>
+        </div>
+   </div>
+    <!-- <button class="button button-block button-positive icon-left ion-paper-airplane"  type="submit">Recibir Alertas</button> -->
+    <!-- <a class="button button-block button-positive icon-left ion-paper-airplane"  href="#app/alertas">Recibir Alertas</a> -->
+  </ion-content>
+</ion-view>
