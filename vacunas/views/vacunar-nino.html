@@ -73,7 +73,7 @@
             <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo }} Días</span>
+                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo | edadOrdenada }}</span>
                 </td>
             </tr>
         </tbody>

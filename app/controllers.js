@@ -79,12 +79,18 @@ window.map="";
   .filter('edadOrdenada', function(){
     return function(input){
    if(input){
-       var year = (input/365).toFixed();
+       /*var year = (input/365).toFixed();
        var meses = ((input%365).toFixed()/30).toFixed();
-       var dias= ((input%365).toFixed()%30);
+       var dias= ((input%365).toFixed()%30);*/
+
+      var year = Math.floor((input/365));
+       var meses = Math.floor(((input%365).toFixed()/30));
+       var dias= Math.floor(((input%365).toFixed()%30));
+
+       ///alert(((input%365).toFixed()/30).toFixed());
        if(year==0){
           if(meses==0){
-            var retorno = dias+"dias";
+            var retorno = dias+" dias";
                }
                else if(meses==1){
             var retorno = meses+" mes y "+dias+" dias";
@@ -94,15 +100,15 @@ window.map="";
                }
         }
         else if(year==1){
-                if(meses==0){
+          if(meses==0){
             var retorno = year+" año y "+ dias+" dias";
-               }
-               else if(meses==1){
-            var retorno = year+" año, "+meses+" mes y "+dias+" dias";
-               }
-               else{
+           }
+           else if(meses==1){
+              var retorno = year+" año, "+meses+" mes y "+dias+" dias";
+           }
+             else{
                 var retorno = year+" año, "+meses+" meses y "+dias+" dias";
-               }
+             }
        }
        else{
              if(meses==0){
