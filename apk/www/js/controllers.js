@@ -137,11 +137,12 @@ angular.module('starter.controllers', [])
 })*/
 
 .controller('BuscarController', function($scope, $stateParams, $location, $http, $ionicLoading, $rootScope) {
-  
-  $scope.neneData = {"tipo":"1", "numero":1000999595};
+  $scope.showTable=false;
+  $scope.neneData = {"tipo":"3", "numero":42579084};
 
 
   $scope.buscarNeneByCNV = function() {
+
 
     if($scope.neneData.tipo == "1"){
         console.log('BuscarController > buscarNeneByCNV');
@@ -181,14 +182,19 @@ angular.module('starter.controllers', [])
               console.log('BuscarController > buscarNeneByCNV : done');
               delete $rootScope.nino_ws;
               if( response.success){
+     
+    // var  response = {"success":[{"NuCnv":"1000805566","UbiDomMad":"140137","Sexo":"F","Peso":"2550","Talla":"46 ","FecNac":"20150709","LugNac":"01","UbiNac":"140101","AtePor":"02","TipPar":"01","ConPar":"01","DurEmb":"38","Fin":"02"},{"NuCnv":"1000131212","UbiDomMad":"140137","Sexo":"F","Peso":"2514","Talla":"47 ","FecNac":"20130423","LugNac":"01","UbiNac":"140101","AtePor":"01","TipPar":"01","ConPar":"01","DurEmb":"37","Fin":"01"}]}
                 console.log('BuscarController > buscarNeneByCNV : done : if');
-                $ionicLoading.hide();
-                $rootScope.nino_ws        = response.success;
-                $rootScope.nino_ws.FecNac = $rootScope.nino_ws.FecNac.substr(0,4) + "-" + $rootScope.nino_ws.FecNac.substr(4,2) + "-" + $rootScope.nino_ws.FecNac.substr(6,2);
+                //$ionicLoading.hide();
+
+                $rootScope.ninos_ws        = response.success;
+          
+                $scope.showTable=true;
                 console.log('BuscarController > buscarNeneByCNV : done : if : response', response);
                 console.log('BuscarController > buscarNeneByCNV : done : if : $rootScope.nino_ws', $rootScope.nino_ws);
-                $location.path('/app/resultados').replace();
-                
+               // $location.path('/app/resultados').replace();
+
+
               } else{
                 $ionicLoading.hide();
                 console.log('BuscarController > buscarNeneByCNV : done : else');
@@ -198,8 +204,19 @@ angular.module('starter.controllers', [])
               alert('Lo lamento, el servidor no esta respondiendo. por favor intentelo mas tarde.');
               $ionicLoading.hide();
           });
+
     }
+
   };
+
+
+  $scope.selecNino = function(index) {
+      $rootScope.nino_ws = $rootScope.ninos_ws[index];
+      $ionicLoading.hide();
+      $location.path('/app/resultados').replace();
+
+  }
+  
 
 })
 
