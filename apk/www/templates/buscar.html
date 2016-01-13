@@ -1,40 +1,46 @@
 <ion-view view-title="Buscar">
   <ion-content has-header="true" padding="true" class="padding">
 
-    <div class="row row-center">
-      <div class="col">Por favor ingrese el numero de documento:</div>
-    </div>
+   
     <form ng-submit="buscarNeneByCNV(neneData)">
      
         
-    <div class="row">
-       <label class="item item-input  item-stable col-70">
-           
-            <select ng-model="neneData.tipo">
+
+        <label class="item item-input item-select">
+    <div class="input-label">
+      Tipo:
+    </div>
+     <select ng-model="neneData.tipo">
                 <option  value="1">CNV del Niño</option>
                 <option value="2">DNI del Niño</option>
                 <option value="3">DNI de la madre</option>
             </select>
-        </label>
+  </label>
+    
+       
+
+ <div class="row row-center">
+      <div class="col">Por favor ingresé el número de documento:</div>
+    </div>
         <label class="item item-input col-30">
           <input type="text" ng-model="neneData.numero" />
         </label>
-    </div>
+   
 
         <label class="item">
           <button class="button button-block button-positive icon-left ion-search" type="submit">Buscar</button>
         </label>
       
     </form>
-
-     <div class="row header" ng-show="showTable">
-          <div class="col">Numero de CNV</div>
-          <div class="col">Fecha de Nacimiento</div>
+<div  class="card">
+     <div class="row header" >
+          <div class="col">N° de CNV</div>
+          <div class="col">Fecha Nac.</div>
           <div class="col">Sexo</div>
           <div class="col">Peso (gr)</div>
           <div class="col">Talla (cm)</div>
         </div>
-        <div class="row" ng-repeat="n in ninos_ws " ng-click="selecNino($index)">
+        <div class="row item item-divider" ng-repeat="n in ninos_ws " ng-click="selecNino($index)">
           <div class="col">{{n.NuCnv}}</div>
           <div class="col">{{n.FecNac}}</div>
           <div class="col">{{n.Sexo}}</div>
@@ -42,7 +48,7 @@
           <div class="col">{{n.Talla}}</div>
           
         </div>
-
+</div>
 
 
   </ion-content>
