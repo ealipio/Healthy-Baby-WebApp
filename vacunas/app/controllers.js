@@ -89,6 +89,58 @@
       return retorno;
     };
   })
+
+ .filter('edadOrdenada', function(){
+    return function(input){
+   if(input){
+       /*var year = (input/365).toFixed();
+       var meses = ((input%365).toFixed()/30).toFixed();
+       var dias= ((input%365).toFixed()%30);*/
+
+      var year = Math.floor((input/365));
+       var meses = Math.floor(((input%365).toFixed()/30));
+       var dias= Math.floor(((input%365).toFixed()%30));
+
+       ///alert(((input%365).toFixed()/30).toFixed());
+       if(year==0){
+          if(meses==0){
+            var retorno = dias+" dias";
+               }
+               else if(meses==1){
+            var retorno = meses+" mes y "+dias+" dias";
+               }
+               else{
+                var retorno = meses+" meses y "+dias+" dias";
+               }
+        }
+        else if(year==1){
+          if(meses==0){
+            var retorno = year+" año y "+ dias+" dias";
+           }
+           else if(meses==1){
+              var retorno = year+" año, "+meses+" mes y "+dias+" dias";
+           }
+             else{
+                var retorno = year+" año, "+meses+" meses y "+dias+" dias";
+             }
+       }
+       else{
+             if(meses==0){
+            var retorno = year+" años y "+ dias+" dias";
+               }
+               else if(meses==1){
+            var retorno = year+" años, "+meses+" mes y "+dias+" dias";
+               }
+               else{
+                var retorno = year+" años, "+meses+" meses y "+dias+" dias";
+               }
+       }
+          return retorno;
+    }
+
+      else {return 0;}
+    };
+  })
   .filter('sexoFilter', function(){
     return function(input){
       var sexo = "Masculino";
