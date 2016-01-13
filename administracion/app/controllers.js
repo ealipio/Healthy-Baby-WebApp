@@ -368,18 +368,16 @@
       else{
          $http.post('api/nuevaContra.php', {datos :user})
           .success(function(data) {
-              $scope.cambioContra=data;
+              //$scope.cambioContra=data;
               console.log(data);
-              if(data == " ok"){
+              if(data.success){
                 Materialize.toast('Contraseña actualizada exitosamente', 3000);
                 location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
               }
-                else if(data == " bad"){
-                  Materialize.toast('Contraseña actual erronea', 3000);}
-                  else {
-                    Materialize.toast('Error en el servidor, intentelo mas tarde', 3000);
-                    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
-                  }
+              else {
+                Materialize.toast(data.error, 3000);
+                //location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+              }
            })
             .error(function(data) {
               console.log('Error: ' + data);

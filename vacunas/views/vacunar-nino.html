@@ -1,3 +1,12 @@
+<style>
+
+    .gc td{border:1px solid #ddd;}
+    .gc th{background:#333; color:#fff;}
+    .table-hover:hover{
+            background-color: #c4c8c5;
+    }
+
+</style>
 <h4>Vacunar nuevo niño:</h4>
   <div class="row">
     <div class="col m5 input-field">
@@ -18,7 +27,7 @@
   </div>
 <div class="row col s6" ng-show='showNino_ws'>
     
-<table class="table table-bordered bordered centered ">
+<table class="table table-bordered gc bordered centered ">
     <thead><tr>
         <th>Numero de CNV</th>
         <th>Fecha de Nacimiento</th>
@@ -26,8 +35,8 @@
         <th>Peso (gr)</th>
         <th>Talla (cm)</th>
     </tr></thead>
-    <tbody>
-        <tr ng-repeat="nw in nino_ws" ng-click="VerNino($index)"  style="cursor: hand;" class="table-hover">
+    <tbody style="cursor: hand;">
+        <tr ng-repeat="nw in nino_ws" ng-click="VerNino($index)"  class="table-hover">
             <td><a ng-click="VerNino($index)">{{nw.NuCnv}}</a></td>
         <td>{{nw.FecNac | juntoAslash}}</td>
         <td>{{nw.Sexo}}</td>

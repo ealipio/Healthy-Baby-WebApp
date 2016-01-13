@@ -151,12 +151,12 @@ window.map="";
 
   
   .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
-    $scope.showNino_ws=true;
-    $scope.finalizar=true;
+    //$scope.showNino_ws=true;
+    //$scope.finalizar=true;
     document.title = "Consultar";
       $scope.clear = 'Limpiar';
       $scope.close = 'Cerrar';
-      //$scope.nino = {tipo:3, numero:1000999595};
+      $scope.nino = {tipo:'', numero:''};
       $scope.subs = {};
       $scope.subs.correo="";
       //$scope.consulta = {paterno:'', materno:'',tipo: "1", dni: '', nacimiento: ''};
@@ -188,26 +188,27 @@ window.map="";
           console.log($scope.nino);
           $http.get('api/ws1.php?numero='+ $scope.nino.NuCnv ).success(function(data) {
             console.log(data);
-           if(data.success){
+             if(data.success){
                 $scope.nino_esp = data.success;
                 console.log($scope.nino_esp);
                 var year = $scope.nino_esp.FecNac.substr(0,4);
                 var month = $scope.nino_esp.FecNac.substr(4,2);
                 var day = $scope.nino_esp.FecNac.substr(6,2);
-               $scope.nino_esp.FecNac = year+"-"+month+"-"+day;
-               console.log($scope.nino_esp.FecNac);
-               $scope.nino_ws.FecNac=$scope.nino_esp.FecNac;
-               $scope.nino_ws.Sexo=$scope.nino_esp.Sexo;
+                $scope.nino_esp.FecNac = year+"-"+month+"-"+day;
+                console.log($scope.nino_esp.FecNac);
+                $scope.nino_ws.FecNac=$scope.nino_esp.FecNac;
+                $scope.nino_ws.Sexo=$scope.nino_esp.Sexo;
                 $scope.nino_ws.NuCnv= $scope.nino_esp.NuCnv;
-                 $scope.nino_ws2=$scope.nino_esp;
-                 $scope.showNino_ws=false;
+                $scope.nino_ws2=$scope.nino_esp;
+                $scope.showNino_ws=true;
                 $scope.getVacunas();
                 $scope.getCorreos();
                 $scope.ninoActual=$scope.nino_ws2["NuCnv"];
-            }
-            else{
-              alert(data.error);
-            }
+
+              }
+              else{
+                Materialize.toast(data.error, 4000);
+              }
 
           }).error(function(data) {
             Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
@@ -219,14 +220,14 @@ window.map="";
 
     $scope.buscarNino = function(nino){
       $scope.showNinos=true;
-      $scope.showNino_ws=true;
+      $scope.showNino_ws=false;
       $scope.ninoActual=nino["numero"];
       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
       delete $scope.nino_error;
       delete $scope.nino_ws;
 
      // console.log(nino["tipo"]);
-      if(nino["tipo"]==1){
+      if(nino["tipo"]==1 && nino.numero!='' && nino.numero>0){
 
         //consultar desde WS minsa
         //$http.get('api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
@@ -245,57 +246,82 @@ window.map="";
               $scope.getVacunas();
               $scope.getCorreos();
             }
-            else{
-              alert(data.error);
-            }
+              else { Materialize.toast(data.error, 4000); }
 
           }).error(function(data) {
             Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
             $scope.finalizar=false;
         });
         }
-          else if (nino["tipo"]==2){
+          else if (nino["tipo"]==2 && nino.numero!='' && nino.numero>0){
                 $http.post ('api/getNinoByDni.php', { id_nino: nino["numero"] })
-            .success(function(data) {
-              $scope.nino_ws = data[0];
-              console.log($scope.nino_ws);
-              $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
-              $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
-              
-              var year = $scope.nino_ws.fecha_nac.substr(0,4);
-              var month = $scope.nino_ws.fecha_nac.substr(5,2);
-              var day = $scope.nino_ws.fecha_nac.substr(8,2);
-              $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
-              $scope.nino_ws2=$scope.nino_ws;
-              $scope.getVacunas();
-              $scope.getCorreos();
-               
-              })
-            .error(function(data) {
-                    console.log('Error: ' + response);
-            });
-          $scope.finalizar=false;
+                    .success(function(data) {
+                        if(data.success) {
+                          $scope.nino_ws = data.success;
+                          console.log($scope.nino_ws);
+                          $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
+                          $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
+                          
+                          var year = $scope.nino_ws.fecha_nac.substr(0,4);
+                          var month = $scope.nino_ws.fecha_nac.substr(5,2);
+                          var day = $scope.nino_ws.fecha_nac.substr(8,2);
+                          $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
+                          $scope.nino_ws2=$scope.nino_ws;
+                          $scope.getVacunas();
+                          $scope.getCorreos();
+                        } else { Materialize.toast(data.error, 4000); }
+                    })
+                    .error(function(data) {
+                            console.log('Error: ' + response);
+                    });
+                 $scope.finalizar=false;
           }
-          else{
+          else if (nino["tipo"]==3 && nino.numero!='' && nino.numero>0){
+            console.log(nino);
+               //$http.get('../api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
+             $http.get('api/wsByDniMadre_2.php?numero='+ nino.numero ).success(function(data) {
+               if(data.success){
+                  $scope.nino_ws = data.success;
+                  console.log($scope.nino_ws);
+                  $scope.showNinos=false;
+                  $scope.showNino_ws=true;
+                  //$.each($scope.nino_ws , function( index, value ) {
+                }
+                else{
+                  Materialize.toast(data.error, 4000);
+                }
+
+            }).error(function(data) {
+              Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
+              $scope.finalizar=false;
+            });
+          }
+          /*
+          else if (nino["tipo"]==3 && nino.numero!='' && nino.numero>0){
                //$http.get('api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
               $http.get('api/wsByDniMadre_2.php?numero='+ nino.numero ).success(function(data) {
-            //console.log(data);
-           if(data.success){
-              $scope.nino_ws = data.success;
-              console.log($scope.nino_ws);
-              $scope.showNinos=false;
-              $scope.showNino_ws=false;
-              //$.each($scope.nino_ws , function( index, value ) {
+                //console.log(data);
 
-            }
-            else{
-              alert(data.error);
-            }
+               if(data.success){
+                 alert('werwer');
+                  $scope.nino_ws = data.success;
+                  console.log($scope.nino_ws);
+                  $scope.showNinos=false;
+                  $scope.showNino_ws=true;
+                  //$.each($scope.nino_ws , function( index, value ) {
+                }
+                else{
+                  Materialize.toast(data.error, 4000);
+                }
 
-          }).error(function(data) {
-            Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
-            $scope.finalizar=false;
-        });
+              }).error(function(data) {
+                Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
+                $scope.finalizar=false;
+            });
+          }
+          */
+          else{
+              Materialize.toast('Por favor complete todos los datos.', 4000);
           }
 
     };
@@ -572,17 +598,14 @@ infoWindow.open(map, beachMarker2);
      $scope.changepass={};
      $scope.changepass.usuario = $routeParams.id;
     
-      
-
-
       $scope.ChangePassword = function(login){
          $http({method:'POST',url: 'api/changePass.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-            if(response){
+            if(response.success){
               location.href= '#login';
               Materialize.toast('Contraseña modificada exitosamente', 3000);
             }
             else{
-              Materialize.toast('Error, Ingrese los datos correctos', 3000);
+              Materialize.toast(response.error, 3000);
             }
             
          });
