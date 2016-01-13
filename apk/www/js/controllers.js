@@ -218,7 +218,7 @@ angular.module('starter.controllers', [])
               delete $rootScope.nino_ws;
               if( response.success){
      
-    // var  response = {"success":[{"NuCnv":"1000805566","UbiDomMad":"140137","Sexo":"F","Peso":"2550","Talla":"46 ","FecNac":"20150709","LugNac":"01","UbiNac":"140101","AtePor":"02","TipPar":"01","ConPar":"01","DurEmb":"38","Fin":"02"},{"NuCnv":"1000131212","UbiDomMad":"140137","Sexo":"F","Peso":"2514","Talla":"47 ","FecNac":"20130423","LugNac":"01","UbiNac":"140101","AtePor":"01","TipPar":"01","ConPar":"01","DurEmb":"37","Fin":"01"}]}
+     var  response = {"success":[{"NuCnv":"1000805566","UbiDomMad":"140137","Sexo":"F","Peso":"2550","Talla":"46 ","FecNac":"20150709","LugNac":"01","UbiNac":"140101","AtePor":"02","TipPar":"01","ConPar":"01","DurEmb":"38","Fin":"02"},{"NuCnv":"1000131212","UbiDomMad":"140137","Sexo":"F","Peso":"2514","Talla":"47 ","FecNac":"20130423","LugNac":"01","UbiNac":"140101","AtePor":"01","TipPar":"01","ConPar":"01","DurEmb":"37","Fin":"01"}]}
                 console.log('BuscarController > buscarNeneByCNV : done : if');
                 $ionicLoading.hide();
 
@@ -230,7 +230,7 @@ angular.module('starter.controllers', [])
                // $location.path('/app/resultados').replace();
 
 
-              } else{
+             } else{
                 $ionicLoading.hide();
                 console.log('BuscarController > buscarNeneByCNV : done : else');
                 alert("Lo lamento, " + response.error);

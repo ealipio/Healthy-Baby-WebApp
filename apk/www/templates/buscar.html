@@ -32,20 +32,20 @@
         </label>
       
     </form>
-<div ng-show="showTable" class="card">
+<div ng-show="showTable"  class="card">
      <div class="row header" >
-          <div class="col">N° de CNV</div>
-          <div class="col">Fecha Nac.</div>
-          <div class="col">Sexo</div>
-          <div class="col">Peso (gr)</div>
-          <div class="col">Talla (cm)</div>
+          <div class="col col-38">N° de CNV</div>
+          <div class="col col-27">Fecha Nac.</div>
+          <div class="col col-15">Sexo</div>
+          <div class="col col-15">Peso (gr)</div>
+          <div class="col col-5">Talla (cm)</div>
         </div>
         <div class="row item item-divider" ng-repeat="n in ninos_ws " ng-click="selecNino($index)">
-          <div class="col">{{n.NuCnv}}</div>
-          <div class="col">{{n.FecNac}}</div>
-          <div class="col">{{n.Sexo}}</div>
-          <div class="col">{{n.Peso}}</div>
-          <div class="col">{{n.Talla}}</div>
+          <div class="col col-38"><button class="button button-small">{{n.NuCnv}}</button></div>
+          <div class="col col-27"><button class="button button-small">{{n.FecNac}}</button></div>
+          <div class="col col-15"><button class="button button-small">{{n.Sexo}}</button></div>
+          <div class="col col-15"><button class="button button-small">{{n.Peso}}</button></div>
+          <div class="col col-55"><button class="button button-small">{{n.Talla}}</button></div>
           
         </div>
 </div>
