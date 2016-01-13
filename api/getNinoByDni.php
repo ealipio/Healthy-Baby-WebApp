@@ -14,7 +14,14 @@
 	$stmt->bindParam(':nro_documento',  $id_nino, PDO::PARAM_STR);
 	$stmt->execute();
 
-	$r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$r = $stmt->fetch(PDO::FETCH_ASSOC);
+	
+	if($r){
+		$v = array('success' => $r );
+	}else{
+		$v = array('error' => 'Lo lamento, no hubo resultados para esta busqueda.' );
+	}
+	
 
-	echo json_encode($r);
+	echo json_encode($v);
 ?>
