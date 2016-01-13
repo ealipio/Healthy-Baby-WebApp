@@ -8,7 +8,7 @@
      
         
     <div class="row">
-       <label class="item item-input item-select item-stable col-25">
+       <label class="item item-input  item-stable col-70">
            
             <select ng-model="neneData.tipo">
                 <option  value="1">CNV del Niño</option>
@@ -16,7 +16,7 @@
                 <option value="3">DNI de la madre</option>
             </select>
         </label>
-        <label class="item item-input col-75">
+        <label class="item item-input col-30">
           <input type="text" ng-model="neneData.numero" />
         </label>
     </div>
@@ -26,6 +26,24 @@
         </label>
       
     </form>
+
+     <div class="row header" ng-show="showTable">
+          <div class="col">Numero de CNV</div>
+          <div class="col">Fecha de Nacimiento</div>
+          <div class="col">Sexo</div>
+          <div class="col">Peso (gr)</div>
+          <div class="col">Talla (cm)</div>
+        </div>
+        <div class="row" ng-repeat="n in ninos_ws " ng-click="selecNino($index)">
+          <div class="col">{{n.NuCnv}}</div>
+          <div class="col">{{n.FecNac}}</div>
+          <div class="col">{{n.Sexo}}</div>
+          <div class="col">{{n.Peso}}</div>
+          <div class="col">{{n.Talla}}</div>
+          
+        </div>
+
+
 
   </ion-content>
 </ion-view>
