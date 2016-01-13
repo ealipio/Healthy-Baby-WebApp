@@ -4,7 +4,7 @@
         <a class="item item-avatar" href="#/app/vacuna/{{vacuna.id_vacuna}}" ng-repeat="vacuna in vacunas">
           <img src="img/injection.png">
           <h2>{{vacuna.nombre_vacuna}}</h2>
-          <p ng-repeat="dosis in vacuna.dosis">{{ dosis.dosis }}</p>
+          <p ng-repeat="dosis in vacuna.dosis">{{ dosis.dosis}}: {{ dosis.meses }} meses</p>
         </a>
       </div>
   </ion-content>

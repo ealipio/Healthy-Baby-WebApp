@@ -351,7 +351,6 @@
         $http({method:'POST',url: 'api/crear_vacuna.php', data: $scope.nuevaVacuna.dosis, headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
           //
         });
-        c
         $scope.buscarNino($scope.nino2);
         $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
       }else{Materialize.toast('Error, Ingrese el centro de salud.', 3000);}

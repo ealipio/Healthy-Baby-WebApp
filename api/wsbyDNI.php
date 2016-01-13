@@ -15,7 +15,7 @@
 			WHERE nro_documento =:nro_documento';
 	
 	$stmt = $dbh->prepare($q);
-	$stmt->bindParam(':nro_documento',  $id_nino, PDO::PARAM_STR);
+	$stmt->bindParam(':nro_documento',  $numero_cnv, PDO::PARAM_STR);
 	$stmt->execute();
 
 	$r = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -25,9 +25,6 @@
 	}else{
 		$response = array('error' => 'Lo lamento, no hubo resultados para esta busqueda.' );
 	}
-	
-
-	echo json_encode($v);
 			
 		} catch (Exception $e) {
 			$response = array('error' => 'Lo lamento, No se pudo conectar al WebService, intentelo mas tarde.' );
