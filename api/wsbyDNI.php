@@ -1,5 +1,9 @@
 <?php
 	//12345678
+	require_once('config/mysql.php');
+
+	$db  = new EissonConnect();
+	$dbh = $db->enchufalo();
 
 	$response = array('error' => 'No se recibio ningun parametro de busqueda.' );
 	if ( isset( $_GET['numero'] )) {
