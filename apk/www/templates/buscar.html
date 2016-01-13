@@ -4,16 +4,27 @@
     <div class="row row-center">
       <div class="col">Por favor ingrese el numero de documento:</div>
     </div>
-    <form ng-submit="buscarNeneByCNV()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">N&uacute;mero CNV:</span>
+    <form ng-submit="buscarNeneByCNV(neneData)">
+     
+        
+    <div class="row">
+       <label class="item item-input item-select item-stable col-25">
+           
+            <select ng-model="neneData.tipo">
+                <option  value="1">CNV del Niño</option>
+                <option value="2">DNI del Niño</option>
+                <option value="3">DNI de la madre</option>
+            </select>
+        </label>
+        <label class="item item-input col-75">
           <input type="text" ng-model="neneData.numero" />
         </label>
+    </div>
+
         <label class="item">
           <button class="button button-block button-positive icon-left ion-search" type="submit">Buscar</button>
         </label>
-      </div>
+      
     </form>
 
   </ion-content>
