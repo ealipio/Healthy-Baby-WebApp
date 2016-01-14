@@ -33,7 +33,18 @@
       return retorno;
     };
   })
+  .filter('primeraMayuscula', function(){
+    return function(input){
+    var primera = input.substr(0,1);
+    var porcion = input.substring(1);
+    primera = primera.toUpperCase();
+    var retorno= primera+porcion;
+      return retorno;
+    };
+  })
 
+
+primeraMayuscula
   .filter('documento', function(){
     return function(input){
       var documento = ["", "DNI", "CUI"];
@@ -104,35 +115,35 @@
        ///alert(((input%365).toFixed()/30).toFixed());
        if(year==0){
           if(meses==0){
-            var retorno = dias+" dias";
+            var retorno = dias+" días";
                }
                else if(meses==1){
-            var retorno = meses+" mes y "+dias+" dias";
+            var retorno = meses+" mes y "+dias+" días";
                }
                else{
-                var retorno = meses+" meses y "+dias+" dias";
+                var retorno = meses+" meses y "+dias+" días";
                }
         }
         else if(year==1){
           if(meses==0){
-            var retorno = year+" año y "+ dias+" dias";
+            var retorno = year+" año y "+ dias+" días";
            }
            else if(meses==1){
-              var retorno = year+" año, "+meses+" mes y "+dias+" dias";
+              var retorno = year+" año, "+meses+" mes y "+dias+" días";
            }
              else{
-                var retorno = year+" año, "+meses+" meses y "+dias+" dias";
+                var retorno = year+" año, "+meses+" meses y "+dias+" días";
              }
        }
        else{
              if(meses==0){
-            var retorno = year+" años y "+ dias+" dias";
+            var retorno = year+" años y "+ dias+" días";
                }
                else if(meses==1){
-            var retorno = year+" años, "+meses+" mes y "+dias+" dias";
+            var retorno = year+" años, "+meses+" mes y "+dias+" días";
                }
                else{
-                var retorno = year+" años, "+meses+" meses y "+dias+" dias";
+                var retorno = year+" años, "+meses+" meses y "+dias+" días";
                }
        }
           return retorno;
@@ -223,7 +234,7 @@
       //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
 
       //consultar desde esdeporvida 
-      if(nino["tipo"]==1 && nino.numero!='' && nino.numero>0){
+      if(nino["tipo"]c && nino.numero!='' && nino.numero>0){
       $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
         if(data.success) {
             $scope.nino_ws = data.success;
@@ -245,6 +256,7 @@
                       console.log(data.success);
                       $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
                       $scope.nino_ws.FechaNac = $scope.nino_ws.fecha_nac;
+                      $scope.nino_ws.Sexo = $scope.nino_ws.sexo;
 
                       $scope.getVacunas();
                     } else { Materialize.toast(data.error, 4000); }

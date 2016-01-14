@@ -24,6 +24,15 @@ window.map="";
       return documento[input];
     };
   })
+   .filter('primeraMayuscula', function(){
+    return function(input){
+    var primera = input.substr(0,1);
+    var porcion = input.substring(1);
+    primera = primera.toUpperCase();
+    var retorno= primera+porcion;
+      return retorno;
+    };
+  })
 
   .filter('negativo', function(){
   return function(id){
@@ -90,35 +99,35 @@ window.map="";
        ///alert(((input%365).toFixed()/30).toFixed());
        if(year==0){
           if(meses==0){
-            var retorno = dias+" dias";
+            var retorno = dias+" días";
                }
                else if(meses==1){
-            var retorno = meses+" mes y "+dias+" dias";
+            var retorno = meses+" mes y "+dias+" días";
                }
                else{
-                var retorno = meses+" meses y "+dias+" dias";
+                var retorno = meses+" meses y "+dias+" días";
                }
         }
         else if(year==1){
           if(meses==0){
-            var retorno = year+" año y "+ dias+" dias";
+            var retorno = year+" año y "+ dias+" días";
            }
            else if(meses==1){
-              var retorno = year+" año, "+meses+" mes y "+dias+" dias";
+              var retorno = year+" año, "+meses+" mes y "+dias+" días";
            }
              else{
-                var retorno = year+" año, "+meses+" meses y "+dias+" dias";
+                var retorno = year+" año, "+meses+" meses y "+dias+" días";
              }
        }
        else{
              if(meses==0){
-            var retorno = year+" años y "+ dias+" dias";
+            var retorno = year+" años y "+ dias+" días";
                }
                else if(meses==1){
-            var retorno = year+" años, "+meses+" mes y "+dias+" dias";
+            var retorno = year+" años, "+meses+" mes y "+dias+" días";
                }
                else{
-                var retorno = year+" años, "+meses+" meses y "+dias+" dias";
+                var retorno = year+" años, "+meses+" meses y "+dias+" días";
                }
        }
           return retorno;
@@ -236,6 +245,7 @@ window.map="";
                           console.log($scope.nino_ws);
                           $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
                           $scope.nino_ws.FechaNac = $scope.nino_ws.fecha_nac;
+                          $scope.nino_ws.Sexo = $scope.nino_ws.sexo;
 
                           console.log($scope.nino_ws);
                           $scope.getVacunas();
@@ -352,13 +362,14 @@ window.map="";
          $http.post ('api/guardarNino.php', { us: us })
           .success(function(data) {
                   $scope.guardarNino = data;
-                  console.log(data);
-                  if(data==" ya existe"){
-                    Materialize.toast('Ese niño ya se encuentra registrado compruebelo en Consultar', 3000);
+                  console.log($scope.guardarNino);
+                  if(data.success == "ya existe"){
+                      Materialize.toast('Ese niño ya se encuentra registrado compruebelo en Consultar', 3000);
                     location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
                   }
                   else{
-                   Materialize.toast('Registro de Niño Exitoso.', 3000);
+                    Materialize.toast('Registro de Niño Exitoso.', 3000);
+                   
                    location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
                    }
               })

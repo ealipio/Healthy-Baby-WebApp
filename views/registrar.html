@@ -7,7 +7,7 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
   <div class="row">
     <div class="input-field col s6">
       <input id="codigo" ng-model='us.nro_documento' type="number" step="any"  class="validate" required>
-      <label for="codigo">Numero de DNI(*)</label>
+      <label for="codigo">Número de DNI(*)</label>
     </div>
     <div class="input-field col s6">
       <input id="nombres" ng-model='us.nombres' type="text" class="validate only_text" required>
@@ -31,17 +31,30 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
    <div class="input-field col s6 ">
    		<label for="fecha" >Fecha de Nacimiento(*)</label>
     </div>
+     <div class="input-field col s6 ">
+      <label for="fecha" >Sexo (*)</label>
+    </div>
 </div>
 <div class="row">
     <div class="input-field col s6">
         <input id="fecha" ng-model='us.fecha_nac' type="date" class="validate" required>
     </div>
-    <div class="input-field col s3">
+    <div class="col s6" input-field>
+            <select class="" ng-model="us.sexo" material-select watch>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+            </select>
+            
+        </div>
+  
+</div>
+<div class="row">
+    <div class="input-field col s6">
       <input id="peso" ng-model='us.peso' type="number" min=1000 max=5000 step="any" class="validate" required>
       <label for="peso">Peso al Nacer (grs)(*)</label>
     </div>
 
-     <div class="input-field col s3">
+     <div class="input-field col s6">
       <input id="talla"  ng-model='us.talla' type="number" min=0 max=100 step="any" class="validate" required>
       <label for="talla">Talla al Nacer (cms)(*)</label>
 
@@ -63,18 +76,18 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
    <div class="row">
     <div class="input-field col s4">
       <input id="dnipapa" ng-model='us.dni_padre' type="number" min="0" class="validate" >
-      <label for="dnipapa">DNI de la Padre</label>
+      <label for="dnipapa">DNI del Padre</label>
     </div>
     <div class="input-field col s8">
       <input id="nombrepapa"  ng-model='us.nombre_padre' type="text" class="validate only_text">
-      <label for="nombrepapa">Nombre de la Padre</label>
+      <label for="nombrepapa">Nombre del Padre</label>
 
     </div>
   </div>
  <div class="row">
     <div class="input-field col s4">
       <input id="telefono"  ng-model='us.telefono' type="number" min="0" class="validate ">
-      <label for="telefono">Telefono de Referencia</label>
+      <label for="telefono">Teléfono de Referencia</label>
 
     </div>
     <div class="input-field col s8">

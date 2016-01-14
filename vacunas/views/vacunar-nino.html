@@ -10,6 +10,7 @@
 </style>
 <h4>Vacunar nuevo niño:</h4>
   <div class="row">
+  <form>
     <div class="col m5 input-field">
         <select class="" ng-model="nino.tipo" material-select watch>
             <option value="" disabled selected>Tipo de Documento</option>
@@ -24,7 +25,7 @@
     </div>
     <div class="col m2">
         <button class="btn" style="width:100%;" ng-click="buscarNino(nino)"><i class="mdi-action-search"></i></button>
-    </div>
+    </div></form>
   </div>
 <div class="row col s6" ng-show='showNino_ws' >
     
@@ -65,7 +66,7 @@
             </tr>
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.FechaNac | date:'fullDate' }} </td>
+                <td> {{nino_ws.FechaNac | date:'fullDate' | primeraMayuscula}} </td>
             </tr>
             <tr>
                 <td>Sexo:</td>

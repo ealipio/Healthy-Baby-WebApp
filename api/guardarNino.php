@@ -17,13 +17,16 @@
 		$stmt->bindParam(':nro_documento',  $dato->nro_documento, PDO::PARAM_STR);
 		$stmt->execute();
 		$r = $stmt->fetch(PDO::FETCH_ASSOC);
-		var_dump($r);
+		//var_dump($r);
 		if($r){
-			echo ("ya existe");
+
+			$rpta=array('success' => 'ya existe');
+			echo json_encode($rpta);
+			
 		}
 		else{
-			$q = 'INSERT INTO tb_eisson_consulta_api (`nombres`,`apellido_paterno`,`apellido_materno`,`tipo_documento`,`nro_documento`,`fecha_nac`, `peso`,`talla`,`dni_madre`,`nombre_madre`, `dni_padre`,`nombre_padre`, `direccion`,`telefono`, `created_at`) 
-					values (:nombres, :apellido_paterno, :apellido_materno, :tipo_documento, :nro_documento, :fecha_nac,:peso, :talla, :dni_madre, :nombre_madre, :dni_padre, :nombre_padre, :direccion, :telefono, CURRENT_TIMESTAMP)';
+			$q = 'INSERT INTO tb_eisson_consulta_api (`nombres`,`apellido_paterno`,`apellido_materno`,`tipo_documento`,`nro_documento`,`fecha_nac`, `sexo`, `peso`,`talla`,`dni_madre`,`nombre_madre`, `dni_padre`,`nombre_padre`, `direccion`,`telefono`, `created_at`) 
+					values (:nombres, :apellido_paterno, :apellido_materno, :tipo_documento, :nro_documento, :fecha_nac, :sexo, :peso, :talla, :dni_madre, :nombre_madre, :dni_padre, :nombre_padre, :direccion, :telefono, CURRENT_TIMESTAMP)';
 			
 			$stmt = $dbh->prepare($q);
 			$stmt->bindParam(':nombres',  $dato->nombres, PDO::PARAM_STR);
@@ -32,6 +35,7 @@
 			$stmt->bindParam(':tipo_documento',  $tipo, PDO::PARAM_STR);
 			$stmt->bindParam(':nro_documento',  $dato->nro_documento, PDO::PARAM_STR);
 			$stmt->bindParam(':fecha_nac',  $dato->fecha_nac, PDO::PARAM_STR);
+			$stmt->bindParam(':sexo',  $dato->sexo, PDO::PARAM_STR);
 			$stmt->bindParam(':peso',  $dato->peso, PDO::PARAM_STR);
 			$stmt->bindParam(':talla',  $dato->talla, PDO::PARAM_STR);
 			$stmt->bindParam(':dni_madre',  $dato->dni_madre, PDO::PARAM_STR);

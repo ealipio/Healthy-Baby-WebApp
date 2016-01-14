@@ -6,8 +6,9 @@
                 <th>Talla</th>
                 <th>nutrientes</th>
                 <th>Temperatura</th>
+                <th>Hemoglobina</th>
                 <th>observaciones</th>
-                <th>Fecha de Medicion</th>
+                <th>Fecha de Medicíon</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
                 <td >{{n.talla | filterNoData}}</td>
                 <td >{{n.nutrientes | filterNutrientes | filterNoData}}</td>
                 <td >{{n.temperatura | filterNoData}}</td>
+                <td >{{n.hemoglobina | filterNoData}}</td>
                 <td >{{n.observaciones  | filterNoData}}</td>
                 <td >{{n.fecha_medicion  | filterNoData}}</td>
             </tr>
