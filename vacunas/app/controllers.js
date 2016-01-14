@@ -35,16 +35,17 @@
   })
   .filter('primeraMayuscula', function(){
     return function(input){
-    var primera = input.substr(0,1);
-    var porcion = input.substring(1);
-    primera = primera.toUpperCase();
-    var retorno= primera+porcion;
-      return retorno;
+      if(input){
+        var primera = input.substr(0,1);
+        var porcion = input.substring(1);
+        primera = primera.toUpperCase();
+        var retorno= primera+porcion;
+        return retorno;
+      }else{
+        return input;
+      }
     };
   })
-
-
-primeraMayuscula
   .filter('documento', function(){
     return function(input){
       var documento = ["", "DNI", "CUI"];
@@ -163,7 +164,6 @@ primeraMayuscula
   })
 
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
-    console.log($route.current);
      $scope.$route = $route;
   }])
 
@@ -234,7 +234,7 @@ primeraMayuscula
       //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
 
       //consultar desde esdeporvida 
-      if(nino["tipo"]c && nino.numero!='' && nino.numero>0){
+      if(nino["tipo"]==1 && nino.numero!='' && nino.numero>0){
       $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
         if(data.success) {
             $scope.nino_ws = data.success;

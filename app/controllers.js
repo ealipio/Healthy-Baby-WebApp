@@ -26,11 +26,15 @@ window.map="";
   })
    .filter('primeraMayuscula', function(){
     return function(input){
-    var primera = input.substr(0,1);
-    var porcion = input.substring(1);
-    primera = primera.toUpperCase();
-    var retorno= primera+porcion;
-      return retorno;
+      if(input){
+        var primera = input.substr(0,1);
+        var porcion = input.substring(1);
+        primera = primera.toUpperCase();
+        var retorno= primera+porcion;
+        return retorno;
+      }else{
+        return input;
+      }
     };
   })
 
