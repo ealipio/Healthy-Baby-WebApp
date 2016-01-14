@@ -43,7 +43,7 @@
     .filter('filterNoData', function(){
     return function(input){
       if(input == null){
-        var retorno = "No data";
+        var retorno = "-";
       }
       else{
         var retorno = input;
@@ -54,10 +54,10 @@
  .filter('filterNutrientes', function(){
     return function(input){
       if(input==0){
-        var retorno = "No administrado";
+        var retorno = "No Entregado";
       }
       else if(input==1){
-        var retorno = "Administrado";
+        var retorno = "Entregado";
       }
       
       return retorno;
