@@ -186,84 +186,37 @@
     };
     
   }])
-/*
-  .controller('ConsultarController',['$scope', '$http', '$route', function ($scope, $http, $route) {
-    $route.current.activetab ? $scope.$route = $route : null
 
-    $scope.nino = {tipo:3, numero:1000999595};
-    $scope.buscarNino = function(nino){
-      delete $scope.nino_error;
-      delete $scope.nino_ws;
-
-        //consultar desde WS minsa
-        //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
-
-        //consultar desde esdeporvida 
-        $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
-            $scope.nino_ws = data.success;
-            console.log($scope.nino_ws);
-            var year = $scope.nino_ws.FecNac.substr(0,4);
-            var month = $scope.nino_ws.FecNac.substr(4,2);
-            var day = $scope.nino_ws.FecNac.substr(6,2);
-            $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
-            //$scope.nino_ws.FecNac = day + "-"+month+"-"+year;
-            console.log($scope.nino_ws);
-            //$scope.getVacunas();
-        }).error(function(data) { Materialize.toast('Error, ocurrio un problema consultando el webservice.', 3000);});
-    };
-  }])
-*/
   .controller('VacunarNinoController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.nino = {tipo:'', numero:''};
     $http.post ('api/getCentros.php').success(function(data) { $scope.Centros = data; });
     
     $scope.getVacunas=function() {
-      $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws2}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
+      $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
         $scope.vacunas = response;
         console.log($scope.vacunas);
       });
     };
-    $scope.VerNino = function(index){
-      //$(".table-hover")[index].css("background":"yellow");
-        $scope.showNinos=true;
-          $scope.nino=$scope.nino_ws[index];
-          console.log($scope.nino);
-          $http.get('../api/ws1.php?numero='+ $scope.nino.NuCnv ).success(function(data) {
-            console.log(data);
-           if(data.success){
-              $scope.nino_esp = data.success;
-              console.log($scope.nino_esp);
-              var year = $scope.nino_esp.FecNac.substr(0,4);
-              var month = $scope.nino_esp.FecNac.substr(4,2);
-              var day = $scope.nino_esp.FecNac.substr(6,2);
-             $scope.nino_esp.FecNac = year+"-"+month+"-"+day;
-             console.log($scope.nino_esp.FecNac);
-             $scope.nino_ws.FecNac=$scope.nino_esp.FecNac;
-             $scope.nino_ws.Sexo=$scope.nino_esp.Sexo;
-              $scope.nino_ws.NuCnv= $scope.nino_esp.NuCnv;
-               $scope.nino_ws2=$scope.nino_esp;
-               $scope.showNino_ws=true;
-               $scope.ninoActual = $scope.nino_esp.NuCnv;
-               console.log($scope.ninoActual);
-              $scope.getVacunas();
-              
-            }
-            else{
-              Materialize.toast(data.error, 4000);
-            }
+    $scope.VerNino = function(nino, index){
+          $scope.showNinos=true;
+          $scope.nino_ws = nino;
 
-          }).error(function(data) {
-            Materialize.toast('Error, ocurrio un problema consultando el webservice.', 4000);
-            $scope.finalizar=false;
-        });
+          var year = nino.FecNac.substr(0,4);
+          var month = nino.FecNac.substr(4,2);
+          var day = nino.FecNac.substr(6,2);
+          $scope.nino_ws.FechaNac = year+"-"+month+"-"+day;
 
+          console.log($scope.nino_ws);
+
+          $scope.showNino_ws=true;
+          $scope.getVacunas();
     };
 
     $scope.buscarNino = function(nino){
       $scope.nino2=nino;
       $scope.showNinos=true;
       $scope.showNino_ws=false;
-      $scope.ninoActual=nino["numero"];
+
       delete $scope.nino_error;
       delete $scope.nino_ws;
       //consultar desde WS minsa
@@ -275,11 +228,12 @@
         if(data.success) {
             $scope.nino_ws = data.success;
             console.log($scope.nino_ws);
+            
             var year = $scope.nino_ws.FecNac.substr(0,4);
             var month = $scope.nino_ws.FecNac.substr(4,2);
-            var day = $scope.nino_ws.FecNac.substr(6,2);
-            $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
-            $scope.nino_ws2=$scope.nino_ws;
+            var day = $scope.nino_ws.FecNac.substr(6,2);          
+            $scope.nino_ws.FechaNac = year+"-"+month+"-"+day;
+
             $scope.getVacunas();
           } else { Materialize.toast(data.error, 4000); }
         });}
@@ -290,13 +244,8 @@
                       $scope.nino_ws = data.success;
                       console.log(data.success);
                       $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
-                      $scope.nino_ws.FecNac = $scope.nino_ws.fecha_nac;
-                      
-                      var year = $scope.nino_ws.fecha_nac.substr(0,4);
-                      var month = $scope.nino_ws.fecha_nac.substr(5,2);
-                      var day = $scope.nino_ws.fecha_nac.substr(8,2);
-                      $scope.nino_ws.FecNac = year+"-"+month+"-"+day;
-                      $scope.nino_ws2=$scope.nino_ws;
+                      $scope.nino_ws.FechaNac = $scope.nino_ws.fecha_nac;
+
                       $scope.getVacunas();
                     } else { Materialize.toast(data.error, 4000); }
                   })
@@ -305,15 +254,23 @@
                   });
           }
           else if (nino["tipo"]==3 && nino.numero!='' && nino.numero>0){
-            console.log(nino);
-               //$http.get('../api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
+             //$http.get('../api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
              $http.get('../api/wsByDniMadre_2.php?numero='+ nino.numero ).success(function(data) { 
                if(data.success){
-                  $scope.nino_ws = data.success;
-                  console.log($scope.nino_ws);
-                  $scope.showNinos=false;
-                  $scope.showNino_ws=true;
-                  //$.each($scope.nino_ws , function( index, value ) {
+                  if(data.success.length){
+
+                    $scope.ninos_mama = data.success;
+                    console.log($scope.ninos_mama);
+                    $scope.showNinos=false;
+                    $scope.showNino_ws=true;
+                  }else{
+
+                    $scope.ninos_mama = [{'0':''}];
+                    $scope.ninos_mama[0] = data.success;
+                    console.log(data.success);
+                    $scope.showNinos=false;
+                    $scope.showNino_ws=true;
+                  }
                 }
                 else{
                   Materialize.toast(data.error, 4000);
@@ -382,7 +339,7 @@
        $('html,body').animate({
                 scrollTop: $("#vistaInfo").offset().top
                 }, 1000);
-    $http.post ('../api/getInfoAdicional.php', { NuCnv: $scope.ninoActual })
+      $http.post ('../api/getInfoAdicional.php', { NuCnv: $scope.nino_ws.NuCnv })
           .success(function(data) {
                   $scope.InfoAdicional = data;
                   //console.log(data);
@@ -392,12 +349,11 @@
           });
 
     };
-      $scope.tablaVacunacion=function() {
-
-   $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
-     $('html,body').animate({
-                scrollTop: $("#vistaInfo").offset().top
-                }, 1000);
+    $scope.tablaVacunacion=function() {
+       $('ul.tabs').tabs('select_tab', 'tabla-vacunacion');
+         $('html,body').animate({
+              scrollTop: $("#vistaInfo").offset().top
+          }, 1000);
     };
 
       $scope.saveadicional = function(adicional) {

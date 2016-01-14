@@ -274,7 +274,8 @@
   .controller('VacunasController',['$scope', '$http', '$route', function ($scope, $http, $route) {
     $scope.init = function(){
         document.title = "Vacunas";
-        $scope.elementos=5;
+        $scope.pagina=1;
+        $scope.elementos=8;
 
         //console.log($route.current.activetab);
         $route.current.activetab ? $scope.$route = $route : null
@@ -305,13 +306,28 @@
               });
         }
       }
+      $scope.busqueda = function( buscar ) {
+          console.log(buscar);
+          if(buscar!=""){
+              $scope.vacunas_pag = $scope.vacunas.vacunas;
+          }
+          else{
+            var page=$scope.pagina;
+            var ini = (page-1) * $scope.elementos;
+            var fin = page*$scope.elementos;
 
+            $scope.vacunas_pag = $scope.vacunas.vacunas.slice(ini,fin);
+            console.log($scope.vacunas_pag);
+          }
+      }
 
       $scope.changePage = function( page ) {
           var ini = (page-1) * $scope.elementos;
           var fin = page*$scope.elementos;
+
           $scope.vacunas_pag = $scope.vacunas.vacunas.slice(ini,fin);
           console.log($scope.vacunas_pag);
+          $scope.pagina=page;
       }
 
       $scope.init();

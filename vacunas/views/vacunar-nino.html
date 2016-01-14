@@ -4,6 +4,7 @@
     .gc th{background:#333; color:#fff;}
     .table-hover:hover{
             background-color: #c4c8c5;
+            cursor: hand;
     }
 
 </style>
@@ -12,8 +13,8 @@
     <div class="col m5 input-field">
         <select class="" ng-model="nino.tipo" material-select watch>
             <option value="" disabled selected>Tipo de Documento</option>
-            <option value="1">Número CNV</option>
-            <option value="2">Número DNI</option>
+            <option value="1">Número CNV del Niño</option>
+            <option value="2">Número DNI del Niño</option>
             <option value="3">Número DNI de la Madre</option>
         </select>
     </div>
@@ -25,9 +26,9 @@
         <button class="btn" style="width:100%;" ng-click="buscarNino(nino)"><i class="mdi-action-search"></i></button>
     </div>
   </div>
-<div class="row col s6" ng-show='showNino_ws'>
+<div class="row col s6" ng-show='showNino_ws' >
     
-<table class="table table-bordered gc bordered centered ">
+<table class="table table-bordered gc bordered centered " style="cursor: hand;">
     <thead><tr>
         <th>Numero de CNV</th>
         <th>Fecha de Nacimiento</th>
@@ -35,9 +36,9 @@
         <th>Peso (gr)</th>
         <th>Talla (cm)</th>
     </tr></thead>
-    <tbody style="cursor: hand;">
-        <tr ng-repeat="nw in nino_ws" ng-click="VerNino($index)"  class="table-hover">
-            <td><a ng-click="VerNino($index)">{{nw.NuCnv}}</a></td>
+    <tbody>
+        <tr ng-repeat="nw in ninos_mama" ng-click="VerNino(nw, $index)" class="table-hover">
+            <td><a>{{nw.NuCnv}}</a></td>
         <td>{{nw.FecNac | juntoAslash}}</td>
         <td>{{nw.Sexo}}</td>
         <td>{{nw.Peso}}</td>
@@ -64,7 +65,7 @@
             </tr>
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.FecNac | date:'fullDate' }} </td>
+                <td> {{nino_ws.FechaNac | date:'fullDate' }} </td>
             </tr>
             <tr>
                 <td>Sexo:</td>
@@ -73,7 +74,7 @@
             <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo | edadOrdenada }}</span>
+                    <span>{{nino_ws.FechaNac | amDifference : null : 'days' | negativo | edadOrdenada }}</span>
                 </td>
             </tr>
         </tbody>

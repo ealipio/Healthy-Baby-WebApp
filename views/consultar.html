@@ -13,8 +13,8 @@
     <div class="col s5 input-field">
         <select class="" ng-model="nino.tipo" material-select watch>
             <option value="" disabled selected>Tipo de Documento</option>
-            <option value="1">Número CNV</option>
-            <option value="2">Número DNI</option>
+            <option value="1">Número CNV del Niño</option>
+            <option value="2">Número DNI del niño</option>
             <option value="3">Número DNI de la Madre</option>
         </select>
     </div>
@@ -39,8 +39,8 @@
         <th>Talla (cm)</th>
     </tr></thead>
     <tbody>
-        <tr ng-repeat="nw in nino_ws" ng-click="VerNino($index)" style="cursor: hand;" class="table-hover">
-            <td><a ng-click="VerNino($index)">{{nw.NuCnv}}</a></td>
+        <tr ng-repeat="nw in ninos_mama" ng-click="VerNino(nw, $index)" style="cursor: hand;" class="table-hover">
+            <td><a>{{nw.NuCnv}}</a></td>
             <td>{{nw.FecNac}}</td>
             <td>{{nw.Sexo}}</td>
             <td>{{nw.Peso}}</td>
@@ -65,7 +65,7 @@
             </tr>
             <tr>
                 <td>Nacimiento:</td>
-                <td> {{nino_ws.FecNac | date:'fullDate' }} </td>
+                <td> {{nino_ws.FechaNac | date:'fullDate' }} </td>
             </tr>
             <tr>
                 <td>Sexo:</td>
@@ -74,7 +74,7 @@
             <tr>
                 <td>Edad:</td>
                 <td>
-                    <span>{{nino_ws.FecNac | amDifference : null : 'days' | negativo | edadOrdenada }} </span>
+                    <span>{{nino_ws.FechaNac | amDifference : null : 'days' | negativo | edadOrdenada }} </span>
                 </td>
             </tr>
         </tbody>
