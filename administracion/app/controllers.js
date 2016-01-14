@@ -467,15 +467,18 @@
 
         $scope.editDosis = function(p){
             console.log(p);
-
-            $http.post('api/editarDosis.php', {dosis: p})
-            .success(function(response) {
-                Materialize.toast('Se modificó la dosis correctamente', 3000);
-             })
-            .error(function(data) {
-                console.log('Error: ' + data);
-                Materialize.toast('Se encontró un error al editar la dosis. Favor contactarse con el administrador del sistema.', 3000);
-            });
+            if(p.nombre_dosis && p.meses!=null){
+              $http.post('api/editarDosis.php', {dosis: p})
+              .success(function(response) {
+                  Materialize.toast('Se modificó la dosis correctamente', 3000);
+               })
+              .error(function(data) {
+                  console.log('Error: ' + data);
+                  Materialize.toast('Se encontró un error al editar la dosis. Favor contactarse con el administrador del sistema.', 3000);
+              });
+            }else{
+                Materialize.toast('Favor de completar todos los datos de la dosis.', 3000);
+            }
 
             
         }

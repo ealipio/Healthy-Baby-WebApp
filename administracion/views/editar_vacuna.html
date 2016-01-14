@@ -53,23 +53,27 @@
           <tr>
               <th>Nombre dosis</th>
               <th>Meses Aplicacion</th>
-              <th>Quitar</th>
+              <th></th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat='p in dosis track by $index'>
+          <ng-form name="formDosis">
             <td><input ng-model='p.nombre_dosis' type="text" class="validate"></td>
             <td><input ng-model='p.meses' type="number" min=0 class="validate"></td>
-            <td ng-click="deleteDosis($index)">
+            <td ng-click="deleteDosis($index)" tooltipped
+                data-tooltip="Eliminar">
                 <a class="btn-floating red darken-3">
                   <i class="mdi-action-delete"></i>
                 </a>
             </td>
-            <td ng-click="editDosis(p)">
+            <td ng-click="formDosis.$valid && editDosis(p)" tooltipped
+                data-tooltip="Guardar">
                 <a class="btn-floating blue darken-3">
                   <i class="mdi-content-save"></i>
                 </a>
             </td>
+          </ng-form>
           </tr>
         </tbody>
       </table>
