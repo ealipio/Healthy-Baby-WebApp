@@ -73,6 +73,7 @@
       $scope.init = function(){
         document.title = "Usuarios";
         $scope.elementos = 10;
+        $scope.pagina=1;
         //console.log($route.current.activetab);
         $route.current.activetab ? $scope.$route = $route : null
 
@@ -101,11 +102,27 @@
         }
       }
 
+      $scope.busqueda = function( buscar ) {
+          console.log(buscar);
+          if(buscar!=""){
+              $scope.usuarios_pag = $scope.usuarios.usuarios;
+          }
+          else{
+            var page=$scope.pagina;
+            var ini = (page-1) * $scope.elementos;
+            var fin = page*$scope.elementos;
+
+            $scope.usuarios_pag = $scope.usuarios.usuarios.slice(ini,fin);
+            console.log($scope.usuarios_pag);
+          }
+      }
+
       $scope.changePage = function( page ) {
           var ini = (page-1) * $scope.elementos;
           var fin = page*$scope.elementos;
           $scope.usuarios_pag = $scope.usuarios.usuarios.slice(ini,fin);
           console.log($scope.usuarios_pag);
+          $scope.pagina=page;
       }
      
 
@@ -459,6 +476,22 @@
             elemento.nuevo=2;
             $scope.del_dosis.push(elemento);
             $scope.dosis.splice(i,1);
+            Materialize.toast('Dosis eliminada. Presione guardar para confirmar el cambio.', 3000);
+        }
+
+        $scope.editDosis = function(p){
+            console.log(p);
+
+            $http.post('api/editarDosis.php', {dosis: p})
+            .success(function(response) {
+                Materialize.toast('Se modificó la dosis correctamente', 3000);
+             })
+            .error(function(data) {
+                console.log('Error: ' + data);
+                Materialize.toast('Se encontró un error al editar la dosis. Favor contactarse con el administrador del sistema.', 3000);
+            });
+
+            
         }
       $scope.init();
    }])
