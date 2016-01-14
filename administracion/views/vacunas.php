@@ -9,8 +9,12 @@ session_start();
     }
 ?>
 
-
-
+</br></br>
+<div class="row">
+    <div class="input-field col s6">
+      <input id="codigo" ng-model='buscar' type="text" ng-keyup="busqueda(buscar)">
+      <label for="codigo">Buscar</label>
+    </div>
 </br></br>
     <table class="table table-bordered bordered" id="searchObjResults">
     	<thead>
@@ -26,13 +30,11 @@ session_start();
                     }
                 ?>
 
-                
-    		  
     		</tr>
     	</thead>
 
         <tbody>
-        	<tr ng-repeat="n in vacunas_pag">
+        	<tr ng-repeat="n in vacunas_pag | filter:buscar">
             
                 <td data-ng-show="n.nombre_vacuna">{{n.nombre_vacuna}}</td>
                 <td ng-repeat="m in vacunas.dosis | filter : {id_vacuna:n.id_vacuna}:true" >{{m.nombre_dosis}} <br> <span ng-show="m.nombre_dosis"> {{m.meses | filterFecha}} </span></td> 
