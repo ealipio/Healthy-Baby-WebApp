@@ -93,11 +93,11 @@
             $scope.usuarios.usuarios.splice(index,1);
             $http.post('api/delUsuario.php', { id: codigo } )
               .success(function(data) {
-                console.log(data);
+                Materialize.toast('El usuario fue eliminado.', 3000);
               })
               .error(function(data) {
                 console.log('Error: ' + data);
-                alert("no succes");
+                Materialize.toast('Se encontró un problema al tratar de eliminar el usuario.', 3000);
               });
         }
       }
@@ -137,9 +137,6 @@
 
     $scope.init = function(){
         document.title = "Crear Usuarios";
-      
-        //console.log($route.current.activetab);
-
         $http.post ('api/getUsuarios.php')
             .success(function(data) {
                     $scope.usuarios = data;
@@ -148,16 +145,6 @@
             .error(function(data) {
                     console.log('Error: ' + data);
             });
-
-        $http.post ('api/getCentros.php')
-            .success(function(data) {
-                    $scope.Centros = data;
-                    console.log(data);
-                })
-            .error(function(data) {
-                    console.log('Error: ' + data);
-            });
-
       }
 
     $scope.registro_usuario = function(us){
@@ -191,7 +178,6 @@
             });
         }
         else{
-          if(us.centro_salud){
             if(us.perfil){
               us.perfiles = [];
               $.each(us.perfil,function(i,v){
@@ -215,8 +201,7 @@
                 console.log('Error: ' + data);
                 Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
               });
-            }else{
-                Materialize.toast('Ingrese el Centro de Salud', 3000);}
+
             }
         }else{
             Materialize.toast('Debe seleccionar al menos un perfil para el usuario', 3000);
@@ -273,6 +258,7 @@
           $http.post('api/editarUsuario.php', {usuario :us, perfiles :p})
             .success(function(response) {
               location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
+              Materialize.toast('Usuario Modificado exitosamente.', 3000);
              })
             .error(function(data) {
               console.log('Error: ' + data);

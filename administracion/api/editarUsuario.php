@@ -14,7 +14,7 @@
 	  $perfil=$rspta->perfiles;
 
 		$q = 'UPDATE tb_usuarios
-			SET nombres=:nombres, apellido_paterno=:apellido_paterno, apellido_materno=:apellido_materno, centro_salud=:centro_salud, last_user=:last_user
+			SET nombres=:nombres, apellido_paterno=:apellido_paterno, apellido_materno=:apellido_materno, last_user=:last_user
 			where username=:username';
 		
 		$stmt = $dbh->prepare($q);
@@ -22,7 +22,7 @@
 		$stmt->bindParam(':nombres',  $usuario->nombres, PDO::PARAM_STR);
 		$stmt->bindParam(':apellido_paterno',  $usuario->apellido_paterno, PDO::PARAM_STR);
 		$stmt->bindParam(':apellido_materno',  $usuario->apellido_materno, PDO::PARAM_STR);
-		$stmt->bindParam(':centro_salud',  $usuario->centro_salud, PDO::PARAM_STR);
+		//$stmt->bindParam(':centro_salud',  $usuario->centro_salud, PDO::PARAM_STR);
 		$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
 		$valor = $stmt->execute();
 		

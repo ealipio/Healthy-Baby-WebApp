@@ -11,12 +11,11 @@
 
 	  $rspta = json_decode(file_get_contents("php://input"));
 	  $dato= $rspta->usuario;
-	  $super = "MINSA";
 
 	  $clave = CLAVE;
 
-		$q = 'INSERT INTO tb_usuarios (`username`,`password`,`nombres`,`apellido_paterno`,`apellido_materno`,`supervisor`,`centro_salud`, `activo`, `created_at`, `last_user`,`email`) 
-				values (:username, AES_ENCRYPT(:password,:llave) , :nombres, :apellido_paterno, :apellido_materno, :supervisor, :centro_salud, 1, CURRENT_TIMESTAMP, :last_user, :email)';
+		$q = 'INSERT INTO tb_usuarios (`username`,`password`,`nombres`,`apellido_paterno`,`apellido_materno`,`supervisor`, `activo`, `created_at`, `last_user`,`email`) 
+				values (:username, AES_ENCRYPT(:password,:llave) , :nombres, :apellido_paterno, :apellido_materno, :supervisor, 1, CURRENT_TIMESTAMP, :last_user, :email)';
 		
 		$stmt = $dbh->prepare($q);
 		$stmt->bindParam(':username',  $dato->username, PDO::PARAM_STR);
@@ -26,11 +25,8 @@
 		$stmt->bindParam(':apellido_materno',  $dato->apellido_materno, PDO::PARAM_STR);
 		$stmt->bindParam(':supervisor',  $_SESSION['id_usuario'], PDO::PARAM_STR);
 //condicional para verificar si es superadmin no almacene su centro de salud sino MINSA;
-		if($dato->perfiles[0]->id_perfil!=1){
-			$stmt->bindParam(':centro_salud',  $dato->centro_salud, PDO::PARAM_STR);}
-		else{
-			$stmt->bindParam(':centro_salud',  $super, PDO::PARAM_STR);	}
-
+		
+		//$stmt->bindParam(':centro_salud',  $dato->centro_salud, PDO::PARAM_STR);}
 		$stmt->bindParam(':llave',  $clave, PDO::PARAM_STR);
 		$stmt->bindParam(':last_user',  $_SESSION['id_usuario'], PDO::PARAM_STR);
 		$stmt->bindParam(':email', $dato->email, PDO::PARAM_STR);

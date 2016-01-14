@@ -7,7 +7,7 @@
 
 	//var_dump($dato);
 
-	$q = 'SELECT username,nombres,apellido_paterno,apellido_materno,centro_salud 
+	$q = 'SELECT username,nombres,apellido_paterno,apellido_materno 
 		from tb_usuarios
 		WHERE username = :username';
 	$stmt = $dbh->prepare($q);
