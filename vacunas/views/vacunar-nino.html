@@ -35,9 +35,9 @@
         <th>Peso (gr)</th>
         <th>Talla (cm)</th>
     </tr></thead>
-    <tbody style="cursor: hand;">
-        <tr ng-repeat="nw in nino_ws" ng-click="VerNino($index)"  class="table-hover">
-            <td><a ng-click="VerNino($index)">{{nw.NuCnv}}</a></td>
+    <tbody>
+        <tr ng-repeat="nw in ninos_mama" ng-click="VerNino(nw, $index)" style="cursor: hand;" class="table-hover">
+            <td><a>{{nw.NuCnv}}</a></td>
         <td>{{nw.FecNac | juntoAslash}}</td>
         <td>{{nw.Sexo}}</td>
         <td>{{nw.Peso}}</td>

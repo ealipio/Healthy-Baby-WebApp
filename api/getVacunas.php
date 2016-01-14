@@ -4,7 +4,7 @@
 	$dbh       = $db->enchufalo();
 	//---------------------------------------------------------
 	$dato      = $_POST['data'];
-	$fecha_nac = $dato['FecNac'];
+	$fecha_nac = $dato['FechaNac'];
 	$id_nino   = $dato['NuCnv'];
 	//---------------------------------------------------------
 	$q = 'SELECT max(suma) as total from
