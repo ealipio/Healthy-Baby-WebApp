@@ -190,7 +190,7 @@
     
     $scope.update = function(user){
       if(user.nuevaContra==user.contraActual){
-           Materialize.toast('La nueva contraseña deve ser diferente', 3000);
+           Materialize.toast('La nueva contraseña debe ser diferente', 3000);
       }
       else{
          $http.post('api/nuevaContra.php', {datos :user})

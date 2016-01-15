@@ -374,15 +374,12 @@
       }
 
       $scope.deleteDosis = function(i){ $scope.vacunas.dosis.splice(i,1); }
-      
   }])
   .controller('nueva_contrasenaController',['$scope', '$http', function($scope, $http){
-    
      $scope.update = function(user){
-      
-      
+
         if(user.nuevaContra==user.contraActual){
-           Materialize.toast('La nueva contraseña deve ser diferente', 3000);
+           Materialize.toast('La nueva contraseña debe ser diferente', 3000);
       }
       else{
          $http.post('api/nuevaContra.php', {datos :user})
@@ -401,13 +398,8 @@
             .error(function(data) {
               console.log('Error: ' + data);
             });
-      }
-  
-         
+      } 
     };
-
-    
-    
   }])
   .controller('EditarVacunaController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
         $scope.init = function(){
@@ -479,11 +471,10 @@
             }else{
                 Materialize.toast('Favor de completar todos los datos de la dosis.', 3000);
             }
-
-            
         }
       $scope.init();
    }])
+
   //#########################################################
   // Admin
   //#########################################################
