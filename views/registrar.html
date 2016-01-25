@@ -63,7 +63,7 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
 
 <div class="row">
     <div class="input-field col s4">
-      <input id="dnimama" ng-model='us.dni_madre' min="0" type="number" class="validate">
+      <input id="dnimama" ng-model='us.dni_madre' min="0"  step="any" type="number" class="validate">
       <label for="dnimama">DNI de la Madre</label>
     </div>
     <div class="input-field col s8">
@@ -75,7 +75,7 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
 
    <div class="row">
     <div class="input-field col s4">
-      <input id="dnipapa" ng-model='us.dni_padre' type="number" min="0" class="validate" >
+      <input id="dnipapa" ng-model='us.dni_padre'  step="any" type="number" min="0" class="validate" >
       <label for="dnipapa">DNI del Padre</label>
     </div>
     <div class="input-field col s8">
@@ -86,7 +86,7 @@ ng-submit='nuevoninoForm.$valid && registrarNino(us)'>
   </div>
  <div class="row">
     <div class="input-field col s4">
-      <input id="telefono"  ng-model='us.telefono' type="number" min="0" class="validate ">
+      <input id="telefono"  ng-model='us.telefono'  step="any" type="number" min="0" class="validate ">
       <label for="telefono">Teléfono de Referencia</label>
 
     </div>
