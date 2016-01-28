@@ -1,10 +1,10 @@
 <?php
-	require_once('../config/mysql.php');
+	require_once'../config/mysql.php';
 
 		$db  = new EissonConnect();
 		$dbh = $db->enchufalo();
 
-		$nino_nw = $_POST['nino_ws'];
+	/*	$nino_nw = $_POST['nino_ws'];
 		$nombres  = $_POST['nombres'];
 		$apellido_paterno  = $_POST['apellido_paterno'];
 		$apellido_materno  = $_POST['apellido_materno'];
@@ -57,6 +57,9 @@
 		
 			$data  = array('success' => $r );
 
+	*/
+			$data  = array('succes' => "ola" );
+
 			echo json_encode($data);
-		}
+		//}
 ?>
