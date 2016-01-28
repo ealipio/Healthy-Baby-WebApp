@@ -1,5 +1,4 @@
 <?php
-
 	$response = array('error' => 'No se recibio ningun parametro de busqueda.' );
 	
 		$id_nino  = $_GET['numero'];
@@ -8,9 +7,9 @@
 
 			$db  = new EissonConnect();
 			$dbh = $db->enchufalo();
-			
-			$q = 'SELECT * from tb_suscripciones
-						WHERE id_nino =:id_nino';
+		
+	$q = 'SELECT * from tb_info_adicional
+			WHERE id_nino =:id_nino';
 				
 			$stmt = $dbh->prepare($q);
 			$stmt->bindParam(':id_nino',  $id_nino, PDO::PARAM_STR);
@@ -20,8 +19,5 @@
 
 			$response = array('success' => $r );
 
-
-	
 	echo json_encode($response);
-	
 ?>

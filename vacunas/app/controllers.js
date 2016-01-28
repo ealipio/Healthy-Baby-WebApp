@@ -35,19 +35,7 @@
   })
  .filter('primeraMayuscula', function(){
     return function(input){
-<<<<<<< HEAD
-      if(input){
-        var primera = input.substr(0,1);
-        var porcion = input.substring(1);
-        primera = primera.toUpperCase();
-        var retorno= primera+porcion;
-        return retorno;
-      }else{
-        return input;
-      }
-    };
-  })
-=======
+
       if(input == null){
         var retorno = "-";
       }
@@ -61,7 +49,6 @@
   })
 
 
->>>>>>> f7682921651f2f4790d9cdc22c9ef06cd2136a80
   .filter('documento', function(){
     return function(input){
       var documento = ["", "DNI", "CUI"];
@@ -250,11 +237,9 @@
       //$http.get('../api/wsByNumero.php?numero='+ nino.numero ).success(function(data) {
 
       //consultar desde esdeporvida 
-<<<<<<< HEAD
+
       if(nino["tipo"]==1 && nino.numero!='' && nino.numero>0){
-=======
-      if(nino["tipo"] && nino.numero!='' && nino.numero>0){
->>>>>>> f7682921651f2f4790d9cdc22c9ef06cd2136a80
+
       $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
         if(data.success) {
             $scope.nino_ws = data.success;
