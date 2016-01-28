@@ -9,7 +9,10 @@
 			$dbh = $db->enchufalo();
 		
 	$q = 'SELECT * from tb_info_adicional
-			WHERE id_nino =:id_nino';
+			 
+			WHERE id_nino =:id_nino
+
+			ORDER BY fecha_medicion DESC';
 				
 			$stmt = $dbh->prepare($q);
 			$stmt->bindParam(':id_nino',  $id_nino, PDO::PARAM_STR);
