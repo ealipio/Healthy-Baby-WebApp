@@ -186,7 +186,7 @@ window.map="";
     $scope.getVacunas=function() {
       $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
         $scope.vacunas = response;
-        console.log(response);
+        //console.log(response);
         $scope.showNinos=true;
       });
     }
@@ -216,7 +216,7 @@ window.map="";
       delete $scope.nino_error;
       delete $scope.nino_ws;
 
-     // console.log(nino["tipo"]);
+     // //console.log(nino["tipo"]);
       if(nino["tipo"]==1 && nino.numero!='' && nino.numero>0){
 
         //consultar desde WS minsa
@@ -224,10 +224,10 @@ window.map="";
 
         //consultar desde esdeporvida 
         $http.get('api/ws1.php?numero='+ nino.numero ).success(function(data) {
-            console.log(data);
+            //console.log(data);
            if(data.success){
               $scope.nino_ws = data.success;
-              console.log($scope.nino_ws);
+              //console.log($scope.nino_ws);
               var year = $scope.nino_ws.FecNac.substr(0,4);
               var month = $scope.nino_ws.FecNac.substr(4,2);
               var day = $scope.nino_ws.FecNac.substr(6,2);
@@ -247,38 +247,38 @@ window.map="";
                     .success(function(data) {
                         if(data.success) {
                           $scope.nino_ws = data.success;
-                          console.log($scope.nino_ws);
+                          //console.log($scope.nino_ws);
                           $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
                           $scope.nino_ws.FechaNac = $scope.nino_ws.fecha_nac;
                           $scope.nino_ws.Sexo = $scope.nino_ws.sexo;
 
-                          console.log($scope.nino_ws);
+                          //console.log($scope.nino_ws);
                           $scope.getVacunas();
                           $scope.getCorreos();
 
                         } else { Materialize.toast(data.error, 4000); }
                     })
                     .error(function(data) {
-                            console.log('Error: ' + response);
+                            //console.log('Error: ' + response);
                     });
                  $scope.finalizar=false;
           }
           else if (nino["tipo"]==3 && nino.numero!='' && nino.numero>0){
-            console.log(nino);
+            //console.log(nino);
                //$http.get('../api/wsByDniMadre.php?numero='+ nino.numero ).success(function(data) {
              $http.get('api/wsByDniMadre_2.php?numero='+ nino.numero ).success(function(data) {
                if(data.success){
                   if(data.success.length){
 
                     $scope.ninos_mama = data.success;
-                    console.log($scope.ninos_mama);
+                    //console.log($scope.ninos_mama);
                     $scope.showNinos=false;
                     $scope.showNino_ws=true;
                     //$.each($scope.nino_ws , function( index, value ) {
                   }else{
                     $scope.ninos_mama = [{'0':''}];
                     $scope.ninos_mama[0] = data.success;
-                    console.log(data.success);
+                    //console.log(data.success);
                     $scope.showNinos=false;
                     $scope.showNino_ws=true;
                   }
@@ -299,16 +299,16 @@ window.map="";
     };
 
     $scope.suscribirse = function(data){
-        console.log(data.correo);
+        //console.log(data.correo);
         if(data.correo.length>0){
           $http.post ('api/guardarSuscripcion.php', { id_nino: $scope.nino_ws.NuCnv, correo: data.correo })
             .success(function(response) {
-                console.log(response);
+                //console.log(response);
                 $scope.correos.push({'email': data.correo});
                 $scope.subs.correo="";
               })
             .error(function(data) {
-                    console.log('Error: ' + response);
+                    //console.log('Error: ' + response);
             });
         }
     };
@@ -318,10 +318,10 @@ window.map="";
       $http.post ('api/getCorreos.php', { NuCnv: $scope.nino_ws.NuCnv })
           .success(function(data) {
                   $scope.correos = data;
-                  console.log(data);
+                  //console.log(data);
               })
           .error(function(data) {
-                  console.log('Error: ' + data);
+                  //console.log('Error: ' + data);
           });
     };
 
@@ -346,10 +346,10 @@ window.map="";
      $http.post ('api/getInfoAdicional.php', { NuCnv: $scope.ninoActual })
           .success(function(data) {
                   $scope.InfoAdicional = data;
-                  console.log(data);
+                  //console.log(data);
               })
           .error(function(data) {
-                  console.log('Error: ' + data);
+                  //console.log('Error: ' + data);
           });
     };
 
@@ -357,17 +357,17 @@ window.map="";
     }])
 
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
-    //console.log($route.current);
+    ////console.log($route.current);
      $scope.$route = $route;
   }])
   .controller('registrarController',['$scope','$http', function($scope, $http){
-    //console.log($route.current);
+    ////console.log($route.current);
     $scope.registrarNino = function(us){
-      console.log(us);
+      //console.log(us);
          $http.post ('api/guardarNino.php', { us: us })
           .success(function(data) {
                   $scope.guardarNino = data;
-                  console.log($scope.guardarNino);
+                  //console.log($scope.guardarNino);
                   if(data.success == "ya existe"){
                       Materialize.toast('Ese niño ya se encuentra registrado compruebelo en Consultar', 3000);
                     location.href=location.protocol+"//"+location.hostname+location.pathname+"#/consultar";
@@ -379,7 +379,7 @@ window.map="";
                    }
               })
           .error(function(data) {
-                  console.log('Error: ' + data);
+                  //console.log('Error: ' + data);
           });
      }
   }])
@@ -434,7 +434,7 @@ window.map="";
 
           $.each(data , function( index, value ) {
               $scope.printMarkers(map, value);
-              //console.log(parseFloat(value.latitud));
+              ////console.log(parseFloat(value.latitud));
               $scope.dist_rela=Math.sqrt(Math.pow((geoLatitude-value.latitud),2)+Math.pow((geoLongitude-value.longitud),2));
 
               if($scope.dist_rela<$scope.min && $scope.first==true){
@@ -485,12 +485,12 @@ infoWindow.open(map, beachMarker2);
         $http.post ('api/getCentros.php')
         .success(function(data) {
             $scope.data = data;
-            console.log($scope.data);
+            //console.log($scope.data);
             $scope.initMap(data);
 
         })
         .error(function(data) {
-                console.log('Error: ' + data);
+                //console.log('Error: ' + data);
         });
     };
 
@@ -540,16 +540,16 @@ infoWindow.open(map, beachMarker2);
   .controller('VacunasController',['$scope', '$http', '$route', function ($scope, $http, $route) {
       $scope.init = function(){
         document.title = "Vacunas";
-        //console.log($route.current.activetab);
+        ////console.log($route.current.activetab);
         $route.current.activetab ? $scope.$route = $route : null
 
         $http.post ('administracion/api/getVacunas.php')
             .success(function(data) {
                     $scope.vacunas = data;
-                    console.log(data);
+                    //console.log(data);
                 })
             .error(function(data) {
-                    console.log('Error: ' + data);
+                    //console.log('Error: ' + data);
             });
 
       }
@@ -588,9 +588,9 @@ infoWindow.open(map, beachMarker2);
   .controller('LoginController',['$scope', '$http', function($scope, $http){
       $scope.login = {};
     $scope.loginProcess = function(login){
-      console.log('login', login);
+      //console.log('login', login);
       $http({method:'POST',url: 'api/login.php', data:$.param(login), headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
-        console.log('response', response);
+        //console.log('response', response);
         if(response.login == 0){
           Materialize.toast('Error, el usuario y contraseña ingresados no concuerdan', 3000);
         } else if(response.login == "ok"){

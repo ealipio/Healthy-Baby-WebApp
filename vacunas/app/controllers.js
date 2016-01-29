@@ -183,7 +183,7 @@
          $http.post('api/nuevaContra.php', {datos :user})
           .success(function(data) {
               //$scope.cambioContra=data;
-              console.log(data);
+              //console.log(data);
               if(data.success){
                 Materialize.toast('Contraseña actualizada exitosamente', 3000);
                 location.href=location.protocol+"//"+location.hostname+location.pathname+"#/vacunar-nino";
@@ -194,7 +194,7 @@
               }
            })
             .error(function(data) {
-              console.log('Error: ' + data);
+              //console.log('Error: ' + data);
             });
       }    
     };
@@ -208,7 +208,7 @@
     $scope.getVacunas=function() {
       $http({method:'POST',url: 'api/getVacunas.php', data: $.param({data:$scope.nino_ws}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) {
         $scope.vacunas = response;
-        console.log($scope.vacunas);
+        //console.log($scope.vacunas);
       });
     };
     $scope.VerNino = function(nino, index){
@@ -220,7 +220,7 @@
           var day = nino.FecNac.substr(6,2);
           $scope.nino_ws.FechaNac = year+"-"+month+"-"+day;
 
-          console.log($scope.nino_ws);
+          //console.log($scope.nino_ws);
 
           $scope.showNino_ws=true;
           $scope.getVacunas();
@@ -243,7 +243,7 @@
       $http.get('../api/ws1.php?numero='+ nino.numero ).success(function(data) {
         if(data.success) {
             $scope.nino_ws = data.success;
-            console.log($scope.nino_ws);
+            //console.log($scope.nino_ws);
             
             var year = $scope.nino_ws.FecNac.substr(0,4);
             var month = $scope.nino_ws.FecNac.substr(4,2);
@@ -258,7 +258,7 @@
                 .success(function(data) {
                     if(data.success) {
                       $scope.nino_ws = data.success;
-                      console.log(data.success);
+                      //console.log(data.success);
                       $scope.nino_ws.NuCnv = $scope.nino_ws.nro_documento;
                       $scope.nino_ws.FechaNac = $scope.nino_ws.fecha_nac;
                       $scope.nino_ws.Sexo = $scope.nino_ws.sexo;
@@ -267,7 +267,7 @@
                     } else { Materialize.toast(data.error, 4000); }
                   })
                   .error(function(data) {
-                          console.log('Error: ' + response);
+                          //console.log('Error: ' + response);
                   });
           }
           else if (nino["tipo"]==3 && nino.numero!='' && nino.numero>0){
@@ -277,14 +277,14 @@
                   if(data.success.length){
 
                     $scope.ninos_mama = data.success;
-                    console.log($scope.ninos_mama);
+                    //console.log($scope.ninos_mama);
                     $scope.showNinos=false;
                     $scope.showNino_ws=true;
                   }else{
 
                     $scope.ninos_mama = [{'0':''}];
                     $scope.ninos_mama[0] = data.success;
-                    console.log(data.success);
+                    //console.log(data.success);
                     $scope.showNinos=false;
                     $scope.showNino_ws=true;
                   }
@@ -303,7 +303,7 @@
     };
 
     $scope.realizarRegistro = function(nene){
-      console.log(nene);
+      //console.log(nene);
       $http({method:'POST',url: 'api/realizar-registro.php', data: $.param({data:nene}),headers : { 'Content-Type': 'application/x-www-form-urlencoded' }}).success(function(response) { });
     };
 
@@ -344,10 +344,10 @@
       $http.post ('api/getCentroUsuario.php')
           .success(function(data) {
                   $scope.nuevaVacuna.dosis.centro_salud = data[0]["centro_salud"];
-                  //console.log(data[0]["centro_salud"]);
+                  ////console.log(data[0]["centro_salud"]);
               })
           .error(function(data) {
-                  console.log('Error: ' + data);
+                  //console.log('Error: ' + data);
           });
     };
 
@@ -359,10 +359,10 @@
       $http.post ('../api/getInfoAdicional.php', { NuCnv: $scope.nino_ws.NuCnv })
           .success(function(data) {
                   $scope.InfoAdicional = data;
-                  //console.log(data);
+                  ////console.log(data);
               })
           .error(function(data) {
-                  console.log('Error: ' + data);
+                  //console.log('Error: ' + data);
           });
 
     };
