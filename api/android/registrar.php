@@ -4,7 +4,7 @@
 		$db  = new EissonConnect();
 		$dbh = $db->enchufalo();
 
-	/*	$nino_nw = $_POST['nino_ws'];
+		//$nino_nw = $_POST['nino_ws'];
 		$nombres  = $_POST['nombres'];
 		$apellido_paterno  = $_POST['apellido_paterno'];
 		$apellido_materno  = $_POST['apellido_materno'];
@@ -34,7 +34,7 @@
 			echo json_encode($rpta);
 		}
 		else{
-			$q = 'INSERT INTO tb_eisson_consulta_api (`nombres`,`apellido_paterno`,`apellido_materno`,`tipo_documento`,`nro_documento`,`fecha_nac`, `sexo`, `peso`,`talla`,`dni_madre`,`nombre_madre`, `dni_padre`,`nombre_padre`, `direccion`,`telefono`, `created_at`) 
+				$q = 'INSERT INTO tb_eisson_consulta_api (`nombres`,`apellido_paterno`,`apellido_materno`,`tipo_documento`,`nro_documento`,`fecha_nac`, `sexo`, `peso`,`talla`,`dni_madre`,`nombre_madre`, `dni_padre`,`nombre_padre`, `direccion`,`telefono`, `created_at`) 
 					values (:nombres, :apellido_paterno, :apellido_materno, :tipo_documento, :nro_documento, :fecha_nac, :sexo, :peso, :talla, :dni_madre, :nombre_madre, :dni_padre, :nombre_padre, :direccion, :telefono, CURRENT_TIMESTAMP)';
 			
 			$stmt = $dbh->prepare($q);
@@ -53,13 +53,12 @@
 			$stmt->bindParam(':nombre_padre',  $nombre_padre, PDO::PARAM_STR);
 			$stmt->bindParam(':direccion',  $direccion, PDO::PARAM_STR);
 			$stmt->bindParam(':telefono',  $telefono, PDO::PARAM_STR);
-			$r= $stmt->execute();
+			$valor = $stmt->execute();
+			
 		
-			$data  = array('success' => $r );
+			$data  = array('success' =>$valor );
 
-	*/
-			$data  = array('succes' => "ola" );
 
 			echo json_encode($data);
-		//}
+		}
 ?>
