@@ -51,7 +51,7 @@
 
 .filter('DosisVacunas', function(){
   return function(id){
-    console.log(id);
+    //console.log(id);
 
     //var estados = ['Inactivo', 'Activo'];
       return id;
@@ -60,7 +60,7 @@
 
 
   .controller('TabsController',['$scope', '$route','$http', function($scope, $route, $http){
-    console.log($route.current);
+    //console.log($route.current);
      $scope.$route = $route;
   }])
 
@@ -74,17 +74,17 @@
         document.title = "Usuarios";
         $scope.elementos = 10;
         $scope.pagina=1;
-        //console.log($route.current.activetab);
+        ////console.log($route.current.activetab);
         $route.current.activetab ? $scope.$route = $route : null
 
         $http.post ('api/getUsuarios.php')
             .success(function(data) {
                     $scope.usuarios = data;
-                    console.log(data);
+                    //console.log(data);
                     $scope.usuarios_pag = $scope.usuarios.usuarios.slice(0,$scope.elementos);
                 })
             .error(function(data) {
-                    console.log('Error: ' + data);
+                    //console.log('Error: ' + data);
             });
       }
 
@@ -96,14 +96,14 @@
                 Materialize.toast('El usuario fue eliminado.', 3000);
               })
               .error(function(data) {
-                console.log('Error: ' + data);
+                //console.log('Error: ' + data);
                 Materialize.toast('Se encontró un problema al tratar de eliminar el usuario.', 3000);
               });
         }
       }
 
       $scope.busqueda = function( buscar ) {
-          console.log(buscar);
+          //console.log(buscar);
           if(buscar!=""){
               $scope.usuarios_pag = $scope.usuarios.usuarios;
           }
@@ -113,7 +113,7 @@
             var fin = page*$scope.elementos;
 
             $scope.usuarios_pag = $scope.usuarios.usuarios.slice(ini,fin);
-            console.log($scope.usuarios_pag);
+            //console.log($scope.usuarios_pag);
           }
       }
 
@@ -121,7 +121,7 @@
           var ini = (page-1) * $scope.elementos;
           var fin = page*$scope.elementos;
           $scope.usuarios_pag = $scope.usuarios.usuarios.slice(ini,fin);
-          console.log($scope.usuarios_pag);
+          //console.log($scope.usuarios_pag);
           $scope.pagina=page;
       }
      
@@ -140,22 +140,22 @@
         $http.post ('api/getUsuarios.php')
             .success(function(data) {
                     $scope.usuarios = data;
-                    console.log(data);
+                    //console.log(data);
                 })
             .error(function(data) {
-                    console.log('Error: ' + data);
+                    //console.log('Error: ' + data);
             });
       }
 
     $scope.registro_usuario = function(us){
-      console.log(us);
+      //console.log(us);
       if(us.perfil){
         if(us.perfil[1]){
           if(us.perfil){
             us.perfiles = [];
             $.each(us.perfil,function(i,v){          
                 var elemento = {"id_perfil": i};
-                console.log(elemento);
+                //console.log(elemento);
                 us.perfiles.push(elemento);
             })
           }
@@ -173,7 +173,7 @@
               location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
              })
             .error(function(data) {
-              console.log('Error: ' + data);
+              //console.log('Error: ' + data);
               Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
         }
@@ -198,7 +198,7 @@
                   location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
                })
               .error(function(data) {
-                console.log('Error: ' + data);
+                //console.log('Error: ' + data);
                 Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
               });
 
@@ -209,9 +209,9 @@
     }
 
       $scope.agregar_perfil = function(pf){
-          console.log(pf);
+          //console.log(pf);
           var elemento = {"nombre_perfil": pf.perfil.nombre_perfil, "id_perfil": pf.perfil.id_perfil};
-          console.log(elemento);
+          //console.log(elemento);
           $scope.usuario.perfiles1.push(elemento);
       }
     
@@ -236,23 +236,23 @@
     .controller('EditarUsuarioController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
         $scope.init = function(){
           var id = $routeParams.id;
-          console.log(id);
+          //console.log(id);
           
           $http.post('api/getUsuarios_by_id.php', {username :id})
           .success(function(response) {
               $scope.us=response.usuarios;
               $scope.pf=response.perfil;
               $scope.perfiles=response.perfiles;
-              console.log(response);
+              //console.log(response);
 
            })
           .error(function(data) {
-            console.log('Error: ' + data);
+            //console.log('Error: ' + data);
             Materialize.toast('Se encontró un error al intentar editar el nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
           });
         }
         $scope.editar_usuario = function(us,p){
-          console.log(us,p);
+          //console.log(us,p);
 
           //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
           $http.post('api/editarUsuario.php', {usuario :us, perfiles :p})
@@ -261,7 +261,7 @@
               Materialize.toast('Usuario Modificado exitosamente.', 3000);
              })
             .error(function(data) {
-              console.log('Error: ' + data);
+              //console.log('Error: ' + data);
               Materialize.toast('Se encontró un error al intentar editar el nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
 
@@ -280,17 +280,17 @@
         $scope.pagina=1;
         $scope.elementos=8;
 
-        //console.log($route.current.activetab);
+        ////console.log($route.current.activetab);
         $route.current.activetab ? $scope.$route = $route : null
 
         $http.post ('api/getVacunas.php')
             .success(function(data) {
                     $scope.vacunas = data;
-                    console.log(data);
+                    //console.log(data);
                     $scope.vacunas_pag = $scope.vacunas.vacunas.slice(0,$scope.elementos);
                 })
             .error(function(data) {
-                    console.log('Error: ' + data);
+                    //console.log('Error: ' + data);
             });
 
       }
@@ -299,18 +299,18 @@
         if ( confirm("¿Está seguro que desea eliminar la vacuna seleccionada?") ) {
             $http.post('api/delVacuna.php', { id: codigo } )
               .success(function(data) {
-                console.log(data);
+                //console.log(data);
                 //$scope.vacunas_pag.splice(index,1);
                 $scope.init();
               })
               .error(function(data) {
-                console.log('Error: ' + data);
+                //console.log('Error: ' + data);
                 alert("no succes");
               });
         }
       }
       $scope.busqueda = function( buscar ) {
-          console.log(buscar);
+          //console.log(buscar);
           if(buscar!=""){
               $scope.vacunas_pag = $scope.vacunas.vacunas;
           }
@@ -320,7 +320,7 @@
             var fin = page*$scope.elementos;
 
             $scope.vacunas_pag = $scope.vacunas.vacunas.slice(ini,fin);
-            console.log($scope.vacunas_pag);
+            //console.log($scope.vacunas_pag);
           }
       }
 
@@ -329,7 +329,7 @@
           var fin = page*$scope.elementos;
 
           $scope.vacunas_pag = $scope.vacunas.vacunas.slice(ini,fin);
-          console.log($scope.vacunas_pag);
+          //console.log($scope.vacunas_pag);
           $scope.pagina=page;
       }
 
@@ -341,8 +341,8 @@
     $scope.vacunas.dosis=[];
    
     $scope.registro_vacuna = function(va, ds){
-      //console.log(va);
-      //console.log(ds);
+      ////console.log(va);
+      ////console.log(ds);
         
         //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
         $http.post('api/guardarVacuna.php', {vacuna :va, dosis: ds})
@@ -350,13 +350,13 @@
             location.href=location.protocol+"//"+location.hostname+location.pathname+"#/vacunas";
            })
           .error(function(data) {
-            console.log('Error: ' + data);
+            //console.log('Error: ' + data);
             Materialize.toast('Se encontró un error al intentar crear una nueva vacuna. Favor contactarse con el administrador del sistema.', 3000);
           });
       }
 
       $scope.agregar_dosis = function(ds){
-      console.log(ds);
+      //console.log(ds);
         if(ds){
           if(ds.nombre_dosis){
             var elemento = {"nombre_dosis":ds.nombre_dosis,"meses":ds.meses};
@@ -385,7 +385,7 @@
          $http.post('api/nuevaContra.php', {datos :user})
           .success(function(data) {
               //$scope.cambioContra=data;
-              console.log(data);
+              //console.log(data);
               if(data.success){
                 Materialize.toast('Contraseña actualizada exitosamente', 3000);
                 location.href=location.protocol+"//"+location.hostname+location.pathname+"#/usuarios";
@@ -396,7 +396,7 @@
               }
            })
             .error(function(data) {
-              console.log('Error: ' + data);
+              //console.log('Error: ' + data);
             });
       } 
     };
@@ -404,7 +404,7 @@
   .controller('EditarVacunaController',['$scope', '$http', '$routeParams',function($scope, $http, $routeParams){
         $scope.init = function(){
           var id = $routeParams.id;
-          console.log(id);
+          //console.log(id);
           $scope.del_dosis=[];
 
           $http.post('api/getVacunas_by_id.php', {id_vacuna :id})
@@ -413,7 +413,7 @@
               $scope.dosis=response.dosis;
            })
           .error(function(data) {
-            console.log('Error: ' + data);
+            //console.log('Error: ' + data);
             Materialize.toast('Se encontró un error al intentar buscar la vacuna.', 3000);
           });
         }
@@ -425,7 +425,7 @@
                 $scope.dosis.push(elemento);
                 $scope.ds.nombre_dosis="";
                 $scope.ds.meses="";
-                console.log($scope.dosis);
+                //console.log($scope.dosis);
               }
             else{
               Materialize.toast('Favor de completar todos los campos de la dosis.', 3000);
@@ -437,15 +437,15 @@
         }
 
         $scope.editar_vacuna = function(us,p){
-          console.log(us,p);
-          console.log($scope.del_dosis);
+          //console.log(us,p);
+          //console.log($scope.del_dosis);
           //$http({method:'POST', url: 'api/guardarUsuario.php', data: $.param({"usuario": us}), headers :{ 'Content-Type': 'application/x-www-form-urlencoded' }})
           $http.post('api/editarVacuna.php', {vacuna: us, dosis: p, del_dosis: $scope.del_dosis})
             .success(function(response) {
               location.href=location.protocol+"//"+location.hostname+location.pathname+"#/vacunas";
              })
             .error(function(data) {
-              console.log('Error: ' + data);
+              //console.log('Error: ' + data);
               Materialize.toast('Se encontró un error al intentar crear un nuevo usuario. Favor contactarse con el administrador del sistema.', 3000);
             });
         }
@@ -458,14 +458,14 @@
         }
 
         $scope.editDosis = function(p){
-            console.log(p);
+            //console.log(p);
             if(p.nombre_dosis && p.meses!=null){
               $http.post('api/editarDosis.php', {dosis: p})
               .success(function(response) {
                   Materialize.toast('Se modificó la dosis correctamente', 3000);
                })
               .error(function(data) {
-                  console.log('Error: ' + data);
+                  //console.log('Error: ' + data);
                   Materialize.toast('Se encontró un error al editar la dosis. Favor contactarse con el administrador del sistema.', 3000);
               });
             }else{
@@ -489,10 +489,10 @@
     $scope.salir = function(){
      $http.post('api/logout.php')
         .success(function(data) {
-                console.log(data);
+                //console.log(data);
             })
         .error(function(data) {
-                console.log('Error: ' + data);
+                //console.log('Error: ' + data);
                  //alert("no succes");
         });
       };
